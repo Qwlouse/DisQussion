@@ -1,3 +1,4 @@
+# Python binaries
 *.py[co]
 
 # Packages
@@ -25,3 +26,9 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# Pycharm Project Directory
+.idea
+
+# GEdit temporary files
+*~
