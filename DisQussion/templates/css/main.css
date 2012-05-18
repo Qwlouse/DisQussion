@@ -1,0 +1,221 @@
+body {
+	background-color: white;
+	margin: 0;
+	font-family: CMU Sans Serif, cmss10, sans-serif;
+	font-size: 10pt;
+}
+
+div.text {
+	float: none;
+	max-width: 33em;
+}
+
+div.text p {
+	font-family: CMU serif, cmr12, serif;
+	font-size: 12pt;
+	text-indent: 0.8em;
+	text-align: justify;
+	margin: 0;
+}
+
+h1 {
+	font-family: CMU serif, cmr17, serif;
+	font-size: 20pt;
+	font-weight: normal;
+	text-align: left;
+}
+
+a {
+	color: #d27206;
+}
+
+a:hover {
+	color: #ffa500;
+}
+
+a:visited {
+	color: #7e5000;
+}
+
+div#leiste {
+	color: white;
+	background-color: #404040;
+	width: 100%;
+	padding: 2px 0;
+	text-align: center;
+}
+
+div#leiste div#logo {
+	width: 4em;
+	display: inline;
+	color: #484848;
+	font-size: 12pt;
+	font-stretch: expanded;
+	float: left;
+}
+
+div#leiste div#logo span.smaller {
+	font-size: 85%;
+}
+
+div#leiste form {
+	display: inline;
+	margin: 0 auto;
+}
+
+div#leiste input#suchfeld {
+	width: 10em;
+	text-align: center;
+	background-color: #606060;
+	border: 1px solid #202020;
+	box-shadow: 0 1px 1px #505050;
+	border-radius: 15px;
+}
+
+div#leiste ul {
+	list-style-type: none;
+	float: right;
+	text-align: right;
+	margin: 0 0.5em;
+}
+
+div#leiste ul li {
+	display: inline;
+}
+
+div#leiste ul li a {
+	color: #ffa500;
+}
+
+div#textpart {
+	margin: 0.5em auto;
+	max-width: 40em;
+}
+
+div#textpart div#haupttext {
+	float: left;
+	margin: 0 2em;
+}
+
+div#graph {
+	margin: 0.5em auto;
+	text-align: center;
+	padding: 0;
+}
+
+div#graph div.pfeil {
+	background-image: url("balken.png");
+	background-repeat: repeat-x;
+	height: 20px;
+	display: inline-block;
+	margin: 0;
+}
+
+div#graph div#pfeil01 {
+	width: 100px;
+	position: relative;
+	top: 19px;
+	left: 50px;
+	-webkit-transform: rotate(-10deg);
+	-moz-transform: rotate(-10deg);
+	-o-transform: rotate(-10deg);
+	-ms-transform: rotate(-10deg);
+	transform: rotate(-10deg);
+}
+
+div#graph div#pfeil02 {
+	width: 100px;
+	position: relative;
+	top: 19px;
+	left: 100px;
+	-webkit-transform: rotate(10deg);
+	-moz-transform: rotate(10deg);
+	-o-transform: rotate(10deg);
+	-ms-transform: rotate(10deg);
+	transform: rotate(10deg);
+}
+
+div#graph div.circle {
+	width: 60px;
+	height: 60px;
+	line-height: 60px;
+	border: 3px solid black;
+	background-color: white;
+	text-align: center;
+	font-weight: bold;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	overflow: visible;
+	margin: 0;
+	border-radius: 50px;
+}
+
+div#graph div#circle01 {
+	left: -200px;
+	top: 20px;
+}
+
+div#graph div#circle02 {
+	left: -130px;
+}
+
+div#graph div#circle03 {
+	left: -60px;
+	top: 20px;
+}
+
+div#microblog {
+	float: right;
+	max-width: 23em;
+	padding-left: 1em;
+	margin-top: 2em;
+	text-align: left;
+}
+
+div#microblog div.micropost {
+	border-bottom: 1px dotted gray;
+	margin: 0;
+	padding: 0 2px;
+	color: white;
+}
+
+div#microblog div.micropost:hover {
+	color: gray;
+}
+
+div#microblog div.micropost p {
+	padding: 0;
+	margin: 0 2px;
+	color: black;
+}
+
+div#microblog div.micropost p.micropost-time {
+	float: right;
+	color: gray;
+	display: inline;
+}
+
+div#microblog div.micropost h2 {
+	font-size: 10pt;
+	font-weight: bold;
+	color: black;
+	margin: 0 2px;
+	padding: 0;
+	display: inline;
+}
+
+div#microblog div.micropost ul.micropost-controls {
+	margin: 0 2px;
+	padding: 0;
+}
+
+div#microblog div.micropost ul.micropost-controls li {
+	display: inline;
+	margin: 0 2px;
+}
+
+div#microblog div.micropost ul.micropost-controls li:hover {
+	color: #d27206;
+	cursor: pointer;
+}
