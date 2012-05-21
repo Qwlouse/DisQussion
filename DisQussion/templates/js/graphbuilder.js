@@ -39,6 +39,46 @@ SpringForce.prototype.calcXY = function () {
     this.Fy = this.k * (this.len - lenAB) * factorY;
 };
 
+function ChargeForce(mass, particles) {
+    this.mass = mass;
+    this.particles = particles;
+}
+
+ChargeForce.prototype.calcXY = function () {
+    this.Fx = (Math.random()-0.5)*0.01;
+    this.Fy = (Math.random()-0.5)*0.01;
+    var dx;
+    var dy;
+    var lenMassParticle;
+    var fullForce;
+    var factorX;
+    var factorY;
+    for (var i = 0; i < this.particles.length; i++) {
+        dx = this.mass.mass.x - this.particles[i].mass.x;
+        dy = this.mass.mass.y - this.particles[i].mass.y;
+        lenMassParticle = Math.sqrt(dx * dx + dy * dy);
+        if (lenMassParticle == 0) {
+            factorX = 1;
+            factorY = 1;
+        } else {
+            factorX = dx / lenMassParticle;
+            factorY = dy / lenMassParticle;
+        }
+        fullForce = 100 / (lenMassParticle+20);
+        this.Fx += fullForce * factorX;
+        this.Fy += fullForce * factorY;
+    }
+}
+
+function HorizontalForce(mass) {
+    this.mass = mass;
+}
+
+HorizontalForce.prototype.calcXY = function () {
+    this.Fx = 0;
+    this.Fy = this.mass.mass.y*-0.015;
+}
+
 function step() {
     var masses = document.getElementById('graph').circles;
     for (var i = 0; i < masses.length; i++) {
@@ -83,10 +123,24 @@ function runSimulation() {
     for (i = 0; i < circles.length; i++) {
         circles[i].mass = new Mass();
     }
-    circles[0].mass.setPosition(-1, 0);
-    circles[1].mass.setPosition(1, 0);
-    circles[0].forces = new Array(new SpringForce(circles[0], circles[2], 120.0));
-    circles[1].forces = new Array(new SpringForce(circles[1], circles[2], 120.0));
+    //circles[0].mass.setPosition(-1, 0);
+    //circles[1].mass.setPosition(1, 0);
+    circles[0].forces = new Array(
+        new SpringForce(circles[0], circles[4], 120.0),
+        new ChargeForce(circles[0],new Array(circles[1],circles[2],circles[3],circles[4])),
+        new HorizontalForce(circles[0]));
+    circles[1].forces = new Array(
+        new SpringForce(circles[1], circles[4], 120.0),
+        new ChargeForce(circles[1],new Array(circles[0],circles[2],circles[3],circles[4])),
+        new HorizontalForce(circles[1]));
+    circles[2].forces = new Array(
+        new SpringForce(circles[2], circles[1], 120.0),
+        new ChargeForce(circles[2],new Array(circles[0],circles[1],circles[3],circles[4])),
+        new HorizontalForce(circles[2]));
+    circles[3].forces = new Array(
+        new SpringForce(circles[3], circles[1], 120.0),
+        new ChargeForce(circles[3],new Array(circles[0],circles[1],circles[2],circles[4])),
+        new HorizontalForce(circles[3]));
     graphNode.circles = circles;
     step();
 }
