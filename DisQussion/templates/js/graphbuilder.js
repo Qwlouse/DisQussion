@@ -45,8 +45,8 @@ function ChargeForce(mass, particles) {
 }
 
 ChargeForce.prototype.calcXY = function () {
-    this.Fx = (Math.random()-0.5)*0.01;
-    this.Fy = (Math.random()-0.5)*0.01;
+    this.Fx = (Math.random() - 0.5) * 0.01;
+    this.Fy = (Math.random() - 0.5) * 0.01;
     var dx;
     var dy;
     var lenMassParticle;
@@ -64,7 +64,7 @@ ChargeForce.prototype.calcXY = function () {
             factorX = dx / lenMassParticle;
             factorY = dy / lenMassParticle;
         }
-        fullForce = 100 / (lenMassParticle+20);
+        fullForce = 100 / (lenMassParticle + 20);
         this.Fx += fullForce * factorX;
         this.Fy += fullForce * factorY;
     }
@@ -76,17 +76,18 @@ function HorizontalForce(mass) {
 
 HorizontalForce.prototype.calcXY = function () {
     this.Fx = 0;
-    this.Fy = this.mass.mass.y*-0.015;
+    this.Fy = this.mass.mass.y * -0.015;
 }
 
 function step() {
     var masses = document.getElementById('graph').circles;
-    for (var i = 0; i < masses.length; i++) {
-        // neue Position berechnen
+    var i;
+    for (i = 0; i < masses.length; i++) {
+        // calculate new position
         masses[i].mass.setPosition(masses[i].mass.x + masses[i].mass.vx, masses[i].mass.y + masses[i].mass.vy);
         masses[i].style.left = Math.round(masses[i].mass.x) + "px";
         masses[i].style.top = Math.round(masses[i].mass.y) + "px";
-        // neue Geschwindigkeit berechnen
+        // calculate new velocity
         var ax = 0;
         var ay = 0;
         if (masses[i].forces) {
@@ -98,7 +99,16 @@ function step() {
         }
         masses[i].mass.setVelocity(masses[i].mass.vx * 0.7 + ax, masses[i].mass.vy * 0.7 + ay);
     }
-    //alert((masses[0].mass.vx) + " " + (masses[1].mass.vx) + " " + (masses[2].mass.vx));
+    // adjust graph height
+    var minHeight = 0;
+    var maxHeight = 0;
+    for (i = 0; i < masses.length; i++) {
+        if (masses[i].mass.y < minHeight) { minHeight = masses[i].mass.y; }
+        if (masses[i].mass.y > maxHeight) { maxHeight = masses[i].mass.y; }
+    }
+    document.getElementById('graph').style.height = Math.round(maxHeight - minHeight) + "px";
+    document.getElementById('graph').style.marginTop = Math.round(minHeight * -1 + 20) + "px";
+    // iterate
     setTimeout("step()", 25);
 }
 
@@ -127,19 +137,19 @@ function runSimulation() {
     //circles[1].mass.setPosition(1, 0);
     circles[0].forces = new Array(
         new SpringForce(circles[0], circles[4], 120.0),
-        new ChargeForce(circles[0],new Array(circles[1],circles[2],circles[3],circles[4])),
+        new ChargeForce(circles[0], new Array(circles[1], circles[2], circles[3], circles[4])),
         new HorizontalForce(circles[0]));
     circles[1].forces = new Array(
         new SpringForce(circles[1], circles[4], 120.0),
-        new ChargeForce(circles[1],new Array(circles[0],circles[2],circles[3],circles[4])),
+        new ChargeForce(circles[1], new Array(circles[0], circles[2], circles[3], circles[4])),
         new HorizontalForce(circles[1]));
     circles[2].forces = new Array(
         new SpringForce(circles[2], circles[1], 120.0),
-        new ChargeForce(circles[2],new Array(circles[0],circles[1],circles[3],circles[4])),
+        new ChargeForce(circles[2], new Array(circles[0], circles[1], circles[3], circles[4])),
         new HorizontalForce(circles[2]));
     circles[3].forces = new Array(
         new SpringForce(circles[3], circles[1], 120.0),
-        new ChargeForce(circles[3],new Array(circles[0],circles[1],circles[2],circles[4])),
+        new ChargeForce(circles[3], new Array(circles[0], circles[1], circles[2], circles[4])),
         new HorizontalForce(circles[3]));
     graphNode.circles = circles;
     step();

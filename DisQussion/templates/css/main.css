@@ -111,7 +111,7 @@ div#textpart div#haupttext {
 }
 
 div#graph {
-    margin: 2em 0 4em 0;
+    margin: 20px 0 4em 0;
 	padding: 2em 0;
 }
 
@@ -149,7 +149,7 @@ div#graph div#pfeil02 {
 div#graph div.masspoint {
     width: 0;
     height: 0;
-    margin: 0 auto;
+    margin: auto;
     padding: 0;
     border: 0px solid black;
     overflow: visible;
