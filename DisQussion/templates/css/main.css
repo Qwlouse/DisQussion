@@ -1,7 +1,17 @@
+@font-face {
+    font-family:CMUSerif;
+    src:local(CMU serif), url(../fonts/cmunrm.otf);
+}
+
+@font-face {
+    font-family:CMUSans;
+    src:local(CMU Sans Serif), url(../fonts/cmunss.otf);
+}
+
 body {
 	background-color: white;
 	margin: 0;
-	font-family: CMU Sans Serif, cmss10, sans-serif;
+	font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
 	font-size: 10pt;
 }
 
@@ -11,7 +21,7 @@ div.text {
 }
 
 div.text p {
-	font-family: CMU serif, cmr12, serif;
+	font-family: CMU serif, CMUSerif, cmr12, serif;
 	font-size: 12pt;
 	text-indent: 0.8em;
 	text-align: justify;
@@ -19,10 +29,13 @@ div.text p {
 }
 
 h1 {
-	font-family: CMU serif, cmr17, serif;
+	font-family: CMU serif, CMUSerif, cmr17, serif;
 	font-size: 20pt;
 	font-weight: normal;
 	text-align: left;
+    line-height: 140%;
+    margin-bottom: 1em;
+    margin-top: 1.5em;
 }
 
 a {
@@ -98,15 +111,13 @@ div#textpart div#haupttext {
 }
 
 div#graph {
-	margin: 0.5em auto;
-	text-align: center;
-	padding: 0;
+    margin: 2em 0 4em 0;
+	padding: 2em 0;
 }
 
 div#graph div.pfeil {
-	background-image: url("balken.png");
-	background-repeat: repeat-x;
-	height: 20px;
+    background: url("../images/balken.png") repeat-x;
+    height: 20px;
 	display: inline-block;
 	margin: 0;
 }
@@ -135,6 +146,18 @@ div#graph div#pfeil02 {
 	transform: rotate(10deg);
 }
 
+div#graph div.masspoint {
+    width: 0;
+    height: 0;
+    margin: 0 auto;
+    padding: 0;
+    border: 0px solid black;
+    overflow: visible;
+    display: block;
+    vertical-align: middle;
+    position: relative;
+}
+
 div#graph div.circle {
 	width: 60px;
 	height: 60px;
@@ -144,32 +167,16 @@ div#graph div.circle {
 	text-align: center;
 	font-weight: bold;
 	display: inline-block;
-	vertical-align: middle;
-	position: relative;
 	overflow: visible;
 	margin: 0;
 	border-radius: 50px;
-}
-
-div#graph div#circle01 {
-	left: -200px;
-	top: 20px;
-}
-
-div#graph div#circle02 {
-	left: -130px;
-}
-
-div#graph div#circle03 {
-	left: -60px;
-	top: 20px;
 }
 
 div#microblog {
 	float: right;
 	max-width: 23em;
 	padding-left: 1em;
-	margin-top: 2em;
+	margin-top: 4.2em;
 	text-align: left;
 }
 
@@ -218,4 +225,8 @@ div#microblog div.micropost ul.micropost-controls li {
 div#microblog div.micropost ul.micropost-controls li:hover {
 	color: #d27206;
 	cursor: pointer;
+}
+
+div.inline {
+    display: inline-block;
 }

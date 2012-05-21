@@ -2,32 +2,33 @@
 <html lang="de">
 <head>
     <title>DisQussion</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css"/>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <script src="js/graphbuilder.js" type="text/javascript"></script>
 </head>
-<body>
+<body onload="runSimulation();">
 <div id="leiste">
     <div id="logo">D<span class="smaller">IS</span><b>Q</b><span class="smaller">USSION</span></div>
     <form  method="get" action="/search" accept-charset="UTF-8">
-        <input id="suchfeld" type="search" autocomplete="on" results="5" placeholder="suchen" />
+        <div class="inline"><input name="suchfeld" id="suchfeld" type="search" size="10" maxlength="140" autocomplete="on" results="5" placeholder="suchen" /></div>
     </form>
     <ul>
         <li>Bla</li>
-        <li><a href="www.google.de">Blubb</a></li>
+        <li><a href="http://www.google.de">Blubb</a></li>
     </ul>
 </div>
 <div id="graph">
-    <div class="pfeil" id="pfeil01"></div>
-    <div class="pfeil" id="pfeil02"></div>
-    <div class="circle" id="circle01">Bildung</div>
-    <div class="circle" id="circle02">Schule</div>
-    <div class="circle" id="circle03">Hochschule</div>
+    <!-- <div class="pfeil" id="pfeil01"></div>
+    <div class="pfeil" id="pfeil02"></div> -->
+    <div class="masspoint"><div class="circle">Schule</div></div>
+    <div class="masspoint"><div class="circle">Hochschule</div></div>
+    <div class="masspoint"><div class="circle">Bildung</div></div>
 </div>
 <div id="textpart">
     <div id="haupttext">
         <div class="text">
             <h1>DisQussion - Piraten Diskussionstool</h1>
-            <p>Lorem ipsum ipsum dolor sit ämet, consectetur adipisici elit, sed eiusmöd tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quiß nostrud exercitation üllamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla <a href="www.google.de">pariatur</a>. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit ämet, consectetur adipisici elit, sed eiusmöd tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quiß nostrud exercitation üllamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla <a href="www.google.de">pariatur</a>. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
             <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
             <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
