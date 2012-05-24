@@ -81,12 +81,13 @@ HorizontalForce.prototype.calcXY = function () {
 
 function step() {
     var masses = document.getElementById('graph').circles;
+    var arrows = document.getElementById('graph').arrows;
     var i;
     for (i = 0; i < masses.length; i++) {
         // calculate new position
         masses[i].mass.setPosition(masses[i].mass.x + masses[i].mass.vx, masses[i].mass.y + masses[i].mass.vy);
-        masses[i].style.left = Math.round(masses[i].mass.x) + "px";
-        masses[i].style.top = Math.round(masses[i].mass.y) + "px";
+        masses[i].style.left = Math.round(masses[i].mass.x - masses[i].style.width / 2) + "px";
+        masses[i].style.top = Math.round(masses[i].mass.y - masses[i].style.height / 2) + "px";
         // calculate new velocity
         var ax = 0;
         var ay = 0;
@@ -103,32 +104,82 @@ function step() {
     var minHeight = 0;
     var maxHeight = 0;
     for (i = 0; i < masses.length; i++) {
-        if (masses[i].mass.y < minHeight) { minHeight = masses[i].mass.y; }
-        if (masses[i].mass.y > maxHeight) { maxHeight = masses[i].mass.y; }
+        if (masses[i].mass.y < minHeight) {
+            minHeight = masses[i].mass.y;
+        }
+        if (masses[i].mass.y > maxHeight) {
+            maxHeight = masses[i].mass.y;
+        }
     }
-    document.getElementById('graph').style.height = Math.round(maxHeight - minHeight) + "px";
+    document.getElementById('graph').style.height = Math.round(maxHeight) + "px";
     document.getElementById('graph').style.marginTop = Math.round(minHeight * -1 + 20) + "px";
+    // draw arrows
+    for (i = 0; i < arrows.length; i++) {
+        drawArrow(arrows[i],masses[arrows[i].A],masses[arrows[i].B]);
+    }
     // iterate
     setTimeout("step()", 25);
+}
+
+function drawArrow(arrowdiv, circleA, circleB) {
+    var dx = circleA.mass.x - circleB.mass.x;
+    var dy = circleA.mass.y - circleB.mass.y;
+    var lenAB = Math.sqrt(dx * dx + dy * dy);
+    // set length
+    arrowdiv.firstChild.style.width = Math.round(lenAB)+"px";
+    // set position
+    arrowdiv.style.left = Math.round(circleA.mass.x)+"px";
+    arrowdiv.style.top = Math.round(circleA.mass.y - arrowdiv.style.height / 2)+"px";
+    // set rotation
+    var alpha;
+    if (dy > 0) {
+        if (dx > 0) {
+            alpha = Math.PI+Math.atan(Math.abs(dy) / Math.abs(dx));
+        } else {
+            if (dx < 0) {
+                alpha = 2*Math.PI - Math.atan(Math.abs(dy) / Math.abs(dx));
+            } else {
+                alpha = Math.PI/2*3;
+            }
+        }
+    } else {
+        if (dx > 0) {
+            alpha = Math.PI - Math.atan(Math.abs(dy) / Math.abs(dx));
+        } else {
+            if (dx < 0) {
+                alpha = 2*Math.PI + Math.atan(Math.abs(dy) / Math.abs(dx));
+            } else {
+                alpha = Math.PI/2;
+            }
+        }
+    }
+    arrowdiv.style.webkitTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
+    arrowdiv.style.MozTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
+    arrowdiv.style.transform = "rotate("+(alpha/Math.PI*180)+"deg)";
 }
 
 function runSimulation() {
     var graphNode = document.getElementById('graph');
     var circles = new Array();
+    var arrows = new Array();
     var i;
     for (i = 0; i < graphNode.childNodes.length; i++) {
         var isCircle = false;
+        var isArrow = false;
         if (graphNode.childNodes[i].attributes) {
             for (var j = 0; j < graphNode.childNodes[i].attributes.length; j++) {
                 if ((graphNode.childNodes[i].attributes[j].nodeName == "class") &&
                     (graphNode.childNodes[i].attributes[j].nodeValue == "masspoint")) {
                     isCircle = true;
                 }
+                if ((graphNode.childNodes[i].attributes[j].nodeName == "class") &&
+                    (graphNode.childNodes[i].attributes[j].nodeValue == "fixpoint")) {
+                    isArrow = true;
+                }
             }
         }
-        if (isCircle) {
-            circles.push(graphNode.childNodes[i]);
-        }
+        if (isCircle) { circles.push(graphNode.childNodes[i]); }
+        if (isArrow) { arrows.push(graphNode.childNodes[i]); }
     }
     for (i = 0; i < circles.length; i++) {
         circles[i].mass = new Mass();
@@ -152,5 +203,14 @@ function runSimulation() {
         new ChargeForce(circles[3], new Array(circles[0], circles[1], circles[2], circles[4])),
         new HorizontalForce(circles[3]));
     graphNode.circles = circles;
+    arrows[0].A = "4";
+    arrows[0].B = "0";
+    arrows[1].A = "4";
+    arrows[1].B = "1";
+    arrows[2].A = "1";
+    arrows[2].B = "2";
+    arrows[3].A = "1";
+    arrows[3].B = "3";
+    graphNode.arrows = arrows;
     step();
 }
