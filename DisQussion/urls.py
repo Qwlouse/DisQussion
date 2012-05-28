@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# coding=utf-8
 from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -19,7 +21,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     
-    url(r'^(?P<path>[/.a-zA-Z0-9]+)', 'DisQussion.views.path')
+    url(r'^(?P<path>([a-zA-Z-_]+\.\d+/)*[a-zA-Z-_]+\.\d+/?)$', 'DisQussion.views.path')
 )
 
 # Static files for development
