@@ -2,7 +2,7 @@
 # encoding: utf-8
 # Django settings for DisQussion project.
 import os
-DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+DIR = os.path.abspath(os.path.join(os.path.dirname(__file__)+"/DisQussion", os.path.pardir))
 print DIR
 def projectPath(filename):
     return os.path.join(DIR, filename)
@@ -77,8 +77,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    'templates/css/',
-    'templates/images/'
+    DIR+'/static/',
 )
 
 # List of finder classes that know how to find static files in
