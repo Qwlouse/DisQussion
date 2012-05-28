@@ -2,7 +2,7 @@
 # encoding: utf-8
 # Django settings for DisQussion project.
 import os
-DIR = os.path.abspath(os.path.join(os.path.dirname(__file__)+"/DisQussion", os.path.pardir))
+DIR = os.path.abspath(os.path.dirname(__file__))
 print DIR
 def projectPath(filename):
     return os.path.join(DIR, filename)
