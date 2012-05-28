@@ -1,0 +1,29 @@
+- model: structure.StructureNode
+  pk: 1
+  fields:
+    parent: NULL
+
+- model: structure.Slot
+  pk: 1
+  fields:
+    parent: 1
+    short_title: GP
+
+- model: structure.TextNode
+  pk: 1
+  fields:
+    parent: 1
+    text: Das Grundsatzprogramm der Piratenpartei existiert noch nicht!
+
+- model: structure.Slot
+  pk: 2
+  fields:
+    parent: 1
+    short_title: WP
+
+- model: structure.TextNode
+  pk: 2
+  fields:
+    parent: 2
+    text: Inhalte statt Knoten!
+
