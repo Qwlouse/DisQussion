@@ -32,3 +32,6 @@ pip-log.txt
 
 # GEdit temporary files
 *~
+
+#SQLite database
+DisQussion/Database.sqlite3
