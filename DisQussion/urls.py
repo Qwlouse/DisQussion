@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -16,3 +17,6 @@ urlpatterns = patterns('',
     
     url(r'^(?P<path>[/.a-zA-Z0-9]+)', 'DisQussion.views.path')
 )
+
+# Static files for development
+urlpatterns += staticfiles_urlpatterns()

@@ -15,6 +15,12 @@
     parent: 1
     text: Das Grundsatzprogramm der Piratenpartei existiert noch nicht!
 
+- model: structure.TextNode
+  pk: 2
+  fields:
+    parent: 1
+    text: Inhalte überwinden!
+
 - model: structure.Slot
   pk: 2
   fields:
@@ -22,8 +28,7 @@
     short_title: WP
 
 - model: structure.TextNode
-  pk: 2
+  pk: 3
   fields:
     parent: 2
     text: Inhalte statt Knoten!
-
