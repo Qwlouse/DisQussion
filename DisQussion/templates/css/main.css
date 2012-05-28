@@ -155,8 +155,9 @@ div#graph div.masspoint {
 }
 
 div#graph div.circle {
-	width: 60px;
+	min-width: 54px;
 	height: 60px;
+    padding: 0 3px;
     position: relative;
     left: -30px;
     top: -30px;
