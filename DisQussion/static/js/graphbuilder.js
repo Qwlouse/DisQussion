@@ -159,6 +159,12 @@ function drawArrow(arrowdiv, circleA, circleB) {
 }
 
 function runSimulation() {
+    var preGraph = document.getElementById('pregraph');
+    for (i=0; i < preGraph.childNodes.length; i++) {
+        if (graphNode.childNodes[i].nodeType == 1) {
+            var b = "blubb";
+        }
+    }
     var graphNode = document.getElementById('graph');
     var circles = new Array();
     var arrows = new Array();

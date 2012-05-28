@@ -3,11 +3,17 @@
 {% block title %}DisQussion: {{ pagename }}{% endblock %}
 
 {% block graph %}
+    <div id="pregraph">
+        {% for slot in slots %}
+            <div class="slot">{{ slot.name }}</div>
+        {% endfor %}
+    </div>
     <div id="graph">
         <div class="fixpoint"><div class="arrow"></div></div>
         <div class="fixpoint"><div class="arrow"></div></div>
         <div class="fixpoint"><div class="arrow"></div></div>
         <div class="fixpoint"><div class="arrow"></div></div>
+
         <div class="masspoint">
             <div class="circle">Schule</div>
         </div>

@@ -121,5 +121,30 @@
         </ul>
     </div>
 </div>
+
+<div id="login">
+                {% block login %}
+                    <form method="post" action="{% url django.contrib.auth.views.login %}" id="loginfields">
+                        {% csrf_token %}
+                        <h2>Anmeldung</h2>
+                        <table>
+                            <tr>
+                                <td>{{ form.username.label_tag }}</td>
+                                <td>{{ form.username }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ form.password.label_tag }}</td>
+                                <td>{{ form.password }}</td>
+                            </tr>
+                        </table>
+
+                        <p>
+                            <input type="hidden" name="login_redirect" value="/admin/"/>
+                            <input type="submit" id="login_submit" value="Login"/>
+                        </p>
+                    </form>
+                {% endblock %}
+</div>
+
 </body>
 </html>
