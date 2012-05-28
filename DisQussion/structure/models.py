@@ -16,6 +16,6 @@ class TextNode(models.Model):
     text = models.TextField()
 
 class StructureNode(models.Model):
-    parent = models.ForeignKey(Slot)
+    parent = models.ForeignKey(Slot, null=True)
 
 
