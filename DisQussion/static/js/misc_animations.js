@@ -5,9 +5,9 @@ function closelogin() {
 
 function closelogin_step() {
     var opac = parseFloat(document.getElementById("login").style.opacity);
-    document.getElementById("login").style.opacity = "" + (opac - 0.1);
-    document.getElementById("login_overlay").style.opacity = "" + ((opac - 0.1)*0.5);
-    if (opac > 0) {
+    document.getElementById("login").style.opacity = "" + (opac - 0.11);
+    document.getElementById("login_overlay").style.opacity = "" + ((opac - 0.11)*0.5);
+    if (opac >= 0.01) {
         setTimeout("closelogin_step()", 25);
     } else {
         document.getElementById("login_overlay").style.display = "none";
@@ -24,8 +24,8 @@ function showlogin() {
 
 function showlogin_step() {
     var opac = parseFloat(document.getElementById("login").style.opacity);
-    document.getElementById("login").style.opacity = "" + (opac + 0.1);
-    document.getElementById("login_overlay").style.opacity = "" + ((opac + 0.1)*0.5);
+    document.getElementById("login").style.opacity = "" + (opac + 0.11);
+    document.getElementById("login_overlay").style.opacity = "" + ((opac + 0.11)*0.5);
     if (opac < 0.9) {
         setTimeout("showlogin_step()", 25);
     }
