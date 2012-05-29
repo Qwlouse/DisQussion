@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
+from django.contrib.auth.models import User
 
 from django.db import models
 
@@ -56,3 +57,11 @@ class StructureNode(models.Model):
             return self.parent.short_title + "." + str(self.nr_in_parent)
         else:
             return "ROOT"
+
+
+class Vote(models.Model):
+    user = models.ForeignKey(User)
+    text = models.ForeignKey(TextNode)
+    # TODO: encode value of vote
+    # TODO: ensure you cannot vote up AND down
+    # TODO: ensure you can only vote once (maybe user+text = primary key)
