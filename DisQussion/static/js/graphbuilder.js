@@ -68,7 +68,7 @@ ChargeForce.prototype.calcXY = function () {
         this.Fx += fullForce * factorX;
         this.Fy += fullForce * factorY;
     }
-}
+};
 
 function HorizontalForce(mass) {
     this.mass = mass;
@@ -77,13 +77,14 @@ function HorizontalForce(mass) {
 HorizontalForce.prototype.calcXY = function () {
     this.Fx = 0;
     this.Fy = this.mass.mass.y * -0.015;
-}
+};
 
 function step() {
     var masses = document.getElementById('graph').circles;
     var arrows = document.getElementById('graph').arrows;
     //alert("We have "+masses.length+" masses and "+arrows.length+" arrows.")
     var i;
+    var sum_v = 0;
     for (i = 0; i < masses.length; i++) {
         // calculate new position
         masses[i].mass.setPosition(masses[i].mass.x + masses[i].mass.vx, masses[i].mass.y + masses[i].mass.vy);
@@ -100,6 +101,7 @@ function step() {
             }
         }
         masses[i].mass.setVelocity(masses[i].mass.vx * 0.7 + ax, masses[i].mass.vy * 0.7 + ay);
+        sum_v += Math.abs(masses[i].mass.vx) + Math.abs(masses[i].mass.vy);
     }
     // adjust graph height
     var minHeight = 0;
@@ -119,7 +121,9 @@ function step() {
         drawArrow(arrows[i],masses[arrows[i].A],masses[arrows[i].B]);
     }
     // iterate
-    setTimeout("step()", 25);
+    if (sum_v > 0.2) {
+        setTimeout("step()", 25);
+    }
 }
 
 function drawArrow(arrowdiv, circleA, circleB) {

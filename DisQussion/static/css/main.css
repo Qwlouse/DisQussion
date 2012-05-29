@@ -100,6 +100,13 @@ div#leiste ul li a {
 	color: #ffa500;
 }
 
+div#leiste div.linklike {
+    color: #ffa500;
+    display: inline;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 div#textpart {
 	margin: 0.5em auto;
 	max-width: 40em;
@@ -129,7 +136,6 @@ div#graph div.fixpoint {
 }
 
 div#graph div.arrow {
-    /*background: url("../images/balken.png") repeat-x;*/
     height: 0;
     width: 120px;
     top: 0;
@@ -139,7 +145,6 @@ div#graph div.arrow {
     border-left: 5px solid red;
     position: relative;
 	margin: 0;
-    -moz-transform: rotate(0deg);
 }
 
 div#graph div.masspoint {
@@ -147,7 +152,7 @@ div#graph div.masspoint {
     height: 0;
     margin: auto;
     padding: 0;
-    border: 0px solid black;
+    border: 0 solid black;
     overflow: visible;
     display: block;
     vertical-align: middle;
@@ -231,7 +236,42 @@ div.inline {
     display: inline-block;
 }
 
+div#login_overlay {
+    opacity: 0.0;
+    background: black;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    float: none;
+    display: none;
+}
+
 div#login {
     max-width: 23em;
-    float: none;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 5em;
+    background: white;
+    opacity: 0.0;
+    position: absolute;
+    display: block;
+    text-align: center;
+    -webkit-box-shadow: 4px 5px 10px black;
+    -moz-box-shadow: 4px 5px 10px black;
+    box-shadow: 4px 5px 10px black;
+}
+
+div#login div#close_login {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    margin: 2px 2px 0 0;
+    background: url("../images/close.png") no-repeat;
 }
