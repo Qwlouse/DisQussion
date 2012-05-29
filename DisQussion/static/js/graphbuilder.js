@@ -68,7 +68,7 @@ ChargeForce.prototype.calcXY = function () {
         this.Fx += fullForce * factorX;
         this.Fy += fullForce * factorY;
     }
-}
+};
 
 function HorizontalForce(mass) {
     this.mass = mass;
@@ -77,12 +77,14 @@ function HorizontalForce(mass) {
 HorizontalForce.prototype.calcXY = function () {
     this.Fx = 0;
     this.Fy = this.mass.mass.y * -0.015;
-}
+};
 
 function step() {
     var masses = document.getElementById('graph').circles;
     var arrows = document.getElementById('graph').arrows;
+    //alert("We have "+masses.length+" masses and "+arrows.length+" arrows.")
     var i;
+    var sum_v = 0;
     for (i = 0; i < masses.length; i++) {
         // calculate new position
         masses[i].mass.setPosition(masses[i].mass.x + masses[i].mass.vx, masses[i].mass.y + masses[i].mass.vy);
@@ -99,6 +101,7 @@ function step() {
             }
         }
         masses[i].mass.setVelocity(masses[i].mass.vx * 0.7 + ax, masses[i].mass.vy * 0.7 + ay);
+        sum_v += Math.abs(masses[i].mass.vx) + Math.abs(masses[i].mass.vy);
     }
     // adjust graph height
     var minHeight = 0;
@@ -118,7 +121,9 @@ function step() {
         drawArrow(arrows[i],masses[arrows[i].A],masses[arrows[i].B]);
     }
     // iterate
-    setTimeout("step()", 25);
+    if (sum_v > 0.2) {
+        setTimeout("step()", 25);
+    }
 }
 
 function drawArrow(arrowdiv, circleA, circleB) {
@@ -159,64 +164,54 @@ function drawArrow(arrowdiv, circleA, circleB) {
 }
 
 function runSimulation() {
-    var preGraph = document.getElementById('pregraph');
-    for (i=0; i < preGraph.childNodes.length; i++) {
-        if (graphNode.childNodes[i].nodeType == 1) {
-            var b = "blubb";
-        }
-    }
+    var rawGraph = document.getElementById('rawgraph');
     var graphNode = document.getElementById('graph');
+    var i;
     var circles = new Array();
     var arrows = new Array();
-    var i;
-    for (i = 0; i < graphNode.childNodes.length; i++) {
-        var isCircle = false;
-        var isArrow = false;
-        if (graphNode.childNodes[i].attributes) {
-            for (var j = 0; j < graphNode.childNodes[i].attributes.length; j++) {
-                if ((graphNode.childNodes[i].attributes[j].nodeName == "class") &&
-                    (graphNode.childNodes[i].attributes[j].nodeValue == "masspoint")) {
-                    isCircle = true;
-                }
-                if ((graphNode.childNodes[i].attributes[j].nodeName == "class") &&
-                    (graphNode.childNodes[i].attributes[j].nodeValue == "fixpoint")) {
-                    isArrow = true;
-                }
+    var nodeCount = 0;
+    for (i = 0; i < rawGraph.childNodes.length; i++) {
+        if (rawGraph.childNodes[i].nodeType == 1) {
+            nodeCount ++;
+            var innerDIV = document.createElement("div");
+            var newText = document.createTextNode(rawGraph.childNodes[i].firstChild.data);
+            innerDIV.appendChild(newText);
+            innerDIV.setAttribute("class", "circle");
+            var outerDIV = document.createElement("div");
+            outerDIV.setAttribute("class", "masspoint");
+            outerDIV.appendChild(innerDIV);
+            outerDIV.mass = new Mass();
+            if (nodeCount > 1) {
+                outerDIV.forces = new Array(
+                    new SpringForce(outerDIV, circles[0], 120.0),
+                    new HorizontalForce(outerDIV));
+            }
+            circles.push(outerDIV);
+            graphNode.appendChild(outerDIV);
+            if (nodeCount > 1) {
+                var innerArrow = document.createElement("div");
+                innerArrow.setAttribute("class", "arrow");
+                var outerArrow = document.createElement("div");
+                outerArrow.setAttribute("class", "fixpoint");
+                outerArrow.appendChild(innerArrow);
+                outerArrow.A = ""+0;
+                outerArrow.B = ""+(circles.length-1);
+                arrows.push(outerArrow);
+                graphNode.insertBefore(outerArrow, graphNode.firstChild);
             }
         }
-        if (isCircle) { circles.push(graphNode.childNodes[i]); }
-        if (isArrow) { arrows.push(graphNode.childNodes[i]); }
     }
-    for (i = 0; i < circles.length; i++) {
-        circles[i].mass = new Mass();
+    for (i = 1; i < circles.length; i++) {
+        var a = new Array();
+        for (var j = 0; j < circles.length; j++) {
+            if (j != i) {
+                a.push(circles[j]);
+            }
+        }
+        circles[i].forces.push(new ChargeForce(circles[i], a));
     }
-    //circles[0].mass.setPosition(-1, 0);
-    //circles[1].mass.setPosition(1, 0);
-    circles[0].forces = new Array(
-        new SpringForce(circles[0], circles[4], 120.0),
-        new ChargeForce(circles[0], new Array(circles[1], circles[2], circles[3], circles[4])),
-        new HorizontalForce(circles[0]));
-    circles[1].forces = new Array(
-        new SpringForce(circles[1], circles[4], 120.0),
-        new ChargeForce(circles[1], new Array(circles[0], circles[2], circles[3], circles[4])),
-        new HorizontalForce(circles[1]));
-    circles[2].forces = new Array(
-        new SpringForce(circles[2], circles[1], 120.0),
-        new ChargeForce(circles[2], new Array(circles[0], circles[1], circles[3], circles[4])),
-        new HorizontalForce(circles[2]));
-    circles[3].forces = new Array(
-        new SpringForce(circles[3], circles[1], 120.0),
-        new ChargeForce(circles[3], new Array(circles[0], circles[1], circles[2], circles[4])),
-        new HorizontalForce(circles[3]));
     graphNode.circles = circles;
-    arrows[0].A = "4";
-    arrows[0].B = "0";
-    arrows[1].A = "4";
-    arrows[1].B = "1";
-    arrows[2].A = "1";
-    arrows[2].B = "2";
-    arrows[3].A = "1";
-    arrows[3].B = "3";
     graphNode.arrows = arrows;
+    rawGraph.style.display = "none";
     step();
 }
