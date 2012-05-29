@@ -3,32 +3,22 @@
 {% block title %}DisQussion: {{ pagename }}{% endblock %}
 
 {% block graph %}
-    <div id="pregraph">
+    <div id="rawgraph">
+        <div>{{ short_title }}</div>
         {% for slot in slots %}
             <div class="slot">{{ slot.name }}</div>
         {% endfor %}
     </div>
     <div id="graph">
+        {% comment %}<div class="fixpoint"><div class="arrow"></div></div>
         <div class="fixpoint"><div class="arrow"></div></div>
         <div class="fixpoint"><div class="arrow"></div></div>
         <div class="fixpoint"><div class="arrow"></div></div>
-        <div class="fixpoint"><div class="arrow"></div></div>
-
-        <div class="masspoint">
-            <div class="circle">Schule</div>
-        </div>
-        <div class="masspoint">
-            <div class="circle">Hochschule</div>
-        </div>
-        <div class="masspoint">
-            <div class="circle">Senat</div>
-        </div>
-        <div class="masspoint">
-            <div class="circle">Stupa</div>
-        </div>
-        <div class="masspoint">
-            <div class="circle">Bildung</div>
-        </div>
+        <div class="masspoint"><div class="circle">Schule</div></div>
+        <div class="masspoint"><div class="circle">Hochschule</div></div>
+        <div class="masspoint"><div class="circle">Senat</div></div>
+        <div class="masspoint"><div class="circle">Stupa</div></div>
+        <div class="masspoint"><div class="circle">Bildung</div></div>{% endcomment %}
     </div>
 {% endblock %}
 

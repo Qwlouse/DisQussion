@@ -230,3 +230,8 @@ div#microblog div.micropost ul.micropost-controls li:hover {
 div.inline {
     display: inline-block;
 }
+
+div#login {
+    max-width: 23em;
+    float: none;
+}
