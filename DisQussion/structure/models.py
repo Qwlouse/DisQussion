@@ -32,7 +32,7 @@ class TextNode(models.Model):
 
     def __init__(self, *args, **kwargs):
         super(TextNode, self).__init__(*args, **kwargs)
-        if self.nr_in_parent is None:
+        if self.nr_in_parent is None and self.parent is not None:
             self.nr_in_parent = self.parent.create_new_child_nr()
 
 
