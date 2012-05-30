@@ -1,0 +1,53 @@
+div#leiste {
+    color: white;
+    background-color: #404040;
+    width: 100%;
+    padding: 2px 0;
+    text-align: center;
+}
+
+div#leiste div#logo {
+    width: 4em;
+    display: inline;
+    color: #484848;
+    font-size: 12pt;
+    font-stretch: expanded;
+    float: left;
+}
+
+div#leiste div#logo span.smaller {
+    font-size: 85%;
+}
+
+div#leiste form {
+    display: inline;
+    margin: 0 auto;
+}
+
+div#leiste input#suchfeld {
+    width: 10em;
+    text-align: center;
+    background-color: #606060;
+    border: 1px solid #202020;
+    box-shadow: 0 1px 1px #505050;
+    border-radius: 15px;
+}
+
+div#leiste ul {
+    list-style-type: none;
+    float: right;
+    text-align: right;
+    margin: 0 0.5em;
+}
+
+div#leiste ul li {
+    display: inline;
+}
+
+div#leiste ul li a {
+    color: #ffa500;
+}
+
+div#leiste div.linklike {
+    color: #ffa500;
+}

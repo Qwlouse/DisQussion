@@ -22,6 +22,22 @@ function SpringForce(mass1, mass2, len) {
     this.k = 0.03;
 }
 
+SpringForce.prototype.setLen = function (newLen) {
+    this.len = newLen;
+};
+
+SpringForce.prototype.setB = function (newB) {
+    this.massB = newB;
+};
+
+SpringForce.prototype.getB = function () {
+    return this.massB;
+};
+
+SpringForce.prototype.forceType = function () {
+    return 1;
+};
+
 SpringForce.prototype.calcXY = function () {
     var dx = this.massA.mass.x - this.massB.mass.x;
     var dy = this.massA.mass.y - this.massB.mass.y;
@@ -43,6 +59,10 @@ function ChargeForce(mass, particles) {
     this.mass = mass;
     this.particles = particles;
 }
+
+ChargeForce.prototype.forceType = function () {
+    return 2;
+};
 
 ChargeForce.prototype.calcXY = function () {
     this.Fx = (Math.random() - 0.5) * 0.01;
@@ -73,6 +93,10 @@ ChargeForce.prototype.calcXY = function () {
 function HorizontalForce(mass) {
     this.mass = mass;
 }
+
+HorizontalForce.prototype.forceType = function () {
+    return 3;
+};
 
 HorizontalForce.prototype.calcXY = function () {
     this.Fx = 0;
@@ -167,23 +191,38 @@ function runSimulation() {
     var rawGraph = document.getElementById('rawgraph');
     var graphNode = document.getElementById('graph');
     var i;
-    var circles = new Array();
+    var rootDIV = document.createElement("div");
+    rootDIV.setAttribute("class", "masspoint");
+    rootDIV.mass = new Mass();
+    graphNode.appendChild(rootDIV);
+    var circles = new Array(rootDIV);
     var arrows = new Array();
     var nodeCount = 0;
     for (i = 0; i < rawGraph.childNodes.length; i++) {
         if (rawGraph.childNodes[i].nodeType == 1) {
-            nodeCount ++;
-            var innerDIV = document.createElement("div");
+            nodeCount++;
             var newText = document.createTextNode(rawGraph.childNodes[i].firstChild.data);
-            innerDIV.appendChild(newText);
+            var linkDIV = document.createElement("div");
+            linkDIV.appendChild(newText);
+            if (nodeCount > 1) {
+                linkDIV.setAttribute("class", "linklike");
+                linkDIV.setAttribute("onClick", "showslot(this.parentNode.parentNode);");
+            }
+            var innerDIV = document.createElement("div");
+            innerDIV.appendChild(linkDIV);
             innerDIV.setAttribute("class", "circle");
             var outerDIV = document.createElement("div");
             outerDIV.setAttribute("class", "masspoint");
             outerDIV.appendChild(innerDIV);
             outerDIV.mass = new Mass();
+            if (nodeCount == 1) {
+                outerDIV.forces = new Array(
+                    new SpringForce(outerDIV, rootDIV, 0.0),
+                    new HorizontalForce(outerDIV));
+            }
             if (nodeCount > 1) {
                 outerDIV.forces = new Array(
-                    new SpringForce(outerDIV, circles[0], 120.0),
+                    new SpringForce(outerDIV, circles[1], 120.0),
                     new HorizontalForce(outerDIV));
             }
             circles.push(outerDIV);
@@ -194,7 +233,7 @@ function runSimulation() {
                 var outerArrow = document.createElement("div");
                 outerArrow.setAttribute("class", "fixpoint");
                 outerArrow.appendChild(innerArrow);
-                outerArrow.A = ""+0;
+                outerArrow.A = ""+1;
                 outerArrow.B = ""+(circles.length-1);
                 arrows.push(outerArrow);
                 graphNode.insertBefore(outerArrow, graphNode.firstChild);
@@ -203,9 +242,12 @@ function runSimulation() {
     }
     for (i = 1; i < circles.length; i++) {
         var a = new Array();
-        for (var j = 0; j < circles.length; j++) {
+        for (var j = 1; j < circles.length; j++) {
             if (j != i) {
                 a.push(circles[j]);
+            }
+            if (circles[j].forces[0].getB() == circles[i]) {
+                circles[i].forces.push(new SpringForce(circles[i],circles[j], 120.0));
             }
         }
         circles[i].forces.push(new ChargeForce(circles[i], a));
@@ -213,5 +255,21 @@ function runSimulation() {
     graphNode.circles = circles;
     graphNode.arrows = arrows;
     rawGraph.style.display = "none";
+    step();
+}
+
+function showslot(slotNode) {
+    var graphNode = document.getElementById('graph');
+    for (var i = 1; i < graphNode.circles.length; i++) {
+        graphNode.circles[i].forces[0].setLen(120.0);
+        if (graphNode.circles[i].forces[(graphNode.circles[i].forces.length - 1)].forceType() == 1) {
+            graphNode.circles[i].forces.pop();
+        }
+    }
+    //graphNode.circles[1].forces[0].setB(graphNode.circles[1]);
+    //graphNode.circles[1].forces[0].setLen(0.0);
+    //slotNode.forces[0].setLen(0.0);
+    //slotNode.forces[0].setB(graphNode.circles[0]);
+    slotNode.forces.push(new SpringForce(slotNode, graphNode.circles[0], 0.0));
     step();
 }
