@@ -7,54 +7,41 @@ from django.db import models
 
 short_title_max_length = 20
 
+class Node(models.Model):
+    parent = models.ForeignKey("Slot", null=True)
+
+    def nr_in_parent(self):
+        if self.parent is None:
+            return 0
+        # count the number of siblings that have lower or equal id
+        return self.parent.node_set.filter(id__lte=self.id).count()
+
+
 class Slot(models.Model):
     parent = models.ForeignKey("StructureNode")
     short_title = models.CharField(max_length=short_title_max_length) #todo: disallow null
-    child_cnt = models.IntegerField()
 
-    def __init__(self, *args, **kwargs):
-        super(Slot, self).__init__(*args, **kwargs)
-        if self.child_cnt is None:
-            self.child_cnt = 0
-
-    def create_new_child_nr(self):
-        self.child_cnt += 1
-        self.save()
-        return self.child_cnt
+    def child_cnt(self):
+        return self.node_set.count()
 
     def __unicode__(self):
         return self.short_title
 
-class TextNode(models.Model):
-    parent = models.ForeignKey(Slot)
-    nr_in_parent = models.IntegerField()
+
+class TextNode(Node):
     text = models.TextField()
 
-    def __init__(self, *args, **kwargs):
-        super(TextNode, self).__init__(*args, **kwargs)
-        if self.nr_in_parent is None and self.parent is not None:
-            self.nr_in_parent = self.parent.create_new_child_nr()
-
-
     def __unicode__(self):
-        return self.parent.short_title + "." + str(self.nr_in_parent)
-
-
-class StructureNode(models.Model):
-    parent = models.ForeignKey(Slot, null=True)
-    nr_in_parent = models.IntegerField(null=True)
-
-    def __init__(self, *args, **kwargs):
-        super(StructureNode, self).__init__(*args, **kwargs)
         if self.parent is not None:
-            if self.nr_in_parent is None:
-                self.nr_in_parent = self.parent.create_new_child_nr()
+            return self.parent.short_title + "." + str(self.nr_in_parent())
         else:
-            self.nr_in_parent = 0
+            return "Unpositioned TextNode"
 
+
+class StructureNode(Node):
     def __unicode__(self):
         if self.parent is not None:
-            return self.parent.short_title + "." + str(self.nr_in_parent)
+            return self.parent.short_title + "." + str(self.nr_in_parent())
         else:
             return "ROOT"
 
