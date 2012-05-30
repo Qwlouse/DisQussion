@@ -8,7 +8,7 @@ from django.db import models
 short_title_max_length = 20
 
 class Node(models.Model):
-    parent = models.ForeignKey("Slot", null=True)
+    parent = models.ForeignKey("Slot", null=True, blank=True)
 
     def nr_in_parent(self):
         if self.parent is None:
@@ -40,10 +40,13 @@ class TextNode(Node):
 
 class StructureNode(Node):
     def __unicode__(self):
-        if self.parent is not None:
-            return self.parent.short_title + "." + str(self.nr_in_parent())
-        else:
+        if self.parent is None:
             return "ROOT"
+        else:
+            return self.parent.short_title + "." + str(self.nr_in_parent())
+
+    def slot_cnt(self):
+        return self.slot_set.count()
 
 
 class Vote(models.Model):
