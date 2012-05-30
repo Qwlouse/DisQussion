@@ -22,7 +22,7 @@ class Slot(models.Model):
         self.save()
         return self.child_cnt
 
-    def __str__(self):
+    def __unicode__(self):
         return self.short_title
 
 class TextNode(models.Model):
@@ -36,7 +36,7 @@ class TextNode(models.Model):
             self.nr_in_parent = self.parent.create_new_child_nr()
 
 
-    def __str__(self):
+    def __unicode__(self):
         return self.parent.short_title + "." + str(self.nr_in_parent)
 
 
@@ -52,7 +52,7 @@ class StructureNode(models.Model):
         else:
             self.nr_in_parent = 0
 
-    def __str__(self):
+    def __unicode__(self):
         if self.parent is not None:
             return self.parent.short_title + "." + str(self.nr_in_parent)
         else:
