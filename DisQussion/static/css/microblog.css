@@ -1,0 +1,54 @@
+div#microblog {
+    float: right;
+    max-width: 23em;
+    padding-left: 1em;
+    margin-top: 4.2em;
+    text-align: left;
+}
+
+div#microblog div.micropost {
+    border-bottom: 1px dotted gray;
+    margin: 0;
+    padding: 0 2px;
+    color: white;
+}
+
+div#microblog div.micropost:hover {
+    color: gray;
+}
+
+div#microblog div.micropost p {
+    padding: 0;
+    margin: 0 2px;
+    color: black;
+}
+
+div#microblog div.micropost p.micropost-time {
+    float: right;
+    color: gray;
+    display: inline;
+}
+
+div#microblog div.micropost h2 {
+    font-size: 10pt;
+    font-weight: bold;
+    color: black;
+    margin: 0 2px;
+    padding: 0;
+    display: inline;
+}
+
+div#microblog div.micropost ul.micropost-controls {
+    margin: 0 2px;
+    padding: 0;
+}
+
+div#microblog div.micropost ul.micropost-controls li {
+    display: inline;
+    margin: 0 2px;
+}
+
+div#microblog div.micropost ul.micropost-controls li:hover {
+    color: #d27206;
+    cursor: pointer;
+}
