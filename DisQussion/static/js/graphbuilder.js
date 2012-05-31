@@ -26,10 +26,6 @@ SpringForce.prototype.setLen = function (newLen) {
     this.len = newLen;
 };
 
-SpringForce.prototype.setB = function (newB) {
-    this.massB = newB;
-};
-
 SpringForce.prototype.getB = function () {
     return this.massB;
 };
@@ -85,6 +81,8 @@ ChargeForce.prototype.calcXY = function () {
             factorY = dy / lenMassParticle;
         }
         fullForce = 100 / (lenMassParticle + 20);
+        //this.Fx += Math.atan(fullForce / 300) * 500 * factorX;
+        //this.Fy += Math.atan(fullForce / 300) * 500 * factorY;
         this.Fx += fullForce * factorX;
         this.Fy += fullForce * factorY;
     }
@@ -112,7 +110,7 @@ function step() {
     for (i = 0; i < masses.length; i++) {
         // calculate new position
         masses[i].mass.setPosition(masses[i].mass.x + masses[i].mass.vx, masses[i].mass.y + masses[i].mass.vy);
-        masses[i].style.left = Math.round(masses[i].mass.x - masses[i].style.width / 2) + "px";
+        masses[i].style.left = Math.round(masses[i].mass.x - masses[i].style.width / 2 - 30) + "px";
         masses[i].style.top = Math.round(masses[i].mass.y - masses[i].style.height / 2) + "px";
         // calculate new velocity
         var ax = 0;
@@ -157,7 +155,7 @@ function drawArrow(arrowdiv, circleA, circleB) {
     // set length
     arrowdiv.firstChild.style.width = Math.round(lenAB)+"px";
     // set position
-    arrowdiv.style.left = Math.round(circleA.mass.x)+"px";
+    arrowdiv.style.left = Math.round(circleA.mass.x - 30)+"px";
     arrowdiv.style.top = Math.round(circleA.mass.y - arrowdiv.style.height / 2)+"px";
     // set rotation
     var alpha;
@@ -206,11 +204,12 @@ function runSimulation() {
             linkDIV.appendChild(newText);
             if (nodeCount > 1) {
                 linkDIV.setAttribute("class", "linklike");
-                linkDIV.setAttribute("onClick", "showslot(this.parentNode.parentNode);");
             }
+            linkDIV.setAttribute("onClick", "showslot(this.parentNode.parentNode);");
             var innerDIV = document.createElement("div");
             innerDIV.appendChild(linkDIV);
             innerDIV.setAttribute("class", "circle");
+            innerDIV.setAttribute("onClick", "showslot(this.parentNode);");
             var outerDIV = document.createElement("div");
             outerDIV.setAttribute("class", "masspoint");
             outerDIV.appendChild(innerDIV);
@@ -262,14 +261,16 @@ function showslot(slotNode) {
     var graphNode = document.getElementById('graph');
     for (var i = 1; i < graphNode.circles.length; i++) {
         graphNode.circles[i].forces[0].setLen(120.0);
+        graphNode.circles[i].firstChild.firstChild.setAttribute("class", "linklike");
         if (graphNode.circles[i].forces[(graphNode.circles[i].forces.length - 1)].forceType() == 1) {
             graphNode.circles[i].forces.pop();
         }
     }
-    //graphNode.circles[1].forces[0].setB(graphNode.circles[1]);
-    //graphNode.circles[1].forces[0].setLen(0.0);
-    //slotNode.forces[0].setLen(0.0);
-    //slotNode.forces[0].setB(graphNode.circles[0]);
     slotNode.forces.push(new SpringForce(slotNode, graphNode.circles[0], 0.0));
+    for (i = 0; i < slotNode.firstChild.firstChild.attributes.length; i++){
+        if (slotNode.firstChild.firstChild.attributes[i].name == "class"){
+            slotNode.firstChild.firstChild.attributes[i].value = "";
+        }
+    }
     step();
 }
