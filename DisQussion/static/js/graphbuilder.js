@@ -98,7 +98,7 @@ HorizontalForce.prototype.forceType = function () {
 
 HorizontalForce.prototype.calcXY = function () {
     this.Fx = 0;
-    this.Fy = this.mass.mass.y * -0.015;
+    this.Fy = this.mass.mass.y * -0.0105;
 };
 
 function step() {
@@ -188,7 +188,7 @@ function drawArrow(arrowdiv, circleA, circleB) {
 function runSimulation() {
     var rawGraph = document.getElementById('rawgraph');
     var graphNode = document.getElementById('graph');
-    var i, j;
+    var i, j, k, numA;
     var rootDIV = document.createElement("div");
     rootDIV.setAttribute("class", "masspoint");
     rootDIV.mass = new Mass();
@@ -239,10 +239,41 @@ function runSimulation() {
                 graphNode.insertBefore(outerArrow, graphNode.firstChild);
             }
             // proposal layer in each slot
-            //for (j = 0; j < rawGraph.childNodes[i].childNodes.length; j++) {
-            //    var proposalID = document.createTextNode(rawGraph.childNodes[i].childNodes[j].firstChild.data);
-            //    graphNode.appendChild(proposalID);
-            //}
+            for (j = 0; j < rawGraph.childNodes[i].childNodes.length; j++) {
+                if (rawGraph.childNodes[i].childNodes[j].nodeType == 1) {
+                    var proposalID = document.createTextNode(rawGraph.childNodes[i].childNodes[j].firstChild.data);
+                    var proposalLinkDIV = document.createElement("div");
+                    proposalLinkDIV.appendChild(proposalID);
+                    proposalLinkDIV.setAttribute("class", "linklike");
+                    proposalLinkDIV.setAttribute("onClick", "showslot(this.parentNode.parentNode);");
+                    var proposalInnerDIV = document.createElement("div");
+                    proposalInnerDIV.appendChild(proposalLinkDIV);
+                    proposalInnerDIV.setAttribute("class", "circle");
+                    proposalInnerDIV.setAttribute("onClick", "showslot(this.parentNode);");
+                    var proposalOuterDIV = document.createElement("div");
+                    proposalOuterDIV.setAttribute("class", "masspoint");
+                    proposalOuterDIV.appendChild(proposalInnerDIV);
+                    proposalOuterDIV.mass = new Mass();
+                    proposalOuterDIV.forces = new Array(
+                        new SpringForce(proposalOuterDIV, outerDIV, 120.0),
+                        new HorizontalForce(proposalOuterDIV));
+                    circles.push(proposalOuterDIV);
+                    graphNode.appendChild(proposalOuterDIV);
+                    var proposalInnerArrow = document.createElement("div");
+                    proposalInnerArrow.setAttribute("class", "arrow");
+                    var proposalOuterArrow = document.createElement("div");
+                    proposalOuterArrow.setAttribute("class", "fixpoint");
+                    proposalOuterArrow.appendChild(proposalInnerArrow);
+                    numA = 1;
+                    for (k = 1; k < circles.length; k++) {
+                        if (circles[k] == outerDIV) { numA = k; }
+                    }
+                    proposalOuterArrow.A = ""+numA;
+                    proposalOuterArrow.B = ""+(circles.length-1);
+                    arrows.push(proposalOuterArrow);
+                    graphNode.insertBefore(proposalOuterArrow, graphNode.firstChild);
+                }
+            }
         }
     }
     for (i = 1; i < circles.length; i++) {
