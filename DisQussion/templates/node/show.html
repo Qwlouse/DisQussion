@@ -6,7 +6,12 @@
     <div id="rawgraph">
         <div>{{ short_title }}</div>
         {% for slot in slots %}
-            <div class="slot">{{ slot.name }}</div>
+            <div class="slot">
+                {{ slot.name }}
+                {% for proposal in slot.list %}
+                <div class="proposal">{{ slot.name }}.{{ proposal.id }}<p>{{ proposal.text }}</p></div>
+                {% endfor %}
+            </div>
         {% endfor %}
     </div>
     <div id="graph"></div>

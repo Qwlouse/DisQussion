@@ -188,7 +188,7 @@ function drawArrow(arrowdiv, circleA, circleB) {
 function runSimulation() {
     var rawGraph = document.getElementById('rawgraph');
     var graphNode = document.getElementById('graph');
-    var i;
+    var i, j;
     var rootDIV = document.createElement("div");
     rootDIV.setAttribute("class", "masspoint");
     rootDIV.mass = new Mass();
@@ -198,6 +198,7 @@ function runSimulation() {
     var nodeCount = 0;
     for (i = 0; i < rawGraph.childNodes.length; i++) {
         if (rawGraph.childNodes[i].nodeType == 1) {
+            // slot layer
             nodeCount++;
             var newText = document.createTextNode(rawGraph.childNodes[i].firstChild.data);
             var linkDIV = document.createElement("div");
@@ -237,11 +238,16 @@ function runSimulation() {
                 arrows.push(outerArrow);
                 graphNode.insertBefore(outerArrow, graphNode.firstChild);
             }
+            // proposal layer in each slot
+            //for (j = 0; j < rawGraph.childNodes[i].childNodes.length; j++) {
+            //    var proposalID = document.createTextNode(rawGraph.childNodes[i].childNodes[j].firstChild.data);
+            //    graphNode.appendChild(proposalID);
+            //}
         }
     }
     for (i = 1; i < circles.length; i++) {
         var a = new Array();
-        for (var j = 1; j < circles.length; j++) {
+        for (j = 1; j < circles.length; j++) {
             if (j != i) {
                 a.push(circles[j]);
             }
