@@ -16,8 +16,8 @@ body {
 }
 
 div.text {
-	float: none;
 	max-width: 33em;
+    float: left;
 }
 
 div.text p {
@@ -50,14 +50,16 @@ a:visited {
 	color: #7e5000;
 }
 
-div#textpart {
+div#textPart {
 	margin: 0.5em auto;
-	max-width: 40em;
+	max-width: 33em;
 }
 
-div#textpart div#haupttext {
+div#textpart div#hauptText {
 	float: left;
 	margin: 0 2em;
+    max-width: 33em;
+    display: block;
 }
 
 div.inline {

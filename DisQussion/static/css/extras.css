@@ -37,3 +37,31 @@ div#login div#close_login {
     margin: 2px 2px 0 0;
     background: url("../images/close.png") no-repeat;
 }
+
+div#inputText {
+    padding-right: 0.5em;
+    display: none;
+    float: left;
+    max-width: 33em;
+}
+
+div#inputText h1 {
+    font-family: CMU serif, CMUSerif, cmr12, serif;
+}
+
+div#inputText tr:first-child td:first-child {
+    width: 10em;
+}
+
+div#inputText textarea {
+    width: 100%;
+}
+
+span#bigplus {
+    font-size: 66px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: gray;
+    position: relative;
+    top: -2px;
+}

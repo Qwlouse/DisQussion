@@ -217,11 +217,13 @@ function runSimulation() {
                 outerDIV.forces = new Array(
                     new SpringForce(outerDIV, rootDIV, 0.0),
                     new HorizontalForce(outerDIV));
+                outerDIV.textPart = document.getElementById("hauptText").childNodes[3].innerHTML;
             }
             if (nodeCount > 1) {
                 outerDIV.forces = new Array(
                     new SpringForce(outerDIV, circles[1], 80.0),
                     new HorizontalForce(outerDIV));
+                outerDIV.textPart = "<h1>SLOT</h1>";
             }
             circles.push(outerDIV);
             graphNode.appendChild(outerDIV);
@@ -255,6 +257,7 @@ function runSimulation() {
                     proposalOuterDIV.forces = new Array(
                         new SpringForce(proposalOuterDIV, outerDIV, 80.0),
                         new HorizontalForce(proposalOuterDIV));
+                    proposalOuterDIV.textPart = "<h1>structure Node</h1>";
                     circles.push(proposalOuterDIV);
                     graphNode.appendChild(proposalOuterDIV);
                     var proposalInnerArrow = document.createElement("div");
@@ -307,5 +310,6 @@ function showslot(slotNode) {
             slotNode.firstChild.firstChild.attributes[i].value = "";
         }
     }
+    showText(slotNode);
     step();
 }

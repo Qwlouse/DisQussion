@@ -48,8 +48,9 @@
         </div>
     </div>
 {% endblock %}
-<div id="textpart">
-    <div id="haupttext">
+<div id="textPart">
+    <div id="hauptText">
+        {% block textInput %}{% endblock %}
         <div class="text">
             {% block text %}
                 <h1>Main Template</h1>
@@ -136,12 +137,12 @@
         <h2>Anmeldung</h2>
         <table>
             <tr>
-                <td>{{ form.username.label_tag }}</td>
-                <td>{{ form.username }}</td>
+                <td>{{ authForm.username.label_tag }}</td>
+                <td>{{ authForm.username }}</td>
             </tr>
             <tr>
-                <td>{{ form.password.label_tag }}</td>
-                <td>{{ form.password }}</td>
+                <td>{{ authForm.password.label_tag }}</td>
+                <td>{{ authForm.password }}</td>
             </tr>
         </table>
 
