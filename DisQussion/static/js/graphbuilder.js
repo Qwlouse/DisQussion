@@ -257,7 +257,8 @@ function runSimulation() {
                     proposalOuterDIV.forces = new Array(
                         new SpringForce(proposalOuterDIV, outerDIV, 80.0),
                         new HorizontalForce(proposalOuterDIV));
-                    proposalOuterDIV.textPart = "<h1>structure Node</h1>";
+                    rawGraph.childNodes[i].childNodes[j].firstChild.data = "";
+                    proposalOuterDIV.textPart = rawGraph.childNodes[i].childNodes[j].innerHTML;
                     circles.push(proposalOuterDIV);
                     graphNode.appendChild(proposalOuterDIV);
                     var proposalInnerArrow = document.createElement("div");
