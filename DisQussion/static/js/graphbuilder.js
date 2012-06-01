@@ -80,11 +80,9 @@ ChargeForce.prototype.calcXY = function () {
             factorX = dx / lenMassParticle;
             factorY = dy / lenMassParticle;
         }
-        fullForce = 100 / (lenMassParticle + 20);
-        //this.Fx += Math.atan(fullForce / 300) * 500 * factorX;
-        //this.Fy += Math.atan(fullForce / 300) * 500 * factorY;
-        this.Fx += fullForce * factorX;
-        this.Fy += fullForce * factorY;
+        fullForce = 50 / (lenMassParticle + 40);
+        this.Fx += fullForce * fullForce * 7 * factorX;
+        this.Fy += fullForce * fullForce * 7 * factorY;
     }
 };
 
@@ -98,7 +96,7 @@ HorizontalForce.prototype.forceType = function () {
 
 HorizontalForce.prototype.calcXY = function () {
     this.Fx = 0;
-    this.Fy = this.mass.mass.y * -0.0105;
+    this.Fy = this.mass.mass.y * -0.008;
 };
 
 function step() {
@@ -222,7 +220,7 @@ function runSimulation() {
             }
             if (nodeCount > 1) {
                 outerDIV.forces = new Array(
-                    new SpringForce(outerDIV, circles[1], 120.0),
+                    new SpringForce(outerDIV, circles[1], 80.0),
                     new HorizontalForce(outerDIV));
             }
             circles.push(outerDIV);
@@ -255,7 +253,7 @@ function runSimulation() {
                     proposalOuterDIV.appendChild(proposalInnerDIV);
                     proposalOuterDIV.mass = new Mass();
                     proposalOuterDIV.forces = new Array(
-                        new SpringForce(proposalOuterDIV, outerDIV, 120.0),
+                        new SpringForce(proposalOuterDIV, outerDIV, 80.0),
                         new HorizontalForce(proposalOuterDIV));
                     circles.push(proposalOuterDIV);
                     graphNode.appendChild(proposalOuterDIV);
@@ -283,7 +281,7 @@ function runSimulation() {
                 a.push(circles[j]);
             }
             if (circles[j].forces[0].getB() == circles[i]) {
-                circles[i].forces.push(new SpringForce(circles[i],circles[j], 120.0));
+                circles[i].forces.push(new SpringForce(circles[i],circles[j], 80.0));
             }
         }
         circles[i].forces.push(new ChargeForce(circles[i], a));
@@ -297,7 +295,7 @@ function runSimulation() {
 function showslot(slotNode) {
     var graphNode = document.getElementById('graph');
     for (var i = 1; i < graphNode.circles.length; i++) {
-        graphNode.circles[i].forces[0].setLen(120.0);
+        graphNode.circles[i].forces[0].setLen(80.0);
         graphNode.circles[i].firstChild.firstChild.setAttribute("class", "linklike");
         if (graphNode.circles[i].forces[(graphNode.circles[i].forces.length - 1)].forceType() == 1) {
             graphNode.circles[i].forces.pop();
