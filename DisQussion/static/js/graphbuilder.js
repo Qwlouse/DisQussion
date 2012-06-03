@@ -180,7 +180,7 @@ function drawArrow(arrowdiv, circleA, circleB) {
     }
     arrowdiv.style.webkitTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
     arrowdiv.style.msTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
-    arrowdiv.style.oTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
+    arrowdiv.style.OTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
     arrowdiv.style.MozTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
     arrowdiv.style.transform = "rotate("+(alpha/Math.PI*180)+"deg)";
 }
