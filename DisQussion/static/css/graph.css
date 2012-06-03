@@ -69,3 +69,8 @@ div#newProposal {
     top: 33px;
     overflow: visible;
 }
+
+div#rawgraph div {
+    margin: 1px 1px 1px 1em;
+    border: 1px solid #d3d3d3;
+}

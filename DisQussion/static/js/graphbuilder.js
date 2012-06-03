@@ -185,6 +185,26 @@ function drawArrow(arrowdiv, circleA, circleB) {
     arrowdiv.style.transform = "rotate("+(alpha/Math.PI*180)+"deg)";
 }
 
+function createCircleStructure(text, springTarget, springLength) {
+    var newText = document.createTextNode(text);
+    var linkDIV = document.createElement("div");
+    linkDIV.appendChild(newText);
+    linkDIV.setAttribute("class", "linklike");
+    linkDIV.setAttribute("onClick", "showslot(this.parentNode.parentNode);");
+    var innerDIV = document.createElement("div");
+    innerDIV.appendChild(linkDIV);
+    innerDIV.setAttribute("class", "circle");
+    innerDIV.setAttribute("onClick", "showslot(this.parentNode);");
+    var outerDIV = document.createElement("div");
+    outerDIV.setAttribute("class", "masspoint");
+    outerDIV.appendChild(innerDIV);
+    outerDIV.mass = new Mass();
+    outerDIV.forces = new Array(
+        new SpringForce(outerDIV, springTarget, springLength),
+        new HorizontalForce(outerDIV));
+    return outerDIV;
+}
+
 function runSimulation() {
     var rawGraph = document.getElementById('rawgraph');
     var graphNode = document.getElementById('graph');
@@ -200,31 +220,17 @@ function runSimulation() {
         if (rawGraph.childNodes[i].nodeType == 1) {
             // slot layer
             nodeCount++;
-            var newText = document.createTextNode(rawGraph.childNodes[i].firstChild.data);
-            var linkDIV = document.createElement("div");
-            linkDIV.appendChild(newText);
-            if (nodeCount > 1) {
-                linkDIV.setAttribute("class", "linklike");
-            }
-            linkDIV.setAttribute("onClick", "showslot(this.parentNode.parentNode);");
-            var innerDIV = document.createElement("div");
-            innerDIV.appendChild(linkDIV);
-            innerDIV.setAttribute("class", "circle");
-            innerDIV.setAttribute("onClick", "showslot(this.parentNode);");
-            var outerDIV = document.createElement("div");
-            outerDIV.setAttribute("class", "masspoint");
-            outerDIV.appendChild(innerDIV);
-            outerDIV.mass = new Mass();
+            var outerDIV;
             if (nodeCount == 1) {
-                outerDIV.forces = new Array(
-                    new SpringForce(outerDIV, rootDIV, 0.0),
-                    new HorizontalForce(outerDIV));
+                outerDIV = createCircleStructure(
+                    rawGraph.childNodes[i].firstChild.data,
+                    rootDIV, 0.0);
                 outerDIV.textPart = document.getElementById("hauptText").childNodes[3].innerHTML;
-            }
-            if (nodeCount > 1) {
-                outerDIV.forces = new Array(
-                    new SpringForce(outerDIV, circles[1], 80.0),
-                    new HorizontalForce(outerDIV));
+                outerDIV.firstChild.firstChild.setAttribute("class", "");
+            } else {
+                outerDIV = createCircleStructure(
+                    rawGraph.childNodes[i].firstChild.data,
+                    circles[1], 80.0);
                 outerDIV.textPart = "<h1>SLOT</h1>";
             }
             circles.push(outerDIV);
@@ -243,22 +249,9 @@ function runSimulation() {
             // proposal layer in each slot
             for (j = 0; j < rawGraph.childNodes[i].childNodes.length; j++) {
                 if (rawGraph.childNodes[i].childNodes[j].nodeType == 1) {
-                    var proposalID = document.createTextNode(rawGraph.childNodes[i].childNodes[j].firstChild.data);
-                    var proposalLinkDIV = document.createElement("div");
-                    proposalLinkDIV.appendChild(proposalID);
-                    proposalLinkDIV.setAttribute("class", "linklike");
-                    proposalLinkDIV.setAttribute("onClick", "showslot(this.parentNode.parentNode);");
-                    var proposalInnerDIV = document.createElement("div");
-                    proposalInnerDIV.appendChild(proposalLinkDIV);
-                    proposalInnerDIV.setAttribute("class", "circle");
-                    proposalInnerDIV.setAttribute("onClick", "showslot(this.parentNode);");
-                    var proposalOuterDIV = document.createElement("div");
-                    proposalOuterDIV.setAttribute("class", "masspoint");
-                    proposalOuterDIV.appendChild(proposalInnerDIV);
-                    proposalOuterDIV.mass = new Mass();
-                    proposalOuterDIV.forces = new Array(
-                        new SpringForce(proposalOuterDIV, outerDIV, 80.0),
-                        new HorizontalForce(proposalOuterDIV));
+                    var proposalOuterDIV = createCircleStructure(
+                        rawGraph.childNodes[i].childNodes[j].firstChild.data,
+                        outerDIV, 80.0);
                     rawGraph.childNodes[i].childNodes[j].firstChild.data = "";
                     proposalOuterDIV.textPart = rawGraph.childNodes[i].childNodes[j].innerHTML;
                     circles.push(proposalOuterDIV);
