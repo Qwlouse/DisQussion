@@ -44,21 +44,10 @@ def getChildWithNr(slot, nr):
     Return the child node (either TextNode or StructureNode) with nr_in_parent == nr.
 
     """
-    matching_structure_nodes = slot.structurenode_set.filter(nr_in_parent=nr)
-    if len(matching_structure_nodes) > 1:
-        raise MultipleObjectsReturned("Error: Slot '%s' contains two or more Children with nr '%d'"%(slot, nr))
-    if len(matching_structure_nodes) == 1:
-        return matching_structure_nodes[0]
-
-    matching_text_nodes = slot.textnode_set.filter(nr_in_parent=nr)
-    if len(matching_text_nodes) < 1:
-        raise ObjectDoesNotExist("Error: Slot '%s' does not contain a child with nr %d"%(slot, nr))
-    if len(matching_text_nodes) > 1:
-        raise MultipleObjectsReturned("Error: Slot '%s' contains two or more Children with nr '%d'"%(slot, nr))
-    return matching_text_nodes[0]
-
-
-
+    child_nodes = slot.node_set.order_by('id')
+    if len(child_nodes) < nr:
+        raise ObjectDoesNotExist("Error: Slot with name '%s' does not have a child with nr '%d'"%(slot, nr))
+    return child_nodes[nr-1]
 
 def getNodeForPath(path):
     """
