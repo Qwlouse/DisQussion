@@ -6,30 +6,35 @@ div#microblog {
     text-align: left;
 }
 
-div#microblog div.micropost {
+div.text div.micropost, div.text div.micropost p {
+    font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
+    font-size: 10pt;
+}
+
+div.micropost {
     border-bottom: 1px dotted gray;
     margin: 0;
     padding: 0 2px;
     color: white;
 }
 
-div#microblog div.micropost:hover {
+div.micropost:hover {
     color: gray;
 }
 
-div#microblog div.micropost p {
+div.micropost p {
     padding: 0;
     margin: 0 2px;
     color: black;
 }
 
-div#microblog div.micropost p.micropost-time {
+div.micropost p.micropost-time {
     float: right;
     color: gray;
     display: inline;
 }
 
-div#microblog div.micropost h2 {
+div.micropost h2 {
     font-size: 10pt;
     font-weight: bold;
     color: black;
@@ -38,17 +43,17 @@ div#microblog div.micropost h2 {
     display: inline;
 }
 
-div#microblog div.micropost ul.micropost-controls {
+div.micropost ul.micropost-controls {
     margin: 0 2px;
     padding: 0;
 }
 
-div#microblog div.micropost ul.micropost-controls li {
+div.micropost ul.micropost-controls li {
     display: inline;
     margin: 0 2px;
 }
 
-div#microblog div.micropost ul.micropost-controls li:hover {
+div.micropost ul.micropost-controls li:hover {
     color: #d27206;
     cursor: pointer;
 }
