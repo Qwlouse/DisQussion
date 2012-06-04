@@ -21,6 +21,7 @@ def home(request):
     return render_to_response("node/show.html",
             {"pagename":"Root",
              "authForm": AuthenticationForm(),
+             "this_url": "/",
              "textForm": textForm,
              "short_title": "Root",
              "id":1, "slots":[
@@ -37,8 +38,10 @@ def show_profile(request):
             "selfdescription": "<p>Ich bin ein unauffälliger Beispieluser, der nur unwesentlich unter seinem archetypischen Namen leidet. Ich mag Tiere, gehe gerne Angeln und fahre mittwochs Fahrrad. Meine Freunde kennen mich als beispielhaften Mitbürger und Fremde erkennen mein Wesen an meinem Namen. Leider bin ich in nichts wirklich beispiellos gut, bin aber beispielsweise auch nicht schlecht.</p>",
             "activities": [
                 {"time":"12m","type":1,"text":"Vorschlag erstellt: GP"},
-                {"time":"4h","type":0,"text":"Ich bin Twitter gewöhnt, aber das hier ist #ungewohnt."}]
-        }})
+                {"time":"4h","type":0,"text":"Ich bin Twitter gewöhnt, aber das hier ist #ungewohnt."}]},
+            "authForm": AuthenticationForm(),
+            "this_url": "profiles/admin"},
+        context_instance=RequestContext(request))
     
 def path(request, path):
     return HttpResponse(str(getNodeForPath(path).id))

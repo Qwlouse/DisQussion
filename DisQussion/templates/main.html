@@ -20,9 +20,23 @@
                                    autocomplete="on" results="5" placeholder="suchen"/></div>
     </form>
     <ul>
-        <li>Bla</li>
-        <li><a href="http://www.google.de">Blubb</a></li>
+        {% if user.is_staff %}
+        <li><a href="admin/">Admin</a></li>
+        {% endif %}
+        {% if user.is_authenticated %}
+        <li><a href="profiles/{{ user.username }}">
+            {% if user.first_name|length > 0 or user.last_name|length > 0 %}{{ user.first_name }} {{ user.last_name }}
+            {% else %}{{ user.username }}{% endif %}</a></li>
+            <li>
+                <form method="post" action="{% url django.contrib.auth.views.logout %}" id="logout">
+                    {% csrf_token %}
+                    <input type="hidden" name="logout_redirect" value="{{ this_url }}"/>
+                    <input type="submit" id="logout_submit" value="Logout"/>
+                </form>
+            </li>
+        {% else %}
         <li><div class="linklike" onclick="showlogin();">Anmelden</div></li>
+        {% endif %}
     </ul>
 </div>
 {% block graph %}
@@ -149,7 +163,7 @@
         </table>
 
         <p>
-            <input type="hidden" name="login_redirect" value="/admin/"/>
+            <input type="hidden" name="login_redirect" value="{{ this_url }}"/>
             <input type="submit" id="login_submit" value="Login"/>
         </p>
     </form>
