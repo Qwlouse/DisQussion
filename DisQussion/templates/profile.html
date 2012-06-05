@@ -1,20 +1,27 @@
 {% extends "main.html" %}
 
-{% block title %}DisQussion: {{ pagename }}{% endblock %}
+{% block title %}DisQussion: {{ user_to_show.name }}{% endblock %}
 
 {% block graph %}{% endblock %}
 
 {% block text %}
-    <h1>{{ user.name }}</h1>
+    <h1>{{ user_to_show.name }}</h1>
     {% autoescape off %}
     {{ user.selfdescription }}
     {% endautoescape %}
+    {% if user.is_authenticated and user.username == user_to_show.name %}
+        <h2>Einstellungen</h2>
+        <ul>
+            <li>Passwort ändern</li>
+            <li>E-Mail: {{ user.email }}</li>
+        </ul>
+    {% endif %}
     <h2>Aktivitäten</h2>
-    {% for activity in user.activities %}
+    {% for activity in user_to_show.activities %}
         <div class="micropost">
             <p class="micropost-time">{{ activity.time }}</p>
 
-            <h2>{% if activity.type == 0 %}{{ user.name }}
+            <h2>{% if activity.type == 0 %}{{ user_to_show.name }}
             {% elif activity.type == 1%}System
             {% else %}Fehler: Unbekannter Typ.{% endif %}</h2>
 

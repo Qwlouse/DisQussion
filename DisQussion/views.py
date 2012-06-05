@@ -33,8 +33,8 @@ def home(request):
 
 def show_profile(request):
     return render_to_response("profile.html",
-            {"user": {
-            "name": "Max Mustermann",
+            {"user_to_show": {
+            "name": "jonny",
             "selfdescription": "<p>Ich bin ein unauffälliger Beispieluser, der nur unwesentlich unter seinem archetypischen Namen leidet. Ich mag Tiere, gehe gerne Angeln und fahre mittwochs Fahrrad. Meine Freunde kennen mich als beispielhaften Mitbürger und Fremde erkennen mein Wesen an meinem Namen. Leider bin ich in nichts wirklich beispiellos gut, bin aber beispielsweise auch nicht schlecht.</p>",
             "activities": [
                 {"time":"12m","type":1,"text":"Vorschlag erstellt: GP"},
