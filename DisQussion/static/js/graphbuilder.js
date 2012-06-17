@@ -205,6 +205,15 @@ function createCircleStructure(text, springTarget, springLength) {
     return outerDIV;
 }
 
+function createArrowStructure() {
+    var innerArrow = document.createElement("div");
+    innerArrow.setAttribute("class", "arrow");
+    var outerArrow = document.createElement("div");
+    outerArrow.setAttribute("class", "fixpoint");
+    outerArrow.appendChild(innerArrow);
+    return outerArrow
+}
+
 function runSimulation() {
     var rawGraph = document.getElementById('rawgraph');
     var graphNode = document.getElementById('graph');
@@ -236,11 +245,7 @@ function runSimulation() {
             circles.push(outerDIV);
             graphNode.appendChild(outerDIV);
             if (nodeCount > 1) {
-                var innerArrow = document.createElement("div");
-                innerArrow.setAttribute("class", "arrow");
-                var outerArrow = document.createElement("div");
-                outerArrow.setAttribute("class", "fixpoint");
-                outerArrow.appendChild(innerArrow);
+                var outerArrow = createArrowStructure();
                 outerArrow.A = ""+1;
                 outerArrow.B = ""+(circles.length-1);
                 arrows.push(outerArrow);
@@ -249,21 +254,27 @@ function runSimulation() {
             // proposal layer in each slot
             for (j = 0; j < rawGraph.childNodes[i].childNodes.length; j++) {
                 if (rawGraph.childNodes[i].childNodes[j].nodeType == 1) {
+                    var identifierData = rawGraph.childNodes[i].childNodes[j].firstChild.data.split(":");
+                    var idInSlot = parseInt(identifierData[0].split(".")[1]);
+                    var parentId = parseInt(identifierData[1]);
+                    var parentDIV = outerDIV;
+                    if (parentId > 0) {
+                        // this proposal has a parent. Search for it and change parentDIV accordingly
+                        for (k = 1; k < circles.length; k++) {
+                            if (circles[k].idInSlot == parentId) { parentDIV = circles[k]; }
+                        }
+                    }
                     var proposalOuterDIV = createCircleStructure(
-                        rawGraph.childNodes[i].childNodes[j].firstChild.data,
-                        outerDIV, 80.0);
+                        identifierData[0], parentDIV, 80.0);
+                    proposalOuterDIV.idInSlot = idInSlot;
                     rawGraph.childNodes[i].childNodes[j].firstChild.data = "";
                     proposalOuterDIV.textPart = rawGraph.childNodes[i].childNodes[j].innerHTML;
                     circles.push(proposalOuterDIV);
                     graphNode.appendChild(proposalOuterDIV);
-                    var proposalInnerArrow = document.createElement("div");
-                    proposalInnerArrow.setAttribute("class", "arrow");
-                    var proposalOuterArrow = document.createElement("div");
-                    proposalOuterArrow.setAttribute("class", "fixpoint");
-                    proposalOuterArrow.appendChild(proposalInnerArrow);
+                    var proposalOuterArrow = createArrowStructure();
                     numA = 1;
                     for (k = 1; k < circles.length; k++) {
-                        if (circles[k] == outerDIV) { numA = k; }
+                        if (circles[k] == parentDIV) { numA = k; }
                     }
                     proposalOuterArrow.A = ""+numA;
                     proposalOuterArrow.B = ""+(circles.length-1);

@@ -25,9 +25,13 @@ def home(request):
              "textForm": textForm,
              "short_title": "Root",
              "id":1, "slots":[
-                {"name":"GP", "list":[{"id":2, "text":"Gibts noch nicht"}, {"id":3, "text":"Gibbet wohl"}]},
-                {"name":"WP", "list":[{"id":7, "text":"WP is doof"}, {"id":8, "text":"WP is toll"}]},
-                {"name":"Orga", "list":[{"id":12, "text":"LPT"}, {"id":17, "text":"Vorst. Sitz."}]}]},
+                {"name":"GP", "list":[{"id":1, "text":"Gibts noch nicht", "parent":0},
+                                      {"id":2, "text":"Gibbet wohl", "parent":0},
+                                      {"id":3, "text":"Gibts nicht und das ist gut so.", "parent":1},
+                                      {"id":4, "text":"Ich bin ein Troll und möchte auch zu Wort kommen.", "parent":3},
+                                      {"id":5, "text":"Gibts leider noch nicht.", "parent":1}]},
+                {"name":"WP", "list":[{"id":1, "text":"WP is doof", "parent":0}, {"id":2, "text":"WP is toll", "parent":0}]},
+                {"name":"Orga", "list":[{"id":1, "text":"LPT", "parent":0}, {"id":2, "text":"Vorst. Sitz.", "parent":0}]}]},
         context_instance=RequestContext(request))
 
 

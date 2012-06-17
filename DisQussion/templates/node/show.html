@@ -9,7 +9,7 @@
             <div class="slot">
                 {{ slot.name }}
                 {% for proposal in slot.list %}
-                <div class="proposal">{{ slot.name }}.{{ proposal.id }}<p>{{ proposal.text }}</p></div>
+                <div class="proposal">{{ slot.name }}.{{ proposal.id }}:{{ proposal.parent }}<p>{{ proposal.text }}</p></div>
                 {% endfor %}
             </div>
         {% endfor %}
