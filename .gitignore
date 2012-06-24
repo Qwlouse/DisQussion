@@ -34,4 +34,4 @@ pip-log.txt
 *~
 
 #SQLite database
-DisQussion/Database.sqlite3
+Database.sqlite3

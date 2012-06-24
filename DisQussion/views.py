@@ -5,8 +5,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
 
-from DisQussion.structure.forms import CreateTextForm
-from DisQussion.structure.path_helpers import getNodeForPath
+from structure.forms import CreateTextForm
+from structure.path_helpers import getNodeForPath
 
 
 def home(request):

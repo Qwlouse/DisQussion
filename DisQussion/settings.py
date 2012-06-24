@@ -2,7 +2,7 @@
 # encoding: utf-8
 # Django settings for DisQussion project.
 import os
-DIR = os.path.abspath(os.path.dirname(__file__))
+DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
 print DIR
 def projectPath(filename):
     return os.path.join(DIR, filename)
@@ -126,7 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-    'DisQussion.structure',
+    'structure',
 )
 
 # A sample logging configuration. The only tangible logging

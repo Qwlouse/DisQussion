@@ -4,7 +4,7 @@ from __future__ import division, print_function, unicode_literals
 
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
-from models import StructureNode
+from structure.models import StructureNode
 
 
 def splitComponent(component):
