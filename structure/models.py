@@ -1,12 +1,24 @@
 #!/usr/bin/python
 # coding=utf-8
+
+############################## Imports ########################################
 from __future__ import division, print_function, unicode_literals
 from django.contrib.auth.models import User
 
 from django.db import models
+from django.core.exceptions import ValidationError
 
+############################## Globals ########################################
 short_title_max_length = 20
 
+
+############################## Validators #####################################
+def validate_vote_value(value):
+    if value not in [-1, 0, 1]:
+        raise ValidationError(u'%s is not in the interval [-1:1].' % value)
+
+
+############################## Tree Structure #################################
 class Node(models.Model):
     parent = models.ForeignKey("Slot", null=True, blank=True)
 
@@ -49,9 +61,15 @@ class StructureNode(Node):
         return self.slot_set.count()
 
 
+############################## Votes ##########################################
 class Vote(models.Model):
     user = models.ForeignKey(User)
     text = models.ForeignKey(TextNode)
-    # TODO: encode value of vote
-    # TODO: ensure you cannot vote up AND down
-    # TODO: ensure you can only vote once (maybe user+text = primary key)
+    consent = models.IntegerField(default=0, validators=[validate_vote_value])
+    wording = models.IntegerField(default=0, validators=[validate_vote_value])
+
+    class Meta:
+        unique_together=('user', 'text')
+
+    def __unicode__(self):
+        return "{} for {} ({}, {})".format(self.user.username, self.text, self.consent, self.wording)
