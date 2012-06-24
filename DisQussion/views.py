@@ -35,17 +35,6 @@ def home(request):
         context_instance=RequestContext(request))
 
 
-def show_profile(request):
-    return render_to_response("profile.html",
-            {"user_to_show": {
-            "name": "jonny",
-            "selfdescription": "<p>Ich bin ein unauffälliger Beispieluser, der nur unwesentlich unter seinem archetypischen Namen leidet. Ich mag Tiere, gehe gerne Angeln und fahre mittwochs Fahrrad. Meine Freunde kennen mich als beispielhaften Mitbürger und Fremde erkennen mein Wesen an meinem Namen. Leider bin ich in nichts wirklich beispiellos gut, bin aber beispielsweise auch nicht schlecht.</p>",
-            "activities": [
-                {"time":"12m","type":1,"text":"Vorschlag erstellt: GP"},
-                {"time":"4h","type":0,"text":"Ich bin Twitter gewöhnt, aber das hier ist #ungewohnt."}]},
-            "authForm": AuthenticationForm(),
-            "this_url": "profiles/admin"},
-        context_instance=RequestContext(request))
     
 def path(request, path):
     return HttpResponse(str(getNodeForPath(path).id))

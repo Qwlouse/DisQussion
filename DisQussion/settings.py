@@ -127,7 +127,11 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
     'structure',
+    'accounts',
 )
+
+# Add custom user profile information
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
