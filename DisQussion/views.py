@@ -31,7 +31,16 @@ def home(request):
                                       {"id":4, "text":"Ich bin ein Troll und möchte auch zu Wort kommen.", "parent":3},
                                       {"id":5, "text":"Gibts leider noch nicht.", "parent":1}]},
                 {"name":"WP", "list":[{"id":1, "text":"WP is doof", "parent":0}, {"id":2, "text":"WP is toll", "parent":0}]},
-                {"name":"Orga", "list":[{"id":1, "text":"LPT", "parent":0}, {"id":2, "text":"Vorst. Sitz.", "parent":0}]}]},
+                {"name":"Orga", "list":[{"id":1, "text":"LPT", "parent":0}, {"id":2, "text":"Vorst. Sitz.", "parent":0}]},
+                {"name":"Bla", "list":[{"id":1, "text":"Bla bla", "parent":0},
+                                       {"id":2, "text":"Bla blubb", "parent":0},
+                                       {"id":3, "text":"Blip", "parent":1},
+                                       {"id":4, "text":"Blomp", "parent":3},
+                                       {"id":5, "text":"Radaradam", "parent":2},
+                                       {"id":6, "text":"Blahuli", "parent":5},
+                                       {"id":7, "text":"Baripolop", "parent":5},
+                                       {"id":8, "text":"Faluppilo", "parent":2},
+                                       {"id":9, "text":"Blompidou", "parent":1}]}]},
         context_instance=RequestContext(request))
 
 
