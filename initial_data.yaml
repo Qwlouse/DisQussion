@@ -4,6 +4,7 @@
   pk: 1
   fields:
     parent: NULL
+    content_type: 11
 - model: structure.StructureNode
   pk: 1
   fields:
@@ -21,6 +22,7 @@
   pk: 2
   fields:
     parent: 1
+    content_type: 10
 - model: structure.TextNode
   pk: 2
   fields:
@@ -32,6 +34,7 @@
   pk: 3
   fields:
     parent: 1
+    content_type: 10
 - model: structure.TextNode
   pk: 3
   fields:
@@ -48,6 +51,7 @@
   pk: 4
   fields:
     parent: 2
+    content_type: 10
 - model: structure.TextNode
   pk: 4
   fields:

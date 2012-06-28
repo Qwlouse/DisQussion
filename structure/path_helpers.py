@@ -4,7 +4,7 @@ from __future__ import division, print_function, unicode_literals
 
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
-from structure.models import StructureNode
+from structure.models import StructureNode, getPathToRoot, TextNode, Slot
 
 
 def splitComponent(component):
@@ -66,9 +66,22 @@ def getPathForNode(node):
     """
     Build a path string of the form 'AAA.123/BBBB.12/CC.1234' for the given TextNode.
     """
-    currentNode = node
-    path = []
-    while currentNode.parent is not None:
-        path.append("{}.{}".format(currentNode.parent.short_title, node.nr_in_parent()))
-        currentNode = node.parent.parent
-    return "/".join(path)
+    return "/".join("{}.{}".format(slot.short_title, sn.nr_in_parent()) for sn, slot in getPathToRoot(node))
+
+
+def getTextForNode(node):
+    """
+    Traverse the subtree spanned by this node and gather the texts with highest consent.
+    """
+    if isinstance(node, TextNode):
+        return node.text or ""
+    if isinstance(node, StructureNode):
+        text = [getTextForNode(slot) for slot in node.slot_set.all()]
+        return "\n".join(text)
+    if isinstance(node, Slot):
+        alternatives = node.node_set.order_by('-consent_cache')
+        if not alternatives :
+            return ""
+        else :
+            return getTextForNode(alternatives[0].as_leaf_class())
+

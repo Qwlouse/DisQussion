@@ -15,24 +15,25 @@ class AlwaysChangedModelForm(ModelForm):
 
 class StructureNodeInline(admin.TabularInline):
     model = StructureNode
-    readonly_fields =  ["parent", "slot_cnt"]
+    readonly_fields =  ["parent", "slot_cnt", "consent_cache", "wording_cache"]
     extra = 0
     form = AlwaysChangedModelForm
 
 
 class SlotInline(admin.TabularInline):
     model = Slot
-    readonly_fields = ["child_cnt"]
+    readonly_fields = ["child_cnt", "consent_cache", "wording_cache"]
     extra = 0
 
 class TextNodeInline(admin.TabularInline):
     model = TextNode
+    readonly_fields = ["consent_cache", "wording_cache"]
     extra = 0
 
 
 class StructureNodeAdmin(admin.ModelAdmin):
     inlines = [SlotInline]
-    list_display = ["__unicode__", "parent", "slot_cnt"]
+    list_display = ["__unicode__", "parent", "slot_cnt", "consent_cache", "wording_cache"]
     fields = ( ("parent", "nr_in_parent"), )
     readonly_fields = ["nr_in_parent"]
     search_fields = ["parent__short_title"]
@@ -40,7 +41,7 @@ class StructureNodeAdmin(admin.ModelAdmin):
 class SlotAdmin(admin.ModelAdmin):
     fields = ["short_title", "parent", "child_cnt"]
     readonly_fields = [ "child_cnt"]
-    list_display = ["short_title", "parent", "child_cnt"]
+    list_display = ["short_title", "parent", "child_cnt", "consent_cache", "wording_cache"]
     inlines = [StructureNodeInline, TextNodeInline]
 
 
