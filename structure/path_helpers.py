@@ -63,4 +63,12 @@ def getNodeForPath(path):
     return current_node
 
 def getPathForNode(node):
-    return "GP.1/Foo"
+    """
+    Build a path string of the form 'AAA.123/BBBB.12/CC.1234' for the given TextNode.
+    """
+    currentNode = node
+    path = []
+    while currentNode.parent is not None:
+        path.append("{}.{}".format(currentNode.parent.short_title, node.nr_in_parent()))
+        currentNode = node.parent.parent
+    return "/".join(path)
