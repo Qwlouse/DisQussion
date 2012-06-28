@@ -190,7 +190,7 @@ function createCircleStructure(text, springTarget, springLength) {
     var linkDIV = document.createElement("div");
     linkDIV.appendChild(newText);
     linkDIV.setAttribute("class", "linklike");
-    linkDIV.setAttribute("onClick", "showslot(this.parentNode.parentNode);");
+    //linkDIV.setAttribute("onClick", "showslot(this.parentNode.parentNode);");
     var innerDIV = document.createElement("div");
     innerDIV.appendChild(linkDIV);
     innerDIV.setAttribute("class", "circle");
@@ -202,6 +202,7 @@ function createCircleStructure(text, springTarget, springLength) {
     outerDIV.forces = new Array(
         new SpringForce(outerDIV, springTarget, springLength),
         new HorizontalForce(outerDIV));
+    outerDIV.setAttribute("id", "circle_"+text.replace(/^\s+|\s+$/g, ''));
     return outerDIV;
 }
 
