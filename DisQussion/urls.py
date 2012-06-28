@@ -2,6 +2,8 @@
 # coding=utf-8
 from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+import accounts.urls
+
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -14,15 +16,11 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Login and Logout
-    (r'^login$', 'django.contrib.auth.views.login', {'redirect_field_name': "login_redirect"}),
-    (r'^logout$', 'django.contrib.auth.views.logout', {'redirect_field_name': "logout_redirect"}),
-
-    # Profiles
-    url(r'^profiles/', 'accounts.views.show_profile'),
+    # User administration
+    url(r'^\.users/', include(accounts.urls)),
 
     # Uncomment the next line to enable the admin:
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^\.admin/', include(admin.site.urls)),
     
     url(r'^(?P<path>([a-zA-Z-_]+\.\d+/)*[a-zA-Z-_]+\.\d+/?)$', 'DisQussion.views.path')
 )
