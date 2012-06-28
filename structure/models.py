@@ -67,6 +67,7 @@ class Vote(models.Model):
     text = models.ForeignKey(TextNode)
     consent = models.IntegerField(default=0, validators=[validate_vote_value])
     wording = models.IntegerField(default=0, validators=[validate_vote_value])
+    time = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together=('user', 'text')
