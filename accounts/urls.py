@@ -9,5 +9,5 @@ urlpatterns = patterns('',
     (r'^logout$', 'django.contrib.auth.views.logout', {'redirect_field_name': "logout_redirect"}),
 
     # Profiles
-    url(r'', 'accounts.views.show_profile'),
+    url(r'^(?P<user_name>(\w+))', 'accounts.views.show_profile'),
 )

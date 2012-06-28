@@ -61,3 +61,6 @@ def getNodeForPath(path):
         current_node = getChildWithNr(slot, nr_in_parent)
 
     return current_node
+
+def getPathForNode(node):
+    return "GP.1/Foo"
