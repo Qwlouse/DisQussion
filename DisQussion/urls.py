@@ -3,7 +3,11 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 import accounts.urls
+import settings
 
+# Dajax URLs
+from dajaxice.core import dajaxice_autodiscover
+dajaxice_autodiscover()
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -21,6 +25,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^\.admin/', include(admin.site.urls)),
+
+    (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
     
     url(r'^(?P<path>([a-zA-Z-_]+\.\d+/)*[a-zA-Z-_]+\.\d+/?)$', 'DisQussion.views.path')
 )

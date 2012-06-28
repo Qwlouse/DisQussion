@@ -95,7 +95,7 @@ SECRET_KEY = 'dpdn4#6vd7jja8l=uv$8p!8342@wq)s6dts^m7_^$)k41##muu'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -128,10 +128,15 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'structure',
     'accounts',
+    'dajaxice',
+    'dajax'
 )
 
 # Add custom user profile information
 AUTH_PROFILE_MODULE = 'accounts.UserProfile'
+
+# Dajax
+DAJAXICE_MEDIA_PREFIX=".dajaxice"
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
