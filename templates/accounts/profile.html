@@ -11,11 +11,30 @@
     {% autoescape off %}
     {{ userinfo.description }}
     {% endautoescape %}
-    {% if user.is_authenticated and user.username == user_to_show.name %}
+    {% if user.is_authenticated and user.username == userinfo.name %}
+        <form method="post" action="change_description">
+            {% csrf_token %}
+            {{ descriptionForm.description }}
+            <input type="submit" value="Beschreibung ändern"/>
+            <input type="hidden" name="description_change_redirect" value="../{{ this_url }}"/>
+        </form>
         <h2>Einstellungen</h2>
         <ul>
             <li>Passwort ändern</li>
+            <li><form method="post" action="change_password/../{{ user.username }}">
+                {% csrf_token %}
+                {{ passwordForm.old_password }}
+                {{ passwordForm.new_password1 }}
+                {{ passwordForm.new_password2 }}
+                <input type="submit" value="Passwort ändern"/>
+            </form></li>
             <li>E-Mail: {{ user.email }}</li>
+            <li><form method="post" action="change_email">
+                {% csrf_token %}
+                {{ emailForm.email }}
+                <input type="submit" value="E-Mail Adresse ändern"/>
+                <input type="hidden" name="email_change_redirect" value="../{{ this_url }}"/>
+            </form></li>
         </ul>
     {% endif %}
     <h2>Aktivitäten</h2>
@@ -37,7 +56,7 @@
                 </ul>
             {% elif activity.type == 1 %}
                 <p>{{ userinfo.name }} hat {% if activity.wording == 0 %}sich {% endif %}bei
-                    <a href="{{ activity.text_url }}">{{ activity.title }}</a>
+                    <a href="../{{ activity.text_url }}">{{ activity.title }}</a>
                     {% if activity.wording != 0 %}die Formulierung mit {{ activity.wording }} bewertet
                     {% else %}der Formulierung enthalten{% endif %}
                     {% if activity.consent == 1 %}und dem Inhalt zugestimmt.
