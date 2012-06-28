@@ -2,7 +2,7 @@
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
 
-from structure.models import StructureNode, TextNode, Slot
+from structure.models import StructureNode, TextNode, Slot, Vote
 from django.contrib import admin
 
 from django.forms.models import ModelForm
@@ -44,7 +44,11 @@ class SlotAdmin(admin.ModelAdmin):
     inlines = [StructureNodeInline, TextNodeInline]
 
 
+class VoteAdmin(admin.ModelAdmin):
+    list_display = ["user", "text", "consent", "wording"]
+
 admin.site.register(StructureNode, StructureNodeAdmin)
 admin.site.register(Slot, SlotAdmin)
 admin.site.register(TextNode)
+admin.site.register(Vote, VoteAdmin)
 
