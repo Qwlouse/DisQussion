@@ -1,13 +1,15 @@
 {% extends "main.html" %}
 
-{% block title %}DisQussion: {{ user_to_show.name }}{% endblock %}
+{% block title %}DisQussion: Profil von {{ userinfo.name }}{% endblock %}
 
 {% block graph %}{% endblock %}
 
 {% block text %}
-    <h1>{{ user_to_show.name }}</h1>
+    <h1>{{ userinfo.name }}
+        {% if userinfo.firstname or userinfo.lastname %} - {{ userinfo.fistname }} {{ userinfo.lastname }}{% endif %}
+    </h1>
     {% autoescape off %}
-    {{ user.selfdescription }}
+    {{ userinfo.description }}
     {% endautoescape %}
     {% if user.is_authenticated and user.username == user_to_show.name %}
         <h2>Einstellungen</h2>
@@ -17,20 +19,32 @@
         </ul>
     {% endif %}
     <h2>Aktivitäten</h2>
-    {% for activity in user_to_show.activities %}
+    {% for activity in userinfo.activities %}
         <div class="micropost">
             <p class="micropost-time">{{ activity.time }}</p>
 
-            <h2>{% if activity.type == 0 %}{{ user_to_show.name }}
-            {% elif activity.type == 1%}System
+            <h2>{% if activity.type == 0 %}{{ userinfo.name }}
+            {% elif activity.type == 1 %}System
             {% else %}Fehler: Unbekannter Typ.{% endif %}</h2>
-
-            <p>{{ activity.text }}</p>
-            <ul class="micropost-controls">
-                {% if activity.type == 0 %}<li>Antworten</li>{% endif %}
-                <li>Weitersagen</li>
-                {% if activity.type == 0 %}<li>Interpretieren</li>{% endif %}
-            </ul>
+            {% if activity.type == 0 %}
+                <p>{{ activity.text }}</p>
+                <ul class="micropost-controls">
+                    {% if activity.type == 0 %}
+                        <li>Antworten</li>{% endif %}
+                    <li>Weitersagen</li>
+                    {% if activity.type == 0 %}
+                        <li>Interpretieren</li>{% endif %}
+                </ul>
+            {% elif activity.type == 1 %}
+                <p>{{ userinfo.name }} hat {% if activity.wording == 0 %}sich {% endif %}bei
+                    <a href="{{ activity.text_url }}">{{ activity.title }}</a>
+                    {% if activity.wording != 0 %}die Formulierung mit {{ activity.wording }} bewertet
+                    {% else %}der Formulierung enthalten{% endif %}
+                    {% if activity.consent == 1 %}und dem Inhalt zugestimmt.
+                    {% elif activity.consent == 0 %}und sich zum Inhalt enthalten.
+                    {% else %}aber den Inhalt abgelehnt.{% endif %}
+                </p>
+            {% else %}<p>Fehler: Unbekannter Typ.</p>{% endif %}
         </div>
     {% endfor %}
 {% endblock %}

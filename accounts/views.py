@@ -10,9 +10,13 @@ from structure.models import Vote
 # Create your views here.
 from structure.path_helpers import getPathForNode
 
+def howLongAgo(time):
+    return "vor "+str(time.now()-time)+"s"
+
 def convertVoteToVoteInfo(vote):
     voteinfo = dict()
-    voteinfo["time"] = vote.time
+    voteinfo["type"] = 1
+    voteinfo["time"] = howLongAgo(vote.time)
     voteinfo["text_url"] = getPathForNode(vote.text)
     voteinfo["title"] = vote.text.parent.short_title
     voteinfo["consent"] = vote.consent
@@ -22,7 +26,7 @@ def convertVoteToVoteInfo(vote):
 def show_profile(request, user_name):
     users = User.objects.filter(username = user_name)
     if not users:
-        return render_to_response("accounts/UserNotFound.html")
+        return render_to_response("accounts/UserNotFound.html", {"not_existing_username":user_name})
 
     user = users[0]
     profile = user.get_profile()
@@ -32,7 +36,6 @@ def show_profile(request, user_name):
     userinfo["first_name"] = user.first_name
     userinfo["last_name"] = user.last_name
     userinfo["description"] = profile.description
-    userinfo["email"] = user.email
 
     # Activities
     recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=user).order_by("time")]
