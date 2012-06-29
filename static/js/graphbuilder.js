@@ -215,79 +215,50 @@ function createArrowStructure() {
     return outerArrow
 }
 
-function runSimulation() {
-    var rawGraph = document.getElementById('rawgraph');
-    var graphNode = document.getElementById('graph');
-    var i, j, k, numA;
-    var rootDIV = document.createElement("div");
-    rootDIV.setAttribute("class", "masspoint");
-    rootDIV.mass = new Mass();
-    graphNode.appendChild(rootDIV);
-    var circles = new Array(rootDIV);
-    var arrows = new Array();
-    var nodeCount = 0;
-    for (i = 0; i < rawGraph.childNodes.length; i++) {
-        if (rawGraph.childNodes[i].nodeType == 1) {
-            // slot layer
-            nodeCount++;
-            var outerDIV;
-            if (nodeCount == 1) {
-                outerDIV = createCircleStructure(
-                    rawGraph.childNodes[i].firstChild.data,
-                    rootDIV, 0.0);
-                outerDIV.textPart = document.getElementById("hauptText").childNodes[3].innerHTML;
-                outerDIV.firstChild.firstChild.setAttribute("class", "");
-            } else {
-                outerDIV = createCircleStructure(
-                    rawGraph.childNodes[i].firstChild.data,
-                    circles[1], 80.0);
-                outerDIV.textPart = "<h1>SLOT</h1>";
-            }
-            circles.push(outerDIV);
-            graphNode.appendChild(outerDIV);
-            if (nodeCount > 1) {
-                var outerArrow = createArrowStructure();
-                outerArrow.A = ""+1;
-                outerArrow.B = ""+(circles.length-1);
-                arrows.push(outerArrow);
-                graphNode.insertBefore(outerArrow, graphNode.firstChild);
-            }
-            // proposal layer in each slot
-            for (j = 0; j < rawGraph.childNodes[i].childNodes.length; j++) {
-                if (rawGraph.childNodes[i].childNodes[j].nodeType == 1) {
-                    var identifierData = rawGraph.childNodes[i].childNodes[j].firstChild.data.split(":");
-                    var idInSlot = parseInt(identifierData[0].split(".")[1]);
-                    var parentId = parseInt(identifierData[1]);
-                    var parentDIV = outerDIV;
-                    if (parentId > 0) {
-                        // this proposal has a parent. Search for it and change parentDIV accordingly
-                        for (k = 1; k < circles.length; k++) {
-                            if (circles[k].idInSlot == parentId) { parentDIV = circles[k]; }
-                        }
+function buildGraph(data) {
+    // Set text
+    for (i = 0; i < document.getElementById("hauptText").childNodes.length; i++) {
+        if (document.getElementById("hauptText").childNodes[i].nodeType == 1) {
+            for (j = 0; j < document.getElementById("hauptText").childNodes[i].attributes.length; j++) {
+                if (document.getElementById("hauptText").childNodes[i].attributes[j].name == "class") {
+                    if (document.getElementById("hauptText").childNodes[i].attributes[j].value == "text") {
+                        document.getElementById("hauptText").childNodes[i].innerHTML = data['text'];
                     }
-                    var proposalOuterDIV = createCircleStructure(
-                        identifierData[0], parentDIV, 80.0);
-                    proposalOuterDIV.idInSlot = idInSlot;
-                    rawGraph.childNodes[i].childNodes[j].firstChild.data = "";
-                    proposalOuterDIV.textPart = rawGraph.childNodes[i].childNodes[j].innerHTML;
-                    circles.push(proposalOuterDIV);
-                    graphNode.appendChild(proposalOuterDIV);
-                    var proposalOuterArrow = createArrowStructure();
-                    numA = 1;
-                    for (k = 1; k < circles.length; k++) {
-                        if (circles[k] == parentDIV) { numA = k; }
-                    }
-                    proposalOuterArrow.A = ""+numA;
-                    proposalOuterArrow.B = ""+(circles.length-1);
-                    arrows.push(proposalOuterArrow);
-                    graphNode.insertBefore(proposalOuterArrow, graphNode.firstChild);
                 }
             }
         }
     }
+    //build graph
+    var graphNode = document.getElementById('graph');
+    var circles = graphNode.circles;
+    var arrows = graphNode.arrows;
+    var rootDIV = graphNode.firstChild
+    var outerDIV = createCircleStructure(
+        data['short_title'],
+        rootDIV, 0.0);
+    outerDIV.textPart = document.getElementById("hauptText").childNodes[3].innerHTML;
+    outerDIV.firstChild.firstChild.setAttribute("class", "");
+    circles.push(outerDIV);
+    graphNode.appendChild(outerDIV);
+    var nodeCount = 1;
+    for (var i = 0; i < data['children'].length; i++) {
+        nodeCount++;
+        var child = data['children'][i];
+        outerDIV = createCircleStructure(
+            child['short_title'],
+            circles[1], 80.0);
+        outerDIV.textPart = "<h1>SLOT</h1>";
+        circles.push(outerDIV);
+        graphNode.appendChild(outerDIV);
+        var outerArrow = createArrowStructure();
+        outerArrow.A = ""+1;
+        outerArrow.B = ""+(circles.length-1);
+        arrows.push(outerArrow);
+        graphNode.insertBefore(outerArrow, graphNode.firstChild);
+    }
     for (i = 1; i < circles.length; i++) {
         var a = new Array();
-        for (j = 1; j < circles.length; j++) {
+        for (var j = 1; j < circles.length; j++) {
             if (j != i) {
                 a.push(circles[j]);
             }
@@ -299,8 +270,51 @@ function runSimulation() {
     }
     graphNode.circles = circles;
     graphNode.arrows = arrows;
-    rawGraph.style.display = "none";
     step();
+}
+
+function runSimulation(node_id) {
+    var graphNode = document.getElementById('graph');
+    var rootDIV = document.createElement("div");
+    rootDIV.setAttribute("class", "masspoint");
+    rootDIV.mass = new Mass();
+    graphNode.appendChild(rootDIV);
+    graphNode.circles = new Array(rootDIV);
+    graphNode.arrows = new Array();
+    Dajaxice.structure.getNodeInfo(buildGraph, {'node_id' : node_id, 'node_type' : 'StructureNode'});
+//            // proposal layer in each slot
+//            for (j = 0; j < rawGraph.childNodes[i].childNodes.length; j++) {
+//                if (rawGraph.childNodes[i].childNodes[j].nodeType == 1) {
+//                    var identifierData = rawGraph.childNodes[i].childNodes[j].firstChild.data.split(":");
+//                    var idInSlot = parseInt(identifierData[0].split(".")[1]);
+//                    var parentId = parseInt(identifierData[1]);
+//                    var parentDIV = outerDIV;
+//                    if (parentId > 0) {
+//                        // this proposal has a parent. Search for it and change parentDIV accordingly
+//                        for (k = 1; k < circles.length; k++) {
+//                            if (circles[k].idInSlot == parentId) { parentDIV = circles[k]; }
+//                        }
+//                    }
+//                    var proposalOuterDIV = createCircleStructure(
+//                        identifierData[0], parentDIV, 80.0);
+//                    proposalOuterDIV.idInSlot = idInSlot;
+//                    rawGraph.childNodes[i].childNodes[j].firstChild.data = "";
+//                    proposalOuterDIV.textPart = rawGraph.childNodes[i].childNodes[j].innerHTML;
+//                    circles.push(proposalOuterDIV);
+//                    graphNode.appendChild(proposalOuterDIV);
+//                    var proposalOuterArrow = createArrowStructure();
+//                    numA = 1;
+//                    for (k = 1; k < circles.length; k++) {
+//                        if (circles[k] == parentDIV) { numA = k; }
+//                    }
+//                    proposalOuterArrow.A = ""+numA;
+//                    proposalOuterArrow.B = ""+(circles.length-1);
+//                    arrows.push(proposalOuterArrow);
+//                    graphNode.insertBefore(proposalOuterArrow, graphNode.firstChild);
+//                }
+//            }
+//        }
+//    }
 }
 
 function showslot(slotNode) {

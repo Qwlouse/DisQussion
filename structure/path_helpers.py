@@ -4,7 +4,7 @@ from __future__ import division, print_function, unicode_literals
 
 from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
-from structure.models import StructureNode, getPathToRoot, TextNode, Slot
+from structure.models import StructureNode
 
 
 def splitComponent(component):
@@ -49,39 +49,19 @@ def getChildWithNr(slot, nr):
         raise ObjectDoesNotExist("Error: Slot with name '%s' does not have a child with nr '%d'"%(slot, nr))
     return child_nodes[nr-1]
 
+def getRootNode():
+    return StructureNode.objects.filter(parent=None)[0]
+
+
 def getNodeForPath(path):
     """
     Use a path of the form 'AAA.123/BBBB.12/CC.1234/' to get the corresponding text- or structureNode from the DB.
     """
     address = splitPath(path)
-    root = StructureNode.objects.filter(parent=None)[0]
-    current_node = root
+    current_node = getRootNode()
     for short_title, nr_in_parent in address:
         slot = getSlot(current_node, short_title)
         current_node = getChildWithNr(slot, nr_in_parent)
 
     return current_node
-
-def getPathForNode(node):
-    """
-    Build a path string of the form 'AAA.123/BBBB.12/CC.1234' for the given TextNode.
-    """
-    return "/".join("{}.{}".format(slot.short_title, sn.nr_in_parent()) for sn, slot in getPathToRoot(node))
-
-
-def getTextForNode(node):
-    """
-    Traverse the subtree spanned by this node and gather the texts with highest consent.
-    """
-    if isinstance(node, TextNode):
-        return node.text or ""
-    if isinstance(node, StructureNode):
-        text = [getTextForNode(slot) for slot in node.slot_set.all()]
-        return "\n".join(text)
-    if isinstance(node, Slot):
-        alternatives = node.node_set.order_by('-consent_cache')
-        if not alternatives :
-            return ""
-        else :
-            return getTextForNode(alternatives[0].as_leaf_class())
 

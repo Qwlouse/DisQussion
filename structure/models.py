@@ -40,13 +40,40 @@ class Node(models.Model):
             return self
         return model.objects.get(id=self.id)
 
-
-
     def nr_in_parent(self):
         if self.parent is None:
             return 0
         # count the number of siblings that have lower or equal id
         return self.parent.node_set.filter(id__lte=self.id).count()
+
+    def getPathToRoot(self):
+        """
+        Return path to root node. Path is returned as list of tuples (StructureNode, Slot).
+        """
+        currentNode = self
+        path = []
+        while currentNode.parent is not None:
+            path.append((currentNode, currentNode.parent))
+            currentNode = self.parent.parent
+        return path
+
+    def getTextPath(self):
+        """
+        Build a path string of the form 'AAA.123/BBBB.12/CC.1234'.
+        """
+        return "/".join("{}.{}".format(slot.short_title, sn.nr_in_parent()) for sn, slot in self.getPathToRoot())
+
+    def getText(self):
+        """
+        Traverse the subtree spanned by this node and gather the texts with highest consent.
+        """
+        return self.as_leaf_class().getTextForNode()
+
+    def getShortTitle(self):
+        if self.parent is None:
+            return "Root"
+        else :
+            return self.parent.getShortTitle()  + "." + str(self.nr_in_parent())
 
 
 class Slot(models.Model):
@@ -61,6 +88,22 @@ class Slot(models.Model):
     def __unicode__(self):
         return self.short_title
 
+    def getTextPath(self):
+        return self.parent.getTextPath() + '/' + self.short_title
+
+    def getText(self):
+        alternatives = self.node_set.order_by('-consent_cache')
+        if not alternatives :
+            return ""
+        else :
+            return alternatives[0].as_leaf_class().getText()
+
+    def getShortTitle(self):
+        return self.short_title
+
+    def getType(self):
+        return "Slot"
+
 
 class TextNode(Node):
     text = models.TextField()
@@ -70,6 +113,12 @@ class TextNode(Node):
             return self.parent.short_title + "." + str(self.nr_in_parent())
         else:
             return "Unpositioned TextNode"
+
+    def getText(self):
+        return self.text
+
+    def getType(self):
+        return "TextNode"
 
 
 class StructureNode(Node):
@@ -81,6 +130,13 @@ class StructureNode(Node):
 
     def slot_cnt(self):
         return self.slot_set.count()
+
+    def getText(self):
+        text = [slot.getText() for slot in self.slot_set.all()]
+        return "\n".join(text)
+
+    def getType(self):
+        return "StructureNode"
 
 
 ############################## Votes ##########################################
@@ -97,16 +153,7 @@ class Vote(models.Model):
     def __unicode__(self):
         return "{} for {} ({}, {})".format(self.user.username, self.text, self.consent, self.wording)
 
-def getPathToRoot(node):
-    """
-    Return path to root node for given text or structure node. Path is returned as list of tuples (StructureNode, Slot).
-    """
-    currentNode = node
-    path = []
-    while currentNode.parent is not None:
-        path.append((currentNode, currentNode.parent))
-        currentNode = node.parent.parent
-    return path
+
 
 
 def calculate_vote_cache_TextNode(node):
@@ -137,7 +184,7 @@ def adjust_vote_caches(node):
     """
     Traverse the path from the given TextNode up to the root and recalculate the vote caches.
     """
-    path = getPathToRoot(node)
+    path = node.getPathToRoot()
     # first pair is (TextNode, Slot)
     textNode, slot = path[0]
     calculate_vote_cache_TextNode(textNode)

@@ -12,8 +12,6 @@ from structure.models import Vote
 from django.utils import timezone
 from datetime import datetime
 
-# Create your views here.
-from structure.path_helpers import getPathForNode
 
 def howLongAgo(time=False):
     """
@@ -62,7 +60,7 @@ def convertVoteToVoteInfo(vote):
     voteinfo = dict()
     voteinfo["type"] = 1
     voteinfo["time"] = howLongAgo(vote.time)
-    voteinfo["text_url"] = getPathForNode(vote.text)
+    voteinfo["text_url"] = vote.text.getTextPath()
     voteinfo["title"] = vote.text.parent.short_title
     voteinfo["consent"] = vote.consent
     voteinfo["wording"] = vote.wording

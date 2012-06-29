@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
 
 from structure.forms import CreateTextForm
-from structure.path_helpers import getNodeForPath
+from structure.path_helpers import getNodeForPath, getRootNode
 
 
 def home(request):
@@ -18,21 +18,14 @@ def home(request):
             return HttpResponseRedirect('/thanks/') # Redirect after POST
     else:
         textForm = CreateTextForm() # An unbound form
+    root = getRootNode()
     return render_to_response("node/show.html",
             {"pagename":"Root",
-             "authForm": AuthenticationForm(),
              "this_url": "/",
+             "authForm": AuthenticationForm(),
              "textForm": textForm,
-             "short_title": "Root",
-             "id":1, "slots":[
-                {"name":"GP", "list":[{"id":1, "text":"Gibts noch nicht", "parent":0},
-                                      {"id":2, "text":"Gibbet wohl", "parent":0},
-                                      {"id":3, "text":"Gibts nicht und das ist gut so.", "parent":1},
-                                      {"id":4, "text":"Ich bin ein Troll und möchte auch zu Wort kommen.", "parent":3},
-                                      {"id":5, "text":"Gibts leider noch nicht.", "parent":1}]},
-                {"name":"WP", "list":[{"id":1, "text":"WP is doof", "parent":0}, {"id":2, "text":"WP is toll", "parent":0}]},
-                {"name":"Orga", "list":[{"id":1, "text":"LPT", "parent":0}, {"id":2, "text":"Vorst. Sitz.", "parent":0}]},
-                                       ]},
+             "center_node_id" : root.id
+             },
         context_instance=RequestContext(request))
 
 

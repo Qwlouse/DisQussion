@@ -16,7 +16,9 @@
     <script src="{% static "js/graphbuilder.js" %}" type="text/javascript"></script>
     <script src="{% static "js/misc_animations.js" %}" type="text/javascript"></script>
 </head>
-<body onload="runSimulation();">
+{% block bodytag %}
+<body>
+{% endblock %}
 <div id="leiste">
     <div id="logo">D<span class="smaller">IS</span><strong>Q</strong><span class="smaller">USSION</span></div>
     <form method="get" action="/search" accept-charset="UTF-8">
@@ -44,27 +46,6 @@
     </ul>
 </div>
 {% block graph %}
-    <div id="graph">
-        <div class="fixpoint"><div class="arrow"></div></div>
-        <div class="fixpoint"><div class="arrow"></div></div>
-        <div class="fixpoint"><div class="arrow"></div></div>
-        <div class="fixpoint"><div class="arrow"></div></div>
-        <div class="masspoint">
-            <div class="circle">Schule</div>
-        </div>
-        <div class="masspoint">
-            <div class="circle">Hochschule</div>
-        </div>
-        <div class="masspoint">
-            <div class="circle">Senat</div>
-        </div>
-        <div class="masspoint">
-            <div class="circle">Stupa</div>
-        </div>
-        <div class="masspoint">
-            <div class="circle">Bildung</div>
-        </div>
-    </div>
 {% endblock %}
 <div id="textPart">
     <div id="hauptText">
