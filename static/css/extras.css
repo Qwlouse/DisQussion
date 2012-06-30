@@ -65,3 +65,16 @@ span#bigplus {
     position: relative;
     top: -2px;
 }
+
+div#profilesettings {
+    font-size: 11pt;
+}
+
+.shownForFade {
+    opacity: 1.0;
+}
+
+.hiddenForFade {
+    display: none;
+}
+

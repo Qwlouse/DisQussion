@@ -8,34 +8,73 @@
     <h1>{{ userinfo.name }}
         {% if userinfo.firstname or userinfo.lastname %} - {{ userinfo.fistname }} {{ userinfo.lastname }}{% endif %}
     </h1>
-    {% autoescape off %}
-    {{ userinfo.description }}
-    {% endautoescape %}
+    <div class="shownForFade">
+        <div>
+            {% autoescape off %}
+                {{ userinfo.description }}
+            {% endautoescape %}
+        </div>
+        {% if user.is_authenticated and user.username == userinfo.name %}
+            <div class="linklike" onclick="showNextNode(this);">Beschreibung bearbeiten</div>
+        {% endif %}
+    </div>
     {% if user.is_authenticated and user.username == userinfo.name %}
-        <form method="post" action="change_description">
-            {% csrf_token %}
-            {{ descriptionForm.description }}
-            <input type="submit" value="Beschreibung ändern"/>
-            <input type="hidden" name="description_change_redirect" value="../{{ this_url }}"/>
-        </form>
+        <div class="hiddenForFade">
+            <form method="post" action="change_description">
+                {% csrf_token %}
+                {{ descriptionForm.description }}
+                <input type="submit" value="Beschreibung ändern"/>
+                <input type="hidden" name="description_change_redirect" value="../{{ this_url }}"/>
+            </form>
+        </div>
         <h2>Einstellungen</h2>
-        <ul>
-            <li>Passwort ändern</li>
-            <li><form method="post" action="change_password/../{{ user.username }}">
-                {% csrf_token %}
-                {{ passwordForm.old_password }}
-                {{ passwordForm.new_password1 }}
-                {{ passwordForm.new_password2 }}
-                <input type="submit" value="Passwort ändern"/>
-            </form></li>
-            <li>E-Mail: {{ user.email }}</li>
-            <li><form method="post" action="change_email">
-                {% csrf_token %}
-                {{ emailForm.email }}
-                <input type="submit" value="E-Mail Adresse ändern"/>
-                <input type="hidden" name="email_change_redirect" value="../{{ this_url }}"/>
-            </form></li>
-        </ul>
+        <div id="profilesettings">
+            <div class="shownForFade">
+                <div class="linklike" onclick="showNextNode(this);">Passwort ändern</div>
+            </div>
+            <div class="hiddenForFade">
+                <form method="post" action="change_password/../{{ user.username }}">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>Altes Passwort:</td>
+                            <td>{{ passwordForm.old_password }}</td>
+                        </tr>
+                        <tr>
+                            <td>Neues Passwort:</td>
+                            <td>{{ passwordForm.new_password1 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Neues Passwort:</td>
+                            <td>{{ passwordForm.new_password2 }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="Passwort ändern"/></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div class="shownForFade">
+                <div class="linklike" onclick="showNextNode(this);">E-Mail: {{ user.email }}</div>
+            </div>
+            <div class="hiddenForFade">
+                <form method="post" action="change_email">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>Neue E-Mail:</td>
+                            <td>{{ emailForm.email }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input type="submit" value="E-Mail Adresse ändern"/></td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="email_change_redirect" value="../{{ this_url }}"/>
+                </form>
+            </div>
+        </div>
     {% endif %}
     <h2>Aktivitäten</h2>
     {% for activity in userinfo.activities %}
@@ -59,11 +98,13 @@
                     <a href="../{{ activity.text_url }}">{{ activity.title }}</a>
                     {% if activity.wording != 0 %}die Formulierung mit {{ activity.wording }} bewertet
                     {% else %}der Formulierung enthalten{% endif %}
-                    {% if activity.consent == 1 %}und dem Inhalt zugestimmt.
+                    {% if activity.consent == 1 %}{% if activity.wording == -1 %}aber{% else %}und{% endif %} dem Inhalt
+                        zugestimmt.
                     {% elif activity.consent == 0 %}und sich zum Inhalt enthalten.
-                    {% else %}aber den Inhalt abgelehnt.{% endif %}
+                        {% else %}{% if activity.wording == -1 %}und{% else %}aber{% endif %} den Inhalt
+                        abgelehnt.{% endif %}
                 </p>
-            {% else %}<p>Fehler: Unbekannter Typ.</p>{% endif %}
+                {% else %}<p>Fehler: Unbekannter Typ.</p>{% endif %}
         </div>
     {% endfor %}
 {% endblock %}

@@ -112,11 +112,46 @@ function showNewProposal() {
 
 function showNewProposal_step() {
     document.getElementById("inputText").style.display = "block";
-    var opac = parseFloat(document.getElementById("inputText").style.opacity);
-    document.getElementById("inputText").style.opacity = "" + (opac + 0.11);
-    if (opac < 0.9) {
+    var opacity = parseFloat(document.getElementById("inputText").style.opacity);
+    document.getElementById("inputText").style.opacity = "" + (opacity + 0.11);
+    if (opacity < 0.9) {
         setTimeout("showNewProposal_step()", 25);
     } else {
         document.getElementById("inputText").style.opacity = "1.0";
     }
+}
+
+function fadeOutElement() {
+    var node = document.body.elementToHide;
+    node.style.display = "block";
+    var opacity = parseFloat(node.style.opacity);
+    if (opacity > 0.1) {
+        node.style.opacity = "" + (opacity - 0.11);
+        setTimeout("fadeOutElement()", 25);
+    } else {
+        node.style.opacity = "0.0";
+        node.style.display = "none";
+    }
+}
+
+function fadeInElement() {
+    var node = document.body.elementToShow;
+    node.style.display = "block";
+    var opacity = parseFloat(node.style.opacity);
+    if (opacity < 0.9) {
+        node.style.opacity = "" + (opacity + 0.11);
+        setTimeout("fadeInElement()", 25);
+    } else {
+        node.style.opacity = "1.0";
+    }
+}
+
+function showNextNode(node) {
+    //alert("STUB!"+node);
+    document.body.elementToHide = node.parentNode;
+    document.body.elementToHide.style.opacity = 1.0;
+    fadeOutElement();
+    document.body.elementToShow = node.parentNode.nextSibling.nextSibling;
+    document.body.elementToShow.style.opacity = 0.0;
+    setTimeout("fadeInElement()", 300);
 }
