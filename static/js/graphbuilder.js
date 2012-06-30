@@ -194,7 +194,7 @@ function createCircleStructure(text, springTarget, springLength) {
     var innerDIV = document.createElement("div");
     innerDIV.appendChild(linkDIV);
     innerDIV.setAttribute("class", "circle");
-    innerDIV.setAttribute("onClick", "showslot(this.parentNode);");
+    innerDIV.setAttribute("onClick", "showNode(this.parentNode);");
     var outerDIV = document.createElement("div");
     outerDIV.setAttribute("class", "masspoint");
     outerDIV.appendChild(innerDIV);
@@ -215,9 +215,37 @@ function createArrowStructure() {
     return outerArrow
 }
 
+function getCircleIndex(node) {
+    var circles = document.getElementById('graph').circles;
+    var index = -1;
+    for (var i = 0; i < circles.length; i++) {
+        if (node == circles[i]) { index = i; }
+    }
+    return index;
+}
+
+function addCircleToGraph(short_title, springTarget, springLength, id, text, type, center) {
+    var circles = document.getElementById('graph').circles;
+    var isNotInCircles = true;
+    for (var i = 0; i < circles.length; i++) {
+        if (circles[i].dbId == id) { isNotInCircles = false; }
+    }
+    if (isNotInCircles) {
+        var outerDIV = createCircleStructure(short_title, springTarget, springLength);
+        outerDIV.dbId = id;
+        outerDIV.textPart = text;
+        if (center) { outerDIV.firstChild.firstChild.setAttribute("class", ""); }
+        outerDIV.type = type;
+        circles.push(outerDIV);
+        document.getElementById('graph').appendChild(outerDIV);
+        if (center) {document.getElementById('graph').centerCircle = outerDIV; }
+    }
+    return isNotInCircles;
+}
+
 function buildGraph(data) {
     // Set text
-    for (i = 0; i < document.getElementById("hauptText").childNodes.length; i++) {
+    /*for (i = 0; i < document.getElementById("hauptText").childNodes.length; i++) {
         if (document.getElementById("hauptText").childNodes[i].nodeType == 1) {
             for (j = 0; j < document.getElementById("hauptText").childNodes[i].attributes.length; j++) {
                 if (document.getElementById("hauptText").childNodes[i].attributes[j].name == "class") {
@@ -227,34 +255,24 @@ function buildGraph(data) {
                 }
             }
         }
-    }
+    }*/
     //build graph
     var graphNode = document.getElementById('graph');
     var circles = graphNode.circles;
     var arrows = graphNode.arrows;
-    var rootDIV = graphNode.firstChild
-    var outerDIV = createCircleStructure(
-        data['short_title'],
-        rootDIV, 0.0);
-    outerDIV.textPart = document.getElementById("hauptText").childNodes[3].innerHTML;
-    outerDIV.firstChild.firstChild.setAttribute("class", "");
-    circles.push(outerDIV);
-    graphNode.appendChild(outerDIV);
-    var nodeCount = 1;
+    var rootDIV = graphNode.firstChild;
+    addCircleToGraph(data['short_title'], rootDIV, 0.0, data['id'],
+        data['text'], data['type'], true);
     for (var i = 0; i < data['children'].length; i++) {
-        nodeCount++;
         var child = data['children'][i];
-        outerDIV = createCircleStructure(
-            child['short_title'],
-            circles[1], 80.0);
-        outerDIV.textPart = "<h1>SLOT</h1>";
-        circles.push(outerDIV);
-        graphNode.appendChild(outerDIV);
-        var outerArrow = createArrowStructure();
-        outerArrow.A = ""+1;
-        outerArrow.B = ""+(circles.length-1);
-        arrows.push(outerArrow);
-        graphNode.insertBefore(outerArrow, graphNode.firstChild);
+        if (addCircleToGraph(child['short_title'], graphNode.centerCircle, 80.0, child['id'],
+            "<h1>SLOT</h1>", child['type'], false)) {
+            var outerArrow = createArrowStructure();
+            outerArrow.A = "" + getCircleIndex(graphNode.centerCircle);
+            outerArrow.B = "" + (circles.length - 1);
+            arrows.push(outerArrow);
+            graphNode.insertBefore(outerArrow, graphNode.firstChild);
+        }
     }
     for (i = 1; i < circles.length; i++) {
         var a = new Array();
@@ -282,6 +300,7 @@ function runSimulation(node_id) {
     graphNode.circles = new Array(rootDIV);
     graphNode.arrows = new Array();
     Dajaxice.structure.getNodeInfo(buildGraph, {'node_id' : node_id, 'node_type' : 'StructureNode'});
+    setTimeout("showText(graphNode.circles[1])", 500);
 //            // proposal layer in each slot
 //            for (j = 0; j < rawGraph.childNodes[i].childNodes.length; j++) {
 //                if (rawGraph.childNodes[i].childNodes[j].nodeType == 1) {
@@ -317,7 +336,7 @@ function runSimulation(node_id) {
 //    }
 }
 
-function showslot(slotNode) {
+function showNode(node) {
     var graphNode = document.getElementById('graph');
     for (var i = 1; i < graphNode.circles.length; i++) {
         graphNode.circles[i].forces[0].setLen(80.0);
@@ -326,12 +345,15 @@ function showslot(slotNode) {
             graphNode.circles[i].forces.pop();
         }
     }
-    slotNode.forces.push(new SpringForce(slotNode, graphNode.circles[0], 0.0));
-    for (i = 0; i < slotNode.firstChild.firstChild.attributes.length; i++){
-        if (slotNode.firstChild.firstChild.attributes[i].name == "class"){
-            slotNode.firstChild.firstChild.attributes[i].value = "";
+    node.forces.push(new SpringForce(node, graphNode.circles[0], 0.0));
+    for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
+        if (node.firstChild.firstChild.attributes[i].name == "class"){
+            node.firstChild.firstChild.attributes[i].value = "";
         }
     }
-    showText(slotNode);
+    graphNode.centerCircle = node;
+    Dajaxice.structure.getNodeInfo(buildGraph,
+        {'node_id':node.dbId, 'node_type':node.type});
+    showText(node);
     step();
 }

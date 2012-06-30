@@ -61,7 +61,6 @@ function hideText_step() {
 
 function showText(sourceNode) {
     document.getElementById("hauptText").textSource = sourceNode;
-    Dajaxice.structure.getNodeText(Dajax.process,{'node_id': sourceNode.getAttribute('id')});
     hideText();
     setTimeout("showText_intermission()", 425);
 }

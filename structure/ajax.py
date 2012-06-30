@@ -42,5 +42,6 @@ def getNodeInfo(request, node_id, node_type):
     return json.dumps({'text' : node.getText(),
                        'type' : node.getType(),
                        'short_title' : node.getShortTitle(),
+                       'id' : node.id,
                        'children' : [ {'short_title' : c.getShortTitle(), 'type' : c.getType(), 'id' : c.id} for c in children]
                        })
