@@ -5,3 +5,11 @@
     {{ structure.text }}
     </p>
 {% endfor %}
+<h2>Neuer Vorschlag</h2>
+<p>
+    <form action="/.submit/TextNode" method="POST">
+    {% csrf_token %}
+    {{ new_alternative_form.as_p }}
+    <input type='submit' value="Abschicken">
+    </form>
+</p>

@@ -2,8 +2,9 @@
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
 from dajaxice.decorators import dajaxice_register
+from django.template.context import RequestContext
 from django.template.loader import render_to_string
-from structure.forms import VotingForm
+from structure.forms import VotingForm, CreateTextNodeForm
 from structure.models import TextNode, Slot, StructureNode, Vote
 import json
 from structure.vote_helpers import vote_for_textNode
@@ -18,19 +19,25 @@ def getNodeText(node, request):
             votingForm = VotingForm(initial={'text_id' : node.id, 'consent' : vote.consent, 'wording' : vote.wording})
         else:
             votingForm = VotingForm(initial={'text_id' : node.id})
-
         return render_to_string('node/renderTextNode.html',
             {'title' : node.getShortTitle(),
              'text'  : node.getText(),
-             'form'  : votingForm})
+             'form'  : votingForm},
+            RequestContext(request))
+
     elif isinstance(node, Slot):
+        createTextNodeForm = CreateTextNodeForm({'slot_id' : node.id})
         return render_to_string('node/renderSlot.html',
             {'title' : node.getShortTitle(),
-             'alternatives' : [{'id' : a.nr_in_parent(), 'text' : a.getText()} for a in node.node_set.order_by('-consent_cache')]})
+             'alternatives' : [{'id' : a.nr_in_parent(), 'text' : a.getText()} for a in node.node_set.order_by('-consent_cache')],
+             'new_alternative_form' : createTextNodeForm},
+            RequestContext(request))
+
     elif isinstance(node, StructureNode):
         return render_to_string('node/renderStructureNode.html',
             {'title' : node.getShortTitle(),
-             'slots' : [{'short_title' : s.getShortTitle(), 'text' : s.getText()} for s in node.slot_set.all()]})
+             'slots' : [{'short_title' : s.getShortTitle(), 'text' : s.getText()} for s in node.slot_set.all()]},
+            RequestContext(request))
     else :
         return ""
 
