@@ -3,6 +3,8 @@ function Mass() {
     this.y = 0.0;
     this.vx = 0.0;
     this.vy = 0.0;
+    this.ax = 0.0;
+    this.ay = 0.0;
 }
 
 Mass.prototype.setPosition = function (newX, newY) {
@@ -19,7 +21,7 @@ function SpringForce(mass1, mass2, len) {
     this.massA = mass1;
     this.massB = mass2;
     this.len = len;
-    this.k = 0.03;
+    this.k = 0.01;
 }
 
 SpringForce.prototype.setLen = function (newLen) {
@@ -105,23 +107,37 @@ function step() {
     //alert("We have "+masses.length+" masses and "+arrows.length+" arrows.")
     var i;
     var sum_v = 0;
+    var newMass = new Array();
+    for (i = 0; i < masses.length; i++) {
+        masses[i].mass.ax = 0;
+        masses[i].mass.ay = 0;
+        newMass.push(new Mass());
+    }
     for (i = 0; i < masses.length; i++) {
         // calculate new position
-        masses[i].mass.setPosition(masses[i].mass.x + masses[i].mass.vx, masses[i].mass.y + masses[i].mass.vy);
-        masses[i].style.left = Math.round(masses[i].mass.x - masses[i].style.width / 2 - 30) + "px";
-        masses[i].style.top = Math.round(masses[i].mass.y - masses[i].style.height / 2) + "px";
+        newMass[i].setPosition(masses[i].mass.x + masses[i].mass.vx, masses[i].mass.y + masses[i].mass.vy);
+        masses[i].style.left = Math.round(newMass[i].x - masses[i].style.width / 2 - 30) + "px";
+        masses[i].style.top = Math.round(newMass[i].y - masses[i].style.height / 2) + "px";
         // calculate new velocity
-        var ax = 0;
-        var ay = 0;
         if (masses[i].forces) {
             for (var j = 0; j < masses[i].forces.length; j++) {
                 masses[i].forces[j].calcXY();
-                ax += masses[i].forces[j].Fx;
-                ay += masses[i].forces[j].Fy;
+                var c_ax = masses[i].forces[j].Fx;
+                var c_ay = masses[i].forces[j].Fy;
+                masses[i].mass.ax += c_ax;
+                masses[i].mass.ay += c_ay;
+                if (masses[i].forces[j].forceType() == 1) {
+                    // It's a spring.
+                    masses[i].forces[j].massB.mass.ax -= c_ax;
+                    masses[i].forces[j].massB.mass.ay -= c_ay;
+                }
             }
         }
-        masses[i].mass.setVelocity(masses[i].mass.vx * 0.7 + ax, masses[i].mass.vy * 0.7 + ay);
+    }
+    for (i = 0; i < masses.length; i++) {
+        newMass[i].setVelocity(masses[i].mass.vx * 0.5 + masses[i].mass.ax, masses[i].mass.vy * 0.5 + masses[i].mass.ay);
         sum_v += Math.abs(masses[i].mass.vx) + Math.abs(masses[i].mass.vy);
+        masses[i].mass = newMass[i];
     }
     // adjust graph height
     var minHeight = 0;
@@ -350,11 +366,11 @@ function runSimulation(node_id) {
 function showNode(node) {
     var graphNode = document.getElementById('graph');
     for (var i = 1; i < graphNode.circles.length; i++) {
-        graphNode.circles[i].forces[0].setLen(80.0);
+        //graphNode.circles[i].forces[0].setLen(80.0);
         graphNode.circles[i].firstChild.firstChild.setAttribute("class", "linklike");
-        if (graphNode.circles[i].forces[(graphNode.circles[i].forces.length - 1)].forceType() == 1) {
-            graphNode.circles[i].forces.pop();
-        }
+        //if (graphNode.circles[i].forces[(graphNode.circles[i].forces.length - 1)].forceType() == 1) {
+        //    graphNode.circles[i].forces.pop();
+        //}
     }
     //node.forces.push(new SpringForce(node, graphNode.circles[0], 0.0));
     //for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
