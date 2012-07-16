@@ -19,3 +19,11 @@ class VotingForm(forms.Form):
 class CreateTextNodeForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea, required=False)
     slot_id = forms.IntegerField(widget=forms.HiddenInput)
+
+class CreateSlotWithTextForm(forms.Form):
+    short_title = forms.CharField(max_length=20,
+        label="Kurztitel (20 Zeichen)",
+        required=False
+    )
+    text = forms.CharField(widget=forms.Textarea, required=False)
+    parent_id = forms.IntegerField(widget=forms.HiddenInput)

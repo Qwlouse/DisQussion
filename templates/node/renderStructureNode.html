@@ -6,3 +6,10 @@
         {{ slot.text }}
     </p>
 {% endfor %}
+<p>
+<form action="/.submit/SlotWithText" method="POST">
+    {% csrf_token %}
+    {{ create_slot_with_text_form.as_p }}
+    <input type='submit' value="Abschicken">
+</form>
+</p>

@@ -25,6 +25,7 @@ urlpatterns = patterns('',
 
     # Submissions
     url(r'^\.submit/TextNode', 'structure.views.submit_textNode'),
+    url(r'^\.submit/SlotWithText', 'structure.views.submit_slot_with_text'),
 
 
     (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
