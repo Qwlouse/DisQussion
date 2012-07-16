@@ -67,7 +67,7 @@ class Node(models.Model):
         """
         Traverse the subtree spanned by this node and gather the texts with highest consent.
         """
-        return self.as_leaf_class().getTextForNode()
+        return self.as_leaf_class().getText()
 
     def getShortTitle(self):
         if self.parent is None:
@@ -132,8 +132,11 @@ class StructureNode(Node):
         return self.slot_set.count()
 
     def getText(self):
-        text = [slot.getText() for slot in self.slot_set.all()]
-        return "\n".join(text)
+        return "\n".join(self.getPassages())
+
+    def getPassages(self):
+        passages = [slot.getText() for slot in self.slot_set.all()]
+        return passages
 
     def getType(self):
         return "StructureNode"
