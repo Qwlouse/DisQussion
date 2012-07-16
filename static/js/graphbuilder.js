@@ -228,7 +228,7 @@ function addCircleToGraph(short_title, springTarget, springLength, id, text, typ
     var circles = document.getElementById('graph').circles;
     var isNotInCircles = true;
     for (var i = 0; i < circles.length; i++) {
-        if (circles[i].dbId == id) { isNotInCircles = false; }
+        if ((circles[i].dbId == id) && (circles[i].type == type)) { isNotInCircles = false; }
     }
     if (isNotInCircles) {
         var outerDIV = createCircleStructure(short_title, springTarget, springLength);
