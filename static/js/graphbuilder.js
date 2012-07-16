@@ -244,26 +244,20 @@ function addCircleToGraph(short_title, springTarget, springLength, id, text, typ
 }
 
 function buildGraph(data) {
-    // Set text
-    /*for (i = 0; i < document.getElementById("hauptText").childNodes.length; i++) {
-        if (document.getElementById("hauptText").childNodes[i].nodeType == 1) {
-            for (j = 0; j < document.getElementById("hauptText").childNodes[i].attributes.length; j++) {
-                if (document.getElementById("hauptText").childNodes[i].attributes[j].name == "class") {
-                    if (document.getElementById("hauptText").childNodes[i].attributes[j].value == "text") {
-                        document.getElementById("hauptText").childNodes[i].innerHTML = data['text'];
-                    }
-                }
-            }
-        }
-    }*/
-    //build graph
     var graphNode = document.getElementById('graph');
     var circles = graphNode.circles;
     var arrows = graphNode.arrows;
     var rootDIV = graphNode.firstChild;
+    // Set text
+    for (var i = 0; i < circles.length; i++) {
+        if (circles[i].dbId == data['id']) {
+            circles[i].textPart = data['text'];
+        }
+    }
+    //build graph
     addCircleToGraph(data['short_title'], rootDIV, 0.0, data['id'],
         data['text'], data['type'], true);
-    for (var i = 0; i < data['children'].length; i++) {
+    for (i = 0; i < data['children'].length; i++) {
         var child = data['children'][i];
         if (addCircleToGraph(child['short_title'], graphNode.centerCircle, 80.0, child['id'],
             "<h1>SLOT</h1>", child['type'], false)) {
