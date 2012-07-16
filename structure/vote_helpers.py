@@ -1,11 +1,9 @@
 #!/usr/bin/python
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
-from django.db.models.aggregates import Max, Avg
 
-from structure.models import Vote
+from structure.models import Vote, adjust_vote_caches
 from django.db.models import Sum
-from structure.path_helpers import getPathToRoot
 
 def vote_for_textNode(user, node, consent=None, wording=None):
     # check if there is already a vote

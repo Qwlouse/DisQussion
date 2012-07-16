@@ -2,4 +2,15 @@
 <p>
     {{ text }}
 </p>
+<p>
+    <form name="vote_form">
+    {% csrf_token %}
+        {{ form.as_p }}
+        <input type='button' onclick="submit_vote_for_text_node(this.form)" value="Abstimmen!" />
+    </form>
+</p>
+
+
+
+
 
