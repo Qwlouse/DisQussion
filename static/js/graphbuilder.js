@@ -268,18 +268,35 @@ function buildGraph(data) {
             graphNode.insertBefore(outerArrow, graphNode.firstChild);
         }
     }
+    //clear all charge forces
+    for (i = 1; i < circles.length; i++) {
+        for (var j = 0; j < circles[i].forces.length; j++) {
+            if (circles[i].forces[j].forceType() == 2) {
+                circles[i].forces.splice(j,1);
+            }
+        }
+    }
+    //add new forces
     for (i = 1; i < circles.length; i++) {
         var a = new Array();
-        for (var j = 1; j < circles.length; j++) {
+        for (j = 1; j < circles.length; j++) {
             if (j != i) {
                 a.push(circles[j]);
             }
-            if (circles[j].forces[0].getB() == circles[i]) {
-                circles[i].forces.push(new SpringForce(circles[i],circles[j], 80.0));
-            }
+            //if (circles[j].forces[0].getB() == circles[i]) {
+            //    circles[i].forces.push(new SpringForce(circles[i],circles[j], 80.0));
+            //}
         }
         circles[i].forces.push(new ChargeForce(circles[i], a));
     }
+    //alert(circles.length);
+    /*for (i = 1; i < circles.length; i++) {
+        var types = new Array();
+        for (j = 0; j < circles[i].forces.length; j++) {
+            types.push(circles[i].forces[j].forceType());
+        }
+        alert(types);
+    }*/
     graphNode.circles = circles;
     graphNode.arrows = arrows;
     step();
@@ -339,12 +356,12 @@ function showNode(node) {
             graphNode.circles[i].forces.pop();
         }
     }
-    node.forces.push(new SpringForce(node, graphNode.circles[0], 0.0));
-    for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
-        if (node.firstChild.firstChild.attributes[i].name == "class"){
-            node.firstChild.firstChild.attributes[i].value = "";
-        }
-    }
+    //node.forces.push(new SpringForce(node, graphNode.circles[0], 0.0));
+    //for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
+    //    if (node.firstChild.firstChild.attributes[i].name == "class"){
+    //        node.firstChild.firstChild.attributes[i].value = "";
+    //    }
+    //}
     graphNode.centerCircle = node;
     Dajaxice.structure.getNodeInfo(buildGraph,
         {'node_id':node.dbId, 'node_type':node.type});
