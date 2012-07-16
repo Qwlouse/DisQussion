@@ -299,20 +299,9 @@ function buildGraph(data) {
             if (j != i) {
                 a.push(circles[j]);
             }
-            //if (circles[j].forces[0].getB() == circles[i]) {
-            //    circles[i].forces.push(new SpringForce(circles[i],circles[j], 80.0));
-            //}
         }
         circles[i].forces.push(new ChargeForce(circles[i], a));
     }
-    //alert(circles.length);
-    /*for (i = 1; i < circles.length; i++) {
-        var types = new Array();
-        for (j = 0; j < circles[i].forces.length; j++) {
-            types.push(circles[i].forces[j].forceType());
-        }
-        alert(types);
-    }*/
     graphNode.circles = circles;
     graphNode.arrows = arrows;
     step();
@@ -365,19 +354,33 @@ function runSimulation(node_id) {
 
 function showNode(node) {
     var graphNode = document.getElementById('graph');
-    for (var i = 1; i < graphNode.circles.length; i++) {
-        //graphNode.circles[i].forces[0].setLen(80.0);
+    var circles = graphNode.circles;
+    var i = 1;
+    // remove ALL other nodes TODO: keep parent for back-navigation
+    /*while (circles.length > 3) {
+        if (circles[i] == node) {
+            i++;
+        } else {
+            if (circles[i] == node.forces[0].massB) {
+                i++;
+            } else {
+                circles.splice(i, 1);
+            }
+        }
+    }*/
+    // make circles clickable
+    for (var i = 1; i < circles.length; i++) {
         graphNode.circles[i].firstChild.firstChild.setAttribute("class", "linklike");
-        //if (graphNode.circles[i].forces[(graphNode.circles[i].forces.length - 1)].forceType() == 1) {
-        //    graphNode.circles[i].forces.pop();
-        //}
     }
-    //node.forces.push(new SpringForce(node, graphNode.circles[0], 0.0));
-    //for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
-    //    if (node.firstChild.firstChild.attributes[i].name == "class"){
-    //        node.firstChild.firstChild.attributes[i].value = "";
-    //    }
-    //}
+    // pull node to center
+    node.forces[0].massB = graphNode.circles[0];
+    node.forces[0].len = 0.0;
+    // mark centerCircle clicked
+    for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
+        if (node.firstChild.firstChild.attributes[i].name == "class"){
+            node.firstChild.firstChild.attributes[i].value = "";
+        }
+    }
     graphNode.centerCircle = node;
     Dajaxice.structure.getNodeInfo(buildGraph,
         {'node_id':node.dbId, 'node_type':node.type});
