@@ -15,12 +15,12 @@ body {
 	font-size: 10pt;
 }
 
-div.text {
+div#text {
 	max-width: 33em;
     float: left;
 }
 
-div.text p {
+div#text p {
 	font-family: CMU serif, CMUSerif, cmr12, serif;
 	font-size: 12pt;
 	text-indent: 0.8em;
@@ -63,13 +63,6 @@ a:visited {
 div#textPart {
 	margin: 0.5em auto;
 	max-width: 33em;
-}
-
-div#textpart div#hauptText {
-	float: left;
-	margin: 0 2em;
-    max-width: 33em;
-    display: block;
 }
 
 div.inline {
