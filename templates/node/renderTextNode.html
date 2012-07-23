@@ -1,7 +1,9 @@
 <h1>{{ title }}</h1>
+{% load markup_tags %}
 <p>
-    {{ text }}
+    {{ text|apply_markup:"creole" }}
 </p>
+<h2>Bewertung</h2>
 <p>
     <form name="vote_form">
     {% csrf_token %}

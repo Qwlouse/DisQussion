@@ -129,7 +129,8 @@ INSTALLED_APPS = (
     'structure',
     'accounts',
     'dajaxice',
-    'dajax'
+    'dajax',
+    'django_markup'
 )
 
 # Add custom user profile information

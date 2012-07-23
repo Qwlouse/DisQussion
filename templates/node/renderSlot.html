@@ -1,8 +1,9 @@
 <h1>Alternative Vorschläge für {{ title }}</h1>
+{% load markup_tags %}
 {% for structure in alternatives %}
     <h2>{{ structure.id }}</h2>
     <p>
-    {{ structure.text }}
+    {{ structure.text|apply_markup:"creole" }}
     </p>
 {% endfor %}
 <h2>Neuer Vorschlag</h2>

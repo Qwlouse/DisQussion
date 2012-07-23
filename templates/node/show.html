@@ -3,7 +3,7 @@
 {% block title %}DisQussion: {{ pagename }}{% endblock %}
 
 {% block bodytag %}
-    <body onload="runSimulation({{ center_node_id }});">
+    <body onload="buildGraph({{ center_node_id }}, {{ center_node_title }});">
 {% endblock %}
 
 {% block graph %}
