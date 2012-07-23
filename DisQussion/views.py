@@ -24,7 +24,8 @@ def home(request):
              "this_url": "/",
              "authForm": AuthenticationForm(),
              "textForm": textForm,
-             "center_node_id" : root.id
+             "center_node_id" : root.id,
+             "center_node_title" : root.getShortTitle()
              },
         context_instance=RequestContext(request))
 

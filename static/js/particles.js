@@ -35,12 +35,15 @@ Particle.prototype.move = function () {
     this.vy += this.ay;
     this.x += this.vx;
     this.y += this.vy;
+    var d = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
     // dampen
     this.vx *= dampening;
     this.vy *= dampening;
     // clear forces
     this.ax = 0;
     this.ay = 0;
+    // return traveled distance
+    return d;
 };
 
 
@@ -101,6 +104,8 @@ function updateParticles(particles, springs) {
         particles[i].applyTargetForce();
 
     // move particles
+    var totalDistance = 0.0;
     for (i = 0; i < particles.length; ++i)
-        particles[i].move();
+        totalDistance += particles[i].move();
+    return totalDistance;
 }
