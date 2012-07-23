@@ -21,9 +21,11 @@ function showNode(node) {
         // remove force to center
         graphNode.circles[i].particle.targetY = 0.0;
         graphNode.circles[i].particle.targetX = null;
+        graphNode.circles[i].particle.targetForce = 0.003;
     }
     // pull node to center
-    node.targetX = 0.0;
+    node.particle.targetX = 0.0;
+    node.particle.targetForce = 0.02;
 
     // mark centerCircle clicked
     for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
