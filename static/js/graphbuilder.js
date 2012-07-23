@@ -41,6 +41,7 @@ function buildGraph(node_id, title) {
     document.getElementById('graph').appendChild(graphNode.centerCircle);
     graphNode.arrows = new Array();
     Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : 'StructureNode'});
+    showNode(graphNode.centerCircle);
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
 }
 
