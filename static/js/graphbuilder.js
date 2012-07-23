@@ -38,6 +38,7 @@ function buildGraph(node_id, title) {
     var graphNode = document.getElementById('graph');
     graphNode.centerCircle = createCircleStructure(title, node_id, "StructureNode");
     graphNode.circles = new Array(graphNode.centerCircle);
+    document.getElementById('graph').appendChild(graphNode.centerCircle);
     graphNode.arrows = new Array();
     Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : 'StructureNode'});
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
@@ -50,7 +51,10 @@ function amendGraph(data) {
     var arrows = graphNode.arrows;
     var currentIndex = getIndexInCircles(circles, data['id'], data['type']);
     var parent = circles[currentIndex];
-    // TODO: Set text
+    // set text
+    document.getElementById("text").innerHTML = data['text'];
+    showText_step();
+    // add new nodes + arrows
     for (var i = 0; i < data['children'].length; i++) {
         var child_data = data['children'][i];
         var childIndex = getIndexInCircles(circles, child_data['id'], child_data['type']);
@@ -63,23 +67,24 @@ function amendGraph(data) {
             graphNode.insertBefore(arrow, graphNode.firstChild);
         }
     }
-
     graphNode.circles = circles;
     graphNode.arrows = arrows;
     step(); //TODO: Check if step is running
+
 }
 
 
 /////////////////////// Simulation /////////////////////////////////
 function step() {
+
     var circles = document.getElementById('graph').circles;
     var arrows = document.getElementById('graph').arrows;
     var particles = new Array();
     for (var i = 0; i < circles.length; ++i)
-        particles.push(circles.particle);
+        particles.push(circles[i].particle);
     var springs = new Array();
     for (i = 0; i < arrows.length; ++i)
-        springs.push(arrows.spring);
+        springs.push(arrows[i].spring);
     var particleMovement = updateParticles(particles, springs);
 
     // set new position

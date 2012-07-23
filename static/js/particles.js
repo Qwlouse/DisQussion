@@ -8,7 +8,7 @@ function Particle() {
     this.ay = 0.0;
     this.targetX = null;
     this.targetY = null;
-    this.targetForce = 1.0;
+    this.targetForce = .003;
 }
 
 
@@ -21,10 +21,10 @@ Particle.prototype.addForce = function (newAx, newAy) {
 Particle.prototype.applyTargetForce = function() {
     // add force to target
     if (this.targetX != null)
-        this.ax += (this.x - this.targetX) * this.targetForce;
+        this.ax += (this.targetX - this.x) * this.targetForce;
 
     if (this.targetY != null)
-        this.ay += (this.y - this.targetY) * this.targetForce;
+        this.ay += (this.targetY - this.y) * this.targetForce;
 };
 
 
@@ -100,7 +100,7 @@ function updateParticles(particles, springs) {
     calculateRepulsion(particles);
     for (var i = 0; i < springs.length; ++i)
         springs[i].pushNpull();
-    for (i = 0; i < particles.length; ++i)
+    for (var i = 0; i < particles.length; ++i)
         particles[i].applyTargetForce();
 
     // move particles

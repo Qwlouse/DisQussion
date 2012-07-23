@@ -44,7 +44,7 @@ function hideText_step() {
     var opac = parseFloat(document.getElementById("text").style.opacity);
     document.getElementById("text").style.opacity = "" + (opac - 0.11);
     if (opac >= 0.01) {
-        setTimeout("hideText_step()", 25);
+        setTimeout("hideText_step()", 20);
     } else {
         document.getElementById("text").childNodes[i].style.display = "none";
     }
@@ -53,7 +53,7 @@ function hideText_step() {
 function showText(sourceNode) {
     document.getElementById("text").textSource = sourceNode;
     hideText();
-    setTimeout("showText_intermission()", 425);
+    //setTimeout("showText_intermission()", 425);
 }
 
 function showText_intermission() {
