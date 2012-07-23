@@ -15,7 +15,7 @@ function showNode(node) {
      }
      }*/
     // reset all nodes
-    for (var i = 1; i < circles.length; i++) {
+    for (var i = 0; i < circles.length; i++) {
         // make circles clickable
         graphNode.circles[i].firstChild.firstChild.setAttribute("class", "linklike");
         // remove force to center
