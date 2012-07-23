@@ -1,9 +1,9 @@
 <h1>{{ title }}</h1>
-
+{% load markup_tags %}
 {% for slot in slots %}
     <h2>{{ slot.short_title }}</h2>
     <p>
-        {{ slot.text }}
+        {{ slot.text|apply_markup:"creole" }}
     </p>
 {% endfor %}
 <p>
