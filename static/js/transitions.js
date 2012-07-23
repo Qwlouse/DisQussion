@@ -1,5 +1,16 @@
 function showNode(node) {
     var graphNode = document.getElementById('graph');
+    while ( graphNode.firstChild ) graphNode.removeChild( graphNode.firstChild );
+    graphNode.appendChild(node);
+    var newCircles = new Array(node);
+    if (node.parent != null)
+    {
+        newCircles.push(node.parent);
+        graphNode.appendChild(node.parent);
+        graphNode.arrows = new Array(createArrowStructure(node.parent, node));
+        graphNode.insertBefore(graphNode.arrows[0], graphNode.firstChild);
+    }
+    graphNode.circles = newCircles;
     var circles = graphNode.circles;
     //var i = 1;
     // remove ALL other nodes TODO: keep parent for back-navigation
@@ -33,6 +44,7 @@ function showNode(node) {
             node.firstChild.firstChild.attributes[i].value = "";
         }
     }
+
 
     graphNode.centerCircle = node;
     Dajaxice.structure.getNodeInfo(amendGraph, {'node_id':node.dbId, 'node_type':node.type});

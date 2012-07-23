@@ -61,11 +61,13 @@ function amendGraph(data) {
         var childIndex = getIndexInCircles(circles, child_data['id'], child_data['type']);
         if (childIndex == -1) {
             var child = createCircleStructure(child_data['short_title'], child_data['id'], child_data['type']);
+            child.parent = parent;
             circles.push(child);
-            document.getElementById('graph').appendChild(child);
+            graphNode.appendChild(child);
             var arrow = createArrowStructure(parent, child);
             arrows.push(arrow);
             graphNode.insertBefore(arrow, graphNode.firstChild);
+
         }
     }
     graphNode.circles = circles;
