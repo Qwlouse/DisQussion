@@ -40,8 +40,10 @@ function buildGraph(node_id, title) {
     graphNode.circles = new Array(graphNode.centerCircle);
     document.getElementById('graph').appendChild(graphNode.centerCircle);
     graphNode.arrows = new Array();
-    Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : 'StructureNode'});
     showNode(graphNode.centerCircle);
+    Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : 'StructureNode'});
+    document.getElementById('graph').marginTop = 20.0;
+    document.getElementById('graph').graphHeight = 20.0;
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
 }
 
@@ -107,9 +109,12 @@ function step() {
         minHeight = Math.min(particles[i].y, minHeight);
         maxHeight = Math.max(particles[i].y, maxHeight);
     }
-    document.getElementById('graph').style.height = Math.round(maxHeight) + "px";
-    document.getElementById('graph').style.marginTop = Math.round(minHeight * -1 + 20) + "px";
-
+    var graphHeight = Math.max(maxHeight, document.getElementById('graph').graphHeight - 1)
+    document.getElementById('graph').graphHeight = graphHeight;
+    document.getElementById('graph').style.height = Math.round(graphHeight) + "px";
+    var marginTop = Math.max(minHeight * -1 + 20, document.getElementById('graph').marginTop - 1);
+    document.getElementById('graph').marginTop = marginTop;
+    document.getElementById('graph').style.marginTop = Math.round(marginTop) + "px";
     // iterate
     if (particleMovement > 0.2) {
         setTimeout("step()", 25);
