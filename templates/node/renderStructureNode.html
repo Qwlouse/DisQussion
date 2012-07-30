@@ -6,6 +6,7 @@
         {{ slot.text|apply_markup:"creole" }}
     </p>
 {% endfor %}
+{% if user.is_authenticated %}
 <p>
 <form action="/.submit/SlotWithText" method="POST">
     {% csrf_token %}
@@ -13,3 +14,4 @@
     <input type='submit' value="Abschicken">
 </form>
 </p>
+{% endif %}
