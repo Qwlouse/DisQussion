@@ -6,6 +6,7 @@
     {{ structure.text|apply_markup:"creole" }}
     </p>
 {% endfor %}
+{% if user.is_authenticated %}
 <h2>Neuer Vorschlag</h2>
 <p>
     <form action="/.submit/TextNode" method="POST">
@@ -14,3 +15,4 @@
     <input type='submit' value="Abschicken">
     </form>
 </p>
+{% endif %}
