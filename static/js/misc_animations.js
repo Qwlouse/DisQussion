@@ -53,7 +53,7 @@ function hideText_step() {
 function showText(sourceNode) {
     document.getElementById("text").textSource = sourceNode;
     hideText();
-    //setTimeout("showText_intermission()", 425);
+    setTimeout("showText_intermission()", 425);
 }
 
 function showText_intermission() {
