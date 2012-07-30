@@ -7,8 +7,8 @@
     </p>
     <h3>Voting</h3>
     <ul>
-        <li>Zustimmung: {{ consent_rating }}</li>
-        <li>Formulierung: {{ wording_rating }}</li>
+        <li>Zustimmung: {{ structure.consent_rating }}</li>
+        <li>Formulierung: {{ structure.wording_rating }}</li>
     </ul>
 {% endfor %}
 {% if user.is_authenticated %}

@@ -23,6 +23,8 @@ def getNodeText(node, request):
         return render_to_string('node/renderTextNode.html',
             {'title' : node.getShortTitle(),
              'text'  : node.getText(),
+             'consent_rating' : node.calculate_consent_rating(),
+             'wording_rating' : node.calculate_wording_rating(),
              'form'  : votingForm},
             RequestContext(request))
 
@@ -30,7 +32,11 @@ def getNodeText(node, request):
         createTextNodeForm = CreateTextNodeForm({'slot_id' : node.id})
         return render_to_string('node/renderSlot.html',
             {'title' : node.getShortTitle(),
-             'alternatives' : [{'id' : a.nr_in_parent(), 'text' : a.getText()} for a in node.node_set.order_by('-consent_cache')],
+             'alternatives' : [{'id' : a.nr_in_parent(),
+                                'text' : a.getText(),
+                                'consent_rating' : a.calculate_consent_rating(),
+                                'wording_rating' : a.calculate_wording_rating()
+                                } for a in node.node_set.order_by('-rating')],
              'new_alternative_form' : createTextNodeForm},
             RequestContext(request))
 
@@ -39,6 +45,8 @@ def getNodeText(node, request):
 
         return render_to_string('node/renderStructureNode.html',
             {'title' : node.getShortTitle(),
+             'consent_rating' : node.calculate_consent_rating(),
+             'wording_rating' : node.calculate_wording_rating(),
              'slots' : [{'short_title' : s.getShortTitle(), 'text' : s.getText()} for s in node.slot_set.all()],
              'create_slot_with_text_form' : createSlotWithTextForm},
             RequestContext(request))

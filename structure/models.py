@@ -77,6 +77,12 @@ class Node(models.Model):
         else :
             return self.parent.getShortTitle()  + "." + str(self.nr_in_parent())
 
+    def calculate_consent_rating(self):
+        return self.consent_cache / (2 * (self.total_votes + voting_bias)) + 0.5
+
+    def calculate_wording_rating(self):
+        return self.wording_cache / (2 * (self.total_votes + voting_bias)) + 0.5
+
 
 class Slot(models.Model):
     parent = models.ForeignKey("StructureNode")
@@ -176,7 +182,7 @@ def calculate_vote_cache_TextNode(node):
     node.consent_cache = Vote.objects.filter(text=node).aggregate(Sum('consent'))['consent__sum']
     node.wording_cache = Vote.objects.filter(text=node).aggregate(Sum('wording'))['wording__sum']
     node.total_votes = Vote.objects.filter(text=node).count()
-    node.rating = node.consent_cache / (2 * (node.total_votes + voting_bias)) + 0.5
+    node.rating = node.calculate_consent_rating()
     node.save()
 
 def calculate_vote_cache_Slot(slot):
@@ -204,7 +210,7 @@ def calculate_vote_cache_StructureNode(structureNode):
     structureNode.consent_cache = structureNode.slot_set.aggregate(Sum('consent_cache'))["consent_cache__avg"]
     structureNode.wording_cache = structureNode.slot_set.aggregate(Sum('wording_cache'))["wording_cache__avg"]
     structureNode.total_votes = structureNode.slot_set.aggregate(Sum('total_votes'))["total_votes__avg"]
-    structureNode.rating = structureNode.consent_cache / (2 * (structureNode.total_votes + voting_bias)) + 0.5
+    structureNode.rating = structureNode.calculate_consent_rating()
     structureNode.save()
 
 def adjust_vote_caches(node):
