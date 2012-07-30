@@ -36,6 +36,7 @@ function createArrowStructure(parentCircle, childCircle) {
 
 function buildGraph(node_id, node_title, node_type) {
     var graphNode = document.getElementById('graph');
+    graphNode.stepRuns = false;
     graphNode.centerCircle = createCircleStructure(node_title, node_id, node_type);
     graphNode.appendChild(graphNode.centerCircle);
     graphNode.circles = new Array(graphNode.centerCircle);
@@ -55,8 +56,8 @@ function amendGraph(data) {
     var currentIndex = getIndexInCircles(circles, data['id'], data['type']);
     var currentNode = circles[currentIndex];
     // set text
-    document.getElementById("text").innerHTML = data['text'];
-    showText_step();
+    document.getElementById("text").textSource.textPart = data['text'];
+    document.getElementById("text").waitForText = false;
     // add new nodes + arrows
     for (var i = 0; i < data['children'].length; i++) {
         var child_data = data['children'][i];
@@ -91,8 +92,11 @@ function amendGraph(data) {
     if (window.location.pathname != data['url']) {
         window.history.pushState("Foo", "Bar", data['url']);
     }
-    step(); //TODO: Check if step is running
 
+    if (!(graphNode.stepRuns)) {
+        graphNode.stepRuns = true;
+        step();
+    }
 }
 
 
@@ -135,6 +139,8 @@ function step() {
     // iterate
     if (particleMovement > 0.2) {
         setTimeout("step()", 25);
+    } else {
+        document.getElementById('graph').stepRuns = false;
     }
 }
 

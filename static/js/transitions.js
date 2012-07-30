@@ -46,6 +46,7 @@ function showNode(node) {
     }
 
     graphNode.centerCircle = node;
+    document.getElementById("text").waitForText = true;
     Dajaxice.structure.getNodeInfo(amendGraph, {'node_id':node.dbId, 'node_type':node.type});
     showText(node);
 }
