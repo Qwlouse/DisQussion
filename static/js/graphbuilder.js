@@ -36,6 +36,7 @@ function createArrowStructure(parentCircle, childCircle) {
 
 function buildGraph(node_id, node_title, node_type) {
     var graphNode = document.getElementById('graph');
+    graphNode.stepRuns = false;
     graphNode.centerCircle = createCircleStructure(node_title, node_id, node_type);
     graphNode.appendChild(graphNode.centerCircle);
     graphNode.circles = new Array(graphNode.centerCircle);
@@ -91,8 +92,11 @@ function amendGraph(data) {
     if (window.location.pathname != data['url']) {
         window.history.pushState("Foo", "Bar", data['url']);
     }
-    step(); //TODO: Check if step is running
 
+    if (!(graphNode.stepRuns)) {
+        graphNode.stepRuns = true;
+        step();
+    }
 }
 
 
@@ -135,6 +139,8 @@ function step() {
     // iterate
     if (particleMovement > 0.2) {
         setTimeout("step()", 25);
+    } else {
+        document.getElementById('graph').stepRuns = false;
     }
 }
 
