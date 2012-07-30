@@ -60,8 +60,7 @@ function showText_intermission() {
     if (document.getElementById("text").waitForText) {
         setTimeout("showText_intermission()", 25);
     } else {
-        var textHTML = document.getElementById("text").textSource.textPart;
-        document.getElementById("text").innerHTML = textHTML;
+        document.getElementById("text").innerHTML = document.getElementById("text").textSource.textPart;
         showText_step();
     }
 }
@@ -74,22 +73,6 @@ function showText_step() {
         setTimeout("showText_step()", 25);
     } else {
         document.getElementById("text").style.opacity = "1.0";
-    }
-}
-
-function showNewProposal() {
-    hideText();
-    setTimeout("showNewProposal_step()", 425);
-}
-
-function showNewProposal_step() {
-    document.getElementById("inputText").style.display = "block";
-    var opacity = parseFloat(document.getElementById("inputText").style.opacity);
-    document.getElementById("inputText").style.opacity = "" + (opacity + 0.11);
-    if (opacity < 0.9) {
-        setTimeout("showNewProposal_step()", 25);
-    } else {
-        document.getElementById("inputText").style.opacity = "1.0";
     }
 }
 
