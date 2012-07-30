@@ -41,7 +41,7 @@ function buildGraph(node_id, node_title, node_type) {
     graphNode.circles = new Array(graphNode.centerCircle);
     graphNode.arrows = new Array();
     showNode(graphNode.centerCircle);
-    Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : node_type});
+    //Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : node_type});
     document.getElementById('graph').marginTop = 20.0;
     document.getElementById('graph').graphHeight = 20.0;
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
@@ -88,6 +88,9 @@ function amendGraph(data) {
     }
     graphNode.circles = circles;
     graphNode.arrows = arrows;
+    if (window.location.pathname != data['url']) {
+        window.history.pushState("Foo", "Bar", data['url']);
+    }
     step(); //TODO: Check if step is running
 
 }

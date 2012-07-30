@@ -69,7 +69,8 @@ def getNodeInfo(request, node_id, node_type):
                        'short_title' : node.getShortTitle(),
                        'id' : node.id,
                        'children' : [ {'short_title' : c.getShortTitle(), 'type' : c.getType(), 'id' : c.id} for c in children],
-                       'parent' : {'short_title' : parent_title, 'type' : parent_type, 'id' : parent_id}
+                       'parent' : {'short_title' : parent_title, 'type' : parent_type, 'id' : parent_id},
+                       'url' : node.getTextPath()
                        })
 
 
