@@ -57,9 +57,13 @@ function showText(sourceNode) {
 }
 
 function showText_intermission() {
-    var textHTML = document.getElementById("text").textSource.textPart;
-    document.getElementById("text").innerHTML = textHTML;
-    showText_step();
+    if (document.getElementById("text").waitForText) {
+        setTimeout("showText_intermission()", 25);
+    } else {
+        var textHTML = document.getElementById("text").textSource.textPart;
+        document.getElementById("text").innerHTML = textHTML;
+        showText_step();
+    }
 }
 
 function showText_step() {

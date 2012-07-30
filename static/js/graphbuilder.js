@@ -57,6 +57,7 @@ function amendGraph(data) {
     var currentNode = circles[currentIndex];
     // set text
     document.getElementById("text").textSource.textPart = data['text'];
+    document.getElementById("text").waitForText = false;
     // add new nodes + arrows
     for (var i = 0; i < data['children'].length; i++) {
         var child_data = data['children'][i];
