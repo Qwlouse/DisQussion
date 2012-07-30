@@ -25,7 +25,7 @@ class Node(models.Model):
     parent = models.ForeignKey("Slot", null=True, blank=True)
     consent_cache = models.FloatField(default=0.0)
     wording_cache = models.FloatField(default=0.0)
-    total_votes   = models.IntegerField(default=0)
+    total_votes   = models.IntegerField(default=voting_bias)
     rating = models.FloatField(default=0.5)
 
     content_type = models.ForeignKey(ContentType, editable=False, null=True)
@@ -78,10 +78,11 @@ class Node(models.Model):
             return self.parent.getShortTitle()  + "." + str(self.nr_in_parent())
 
     def calculate_consent_rating(self):
-        return self.consent_cache / (2 * (self.total_votes + voting_bias)) + 0.5
+        print(self.getShortTitle() + ": " + str(self.total_votes))
+        return self.consent_cache / (2 * self.total_votes) + 0.5
 
     def calculate_wording_rating(self):
-        return self.wording_cache / (2 * (self.total_votes + voting_bias)) + 0.5
+        return self.wording_cache / (2 * self.total_votes) + 0.5
 
 
 class Slot(models.Model):
@@ -105,7 +106,7 @@ class Slot(models.Model):
         return parent_path + self.short_title
 
     def getText(self):
-        alternatives = self.node_set.order_by('-consent_cache')
+        alternatives = self.node_set.order_by('-rating')
         if not alternatives :
             return ""
         else :
@@ -181,7 +182,7 @@ def calculate_vote_cache_TextNode(node):
     """
     node.consent_cache = Vote.objects.filter(text=node).aggregate(Sum('consent'))['consent__sum']
     node.wording_cache = Vote.objects.filter(text=node).aggregate(Sum('wording'))['wording__sum']
-    node.total_votes = Vote.objects.filter(text=node).count()
+    node.total_votes = Vote.objects.filter(text=node).count() + voting_bias
     node.rating = node.calculate_consent_rating()
     node.save()
 
@@ -189,7 +190,7 @@ def calculate_vote_cache_Slot(slot):
     """
     Recalculate the consent_ and wording_cache as the maximum of the current values for the child nodes.
     """
-    alternatives = slot.node_set.sort_by('-rating')
+    alternatives = slot.node_set.order_by('-rating')
     if alternatives :
         best_node = alternatives[0]
         slot.consent_cache = best_node.consent_cache
@@ -207,9 +208,9 @@ def calculate_vote_cache_StructureNode(structureNode):
     """
     Recalculate the consent_ and wording_cache as the average over the current values for the slots.
     """
-    structureNode.consent_cache = structureNode.slot_set.aggregate(Sum('consent_cache'))["consent_cache__avg"]
-    structureNode.wording_cache = structureNode.slot_set.aggregate(Sum('wording_cache'))["wording_cache__avg"]
-    structureNode.total_votes = structureNode.slot_set.aggregate(Sum('total_votes'))["total_votes__avg"]
+    structureNode.consent_cache = structureNode.slot_set.aggregate(Sum('consent_cache'))["consent_cache__sum"]
+    structureNode.wording_cache = structureNode.slot_set.aggregate(Sum('wording_cache'))["wording_cache__sum"]
+    structureNode.total_votes = structureNode.slot_set.aggregate(Sum('total_votes'))["total_votes__sum"]
     structureNode.rating = structureNode.calculate_consent_rating()
     structureNode.save()
 
