@@ -61,7 +61,9 @@ def getNodeForPath(path):
     current_node = getRootNode()
     for short_title, nr_in_parent in address:
         slot = getSlot(current_node, short_title)
-        current_node = getChildWithNr(slot, nr_in_parent)
+        if nr_in_parent < 0:
+            return slot
+        current_node = getChildWithNr(slot, nr_in_parent).as_leaf_class()
 
     return current_node
 

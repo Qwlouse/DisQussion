@@ -104,6 +104,9 @@ class Slot(models.Model):
     def getType(self):
         return "Slot"
 
+    def as_leaf_class(self):
+        return self
+
 
 class TextNode(Node):
     text = models.TextField()
