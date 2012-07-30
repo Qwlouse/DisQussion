@@ -6,6 +6,11 @@
     {{ structure.text|apply_markup:"creole" }}
     </p>
 {% endfor %}
+<h2>Voting</h2>
+<ul>
+    <li>Zustimmung: {{ consent_rating }}</li>
+    <li>Formulierung: {{ wording_rating }}</li>
+</ul>
 {% if user.is_authenticated %}
 <h2>Neuer Vorschlag</h2>
 <p>
