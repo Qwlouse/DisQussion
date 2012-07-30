@@ -61,7 +61,7 @@ class Node(models.Model):
         """
         Build a path string of the form 'AAA.123/BBBB.12/CC.1234'.
         """
-        return "/".join("{}.{}".format(slot.short_title, sn.nr_in_parent()) for sn, slot in self.getPathToRoot())
+        return "/" + "/".join("{}.{}".format(slot.short_title, sn.nr_in_parent()) for sn, slot in self.getPathToRoot())
 
     def getText(self):
         """
@@ -89,7 +89,10 @@ class Slot(models.Model):
         return self.short_title
 
     def getTextPath(self):
-        return self.parent.getTextPath() + '/' + self.short_title
+        parent_path = self.parent.getTextPath()
+        if not parent_path.endswith("/") :
+            parent_path += "/"
+        return parent_path + self.short_title
 
     def getText(self):
         alternatives = self.node_set.order_by('-consent_cache')

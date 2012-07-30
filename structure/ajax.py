@@ -13,12 +13,13 @@ from structure.vote_helpers import vote_for_textNode
 def getNodeText(node, request):
     if isinstance(node, TextNode):
         #get vote
-        votes = Vote.objects.filter(user = request.user, text=node)
-        if votes :
-            vote = votes[0]
-            votingForm = VotingForm(initial={'text_id' : node.id, 'consent' : vote.consent, 'wording' : vote.wording})
-        else:
-            votingForm = VotingForm(initial={'text_id' : node.id})
+        votingForm = VotingForm(initial={'text_id' : node.id})
+        if request.user.is_authenticated() :
+            votes = Vote.objects.filter(user = request.user, text=node)
+            if votes :
+                vote = votes[0]
+                votingForm = VotingForm(initial={'text_id' : node.id, 'consent' : vote.consent, 'wording' : vote.wording})
+
         return render_to_string('node/renderTextNode.html',
             {'title' : node.getShortTitle(),
              'text'  : node.getText(),
