@@ -34,14 +34,14 @@ function createArrowStructure(parentCircle, childCircle) {
 }
 
 
-function buildGraph(node_id, title) {
+function buildGraph(node_id, node_title, node_type) {
     var graphNode = document.getElementById('graph');
-    graphNode.centerCircle = createCircleStructure(title, node_id, "StructureNode");
+    graphNode.centerCircle = createCircleStructure(node_title, node_id, node_type);
+    graphNode.appendChild(graphNode.centerCircle);
     graphNode.circles = new Array(graphNode.centerCircle);
-    document.getElementById('graph').appendChild(graphNode.centerCircle);
     graphNode.arrows = new Array();
     showNode(graphNode.centerCircle);
-    Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : 'StructureNode'});
+    Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : node_type});
     document.getElementById('graph').marginTop = 20.0;
     document.getElementById('graph').graphHeight = 20.0;
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
@@ -53,7 +53,7 @@ function amendGraph(data) {
     var circles = graphNode.circles;
     var arrows = graphNode.arrows;
     var currentIndex = getIndexInCircles(circles, data['id'], data['type']);
-    var parent = circles[currentIndex];
+    var currentNode = circles[currentIndex];
     // set text
     document.getElementById("text").innerHTML = data['text'];
     showText_step();
@@ -63,10 +63,24 @@ function amendGraph(data) {
         var childIndex = getIndexInCircles(circles, child_data['id'], child_data['type']);
         if (childIndex == -1) {
             var child = createCircleStructure(child_data['short_title'], child_data['id'], child_data['type']);
-            child.parent = parent;
+            child.parent = currentNode;
             circles.push(child);
             graphNode.appendChild(child);
-            var arrow = createArrowStructure(parent, child);
+            var arrow = createArrowStructure(currentNode, child);
+            arrows.push(arrow);
+            graphNode.insertBefore(arrow, graphNode.firstChild);
+
+        }
+    }
+    // add parent if present
+    if (data['parent']['id'] >= 0) {
+        var parent_data = data['parent'];
+        var parentIndex = getIndexInCircles(circles, parent_data['id'], parent_data['type']);
+        if (parentIndex == -1) {
+            var parent = createCircleStructure(parent_data['short_title'], parent_data['id'], parent_data['type']);
+            circles.push(parent);
+            graphNode.appendChild(parent);
+            arrow = createArrowStructure(parent, currentNode);
             arrows.push(arrow);
             graphNode.insertBefore(arrow, graphNode.firstChild);
 

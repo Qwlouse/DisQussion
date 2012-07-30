@@ -55,11 +55,20 @@ def getNodeInfo(request, node_id, node_type):
         children = [c.as_leaf_class() for c in node.node_set.all()]
     elif isinstance(node, StructureNode):
         children = node.slot_set.all()
+    if node.parent is None:
+        parent_title = ""
+        parent_id = -1
+        parent_type = ""
+    else :
+        parent_title = node.parent.getShortTitle()
+        parent_id = node.parent_id
+        parent_type = node.parent.getType()
     return json.dumps({'text' : getNodeText(node, request),
                        'type' : node.getType(),
                        'short_title' : node.getShortTitle(),
                        'id' : node.id,
-                       'children' : [ {'short_title' : c.getShortTitle(), 'type' : c.getType(), 'id' : c.id} for c in children]
+                       'children' : [ {'short_title' : c.getShortTitle(), 'type' : c.getType(), 'id' : c.id} for c in children],
+                       'parent' : {'short_title' : parent_title, 'type' : parent_type, 'id' : parent_id}
                        })
 
 

@@ -25,6 +25,7 @@ def home(request):
              "authForm": AuthenticationForm(),
              "textForm": textForm,
              "center_node_id" : root.id,
+             "node_type" : root.getType(),
              "center_node_title" : root.getShortTitle()
              },
         context_instance=RequestContext(request))
@@ -32,5 +33,24 @@ def home(request):
 
     
 def path(request, path):
-    return HttpResponse(str(getNodeForPath(path).id))
+    if request.method == 'POST': # If the form has been submitted...
+        textForm = CreateTextForm(request.POST) # A form bound to the POST data
+        if textForm.is_valid(): # All validation rules pass
+            # Process the data in form.cleaned_data
+            # ...
+            return HttpResponseRedirect('/thanks/') # Redirect after POST
+    else:
+        node = getNodeForPath(path).as_leaf_class()
+        textForm = CreateTextForm() # An unbound form
+        return render_to_response("node/show.html",
+                {"pagename":"Root",
+                 "this_url": "/",
+                 "authForm": AuthenticationForm(),
+                 "textForm": textForm,
+                 "center_node_id" : node.id,
+                 "node_type" : node.getType(),
+                 "center_node_title" : node.getShortTitle()
+
+            },
+            context_instance=RequestContext(request))
 
