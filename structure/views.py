@@ -42,4 +42,4 @@ def submit_slot_with_text(request):
     t.parent = s
     t.save()
     add_auto_upvote(request.user, t)
-    return HttpResponseRedirect("/" + t.getTextPath())
+    return HttpResponseRedirect(t.getTextPath())
