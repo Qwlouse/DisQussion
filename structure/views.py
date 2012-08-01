@@ -19,7 +19,7 @@ def submit_textNode(request):
     t.parent_id = int(request.POST['slot_id'])
     t.save()
     add_auto_upvote(request.user, t)
-    return HttpResponseRedirect("/" + t.getTextPath())
+    return HttpResponseRedirect(t.getTextPath())
 
 
 def submit_slot_with_text(request):
