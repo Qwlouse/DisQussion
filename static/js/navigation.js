@@ -1,5 +1,6 @@
 function updateNavigation(data) {
     var navigationNode = document.getElementById('navbar');
+    var graphNode = document.getElementById('graph');
     var outerList = document.createElement('ol');
     for (var i = 0; i < data.length; i++) {
         var outerListElement = document.createElement('li');
@@ -15,11 +16,18 @@ function updateNavigation(data) {
             innerList.appendChild(innerListElement);
         }
         outerListElement.appendChild(innerList);
+        outerList.appendChild(outerListElement);
     }
-    navigationNode.childNodes = new Array(outerList);
+    outerListElement = document.createElement('li');
+    outerListElement.appendChild(graphNode);
+    outerList.appendChild(outerListElement);
+    //alert("xxx76364736.");
+    while ( navigationNode.firstChild ) navigationNode.removeChild( navigationNode.firstChild );
+    navigationNode.appendChild(outerList);
+    //alert("ganuralischowuraka.");
 }
 
 function navigateTo(event, id) {
     event.preventDefault();
-    alert("Tada!");
+    alert(id);
 }
