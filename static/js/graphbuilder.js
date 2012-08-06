@@ -49,6 +49,25 @@ function buildGraph(node_id, node_title, node_type) {
 }
 
 
+function buildAnchorGraph(data) {
+    Anchors = data["Anchors"];
+    var graphNode = document.getElementById('graph');
+    graphNode.stepRuns = false;
+    while ( graphNode.firstChild ) graphNode.removeChild( graphNode.firstChild );
+    graphNode.circles = new Array();
+
+    for (var i = 0; i < Anchors.length; ++i) {
+        var anchor = Anchors[i];
+        var anchor_circle = createCircleStructure(anchor['id'], anchor['id'], anchor['type']);
+        anchor_circle.particle.x = i*80;
+        anchor_circle.particle.targetX = i*80;
+        anchor_circle.particle.targetForce = 0.05;
+        graphNode.circles.push(anchor_circle);
+        graphNode.appendChild(anchor_circle);
+    }
+}
+
+
 function amendGraph(data) {
     var graphNode = document.getElementById('graph');
     var circles = graphNode.circles;

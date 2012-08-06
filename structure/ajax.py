@@ -114,15 +114,19 @@ def getHistory(request, node_id, node_type):
     slot_list = createSlotList(node, None, None) if node_type == "StructureNode" else []
     return json.dumps({"history" : history, "slot_list" : slot_list})
 
+@dajaxice_register
 def getTopRatedAlternatives(request, node_id, k = 5):
+    print(0)
     current_slot = Slot.objects.get(pk=node_id)
     # get alternatives sorted by rating
-    alternatives = current_slot.node_set.order_by("-consent_rating")
+    print(current_slot)
+    alternatives = current_slot.node_set.order_by("-rating")
+    print(alternatives)
     # TODO: prune uninteresting old nodes
     # get top k nodes
-    anchor_nodes = alternatives[:5]
+    anchor_nodes = alternatives[:min(k, len(alternatives))]
     # TODO: resort them to avoid crossings
-    results = {"Anchors": [{'id': n.id, 'consent': n.rating, 'total_votes': n.total_votes} for n in anchor_nodes]}
+    results = {"Anchors": [{'id': n.id, 'type' : n.as_leaf_class().getType(), 'consent': n.rating, 'total_votes': n.total_votes} for n in anchor_nodes]}
     # TODO: get all sources and derivates sorted by rating
     # TODO:
-    return results
+    return json.dumps(results)

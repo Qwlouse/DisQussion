@@ -52,6 +52,13 @@ function showNode(node) {
 
     graphNode.centerCircle = node;
     document.getElementById("text").waitForText = true;
-    Dajaxice.structure.getNodeInfo(amendGraph, {'node_id':node.dbId, 'node_type':node.type});
+    //
+    //alert(node.type);
+    if (node.type == "Slot") {
+        Dajaxice.structure.getTopRatedAlternatives(buildAnchorGraph, {'node_id':node.dbId, 'k':5});
+    } else {
+        Dajaxice.structure.getNodeInfo(amendGraph, {'node_id':node.dbId, 'node_type':node.type});
+    }
+
     showText(node);
 }
