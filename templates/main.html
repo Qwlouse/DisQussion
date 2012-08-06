@@ -14,6 +14,7 @@
     {% dajaxice_js_import %}
     <script src="{% static "js/prototype.dajax.core.js" %}" type="text/javascript" charset="utf-8"></script>
     <script src="{% static "js/graphbuilder.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/navigation.js" %}" type="text/javascript"></script>
     <script src="{% static "js/misc_animations.js" %}" type="text/javascript"></script>
     <script src="{% static "js/form_magic.js" %}" type="text/javascript"></script>
     <script src="{% static "js/particles.js" %}" type="text/javascript"></script>
@@ -52,7 +53,7 @@
     <ol>
         <li>
             <ol>
-                <li>Dies</li>
+                <li><a href="/WP.1" onclick="navigateTo(event, 15);">Dies</a></li>
                 <li>ist</li>
                 <li>die</li>
                 <li>Navigation.</li>
