@@ -106,9 +106,9 @@ def getHistory(request, node_id, node_type):
     node = getNode(node_id, node_type)
     path = node.getPathToRoot()
     root = getRootNode()
-    history = []# [createHistList(root, path[-1][1], path[-1][0])]
+    history = []
     current_sn = root
-    for sn, slot in reversed(path[1:]):
+    for sn, slot in reversed(path):
         history.append(createHistList(current_sn, slot, sn))
         current_sn = sn
     return json.dumps(history)
