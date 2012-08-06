@@ -56,7 +56,7 @@ class Node(models.Model):
         path = []
         while currentNode.parent is not None:
             path.append((currentNode, currentNode.parent))
-            currentNode = self.parent.parent
+            currentNode = currentNode.parent.parent
         return path
 
     def getTextPath(self):
