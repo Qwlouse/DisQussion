@@ -15,6 +15,27 @@ body {
 	font-size: 10pt;
 }
 
+div#navbar ol {
+    margin: 0;
+    list-style-type: none;
+    display: inline-block;
+    padding: 0;
+}
+
+div#navbar ol li {
+    display: inline-block;
+    border-right: 1px solid black;
+}
+
+div#navbar ol ol {
+    float: none;
+}
+
+div#navbar ol ol li {
+    display: list-item;
+    border-right-width: 0;
+}
+
 div#text {
 	max-width: 33em;
     float: left;
