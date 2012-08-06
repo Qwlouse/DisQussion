@@ -78,7 +78,6 @@ class Node(models.Model):
             return self.parent.getShortTitle()  + "." + str(self.nr_in_parent())
 
     def calculate_consent_rating(self):
-        print(self.getShortTitle() + ": " + str(self.total_votes))
         return self.consent_cache / (2 * self.total_votes) + 0.5
 
     def calculate_wording_rating(self):
