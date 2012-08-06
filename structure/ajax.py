@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from structure.forms import VotingForm, CreateTextNodeForm, CreateSlotWithTextForm
 from structure.models import TextNode, Slot, StructureNode, Vote
 import json
+from structure.path_helpers import getRootNode
 from structure.vote_helpers import vote_for_textNode
 
 
@@ -53,12 +54,15 @@ def getNodeText(node, request):
     else :
         return ""
 
+def getNode(node_id, node_type):
+    NodeType = {'Slot' : Slot,
+                'TextNode' : TextNode,
+                'StructureNode' : StructureNode}[node_type]
+    return NodeType.objects.get(pk=node_id)
+
 @dajaxice_register
 def getNodeInfo(request, node_id, node_type):
-    type = {'Slot' : Slot,
-            'TextNode' : TextNode,
-            'StructureNode' : StructureNode}[node_type]
-    node = type.objects.get(pk=node_id)
+    node = getNode(node_id, node_type)
     children = []
     if isinstance(node, Slot):
         children = [c.as_leaf_class() for c in node.node_set.all()]
@@ -88,3 +92,25 @@ def submitVoteForTextNode(request, text_id, consent, wording):
     node = TextNode.objects.get(id=text_id)
     vote_for_textNode(user, node, consent, wording)
     return json.dumps(dict())
+
+
+def createHistList(structure_node, selected_slot, selected_alternative):
+    slot_list = structure_node.slot_set.order_by("pk")
+    return [{'title' : s.getShortTitle() if s != selected_slot else selected_alternative.getShortTitle(),
+             'id' : s.pk,
+             'path' :  s.getTextPath() if s != selected_slot else selected_alternative.getTextPath(),
+             'selected' : s == selected_slot} for s in slot_list]
+
+@dajaxice_register
+def getHistory(request, node_id, node_type):
+    node = getNode(node_id, node_type)
+    path = node.getPathToRoot()
+    root = getRootNode()
+    history = []# [createHistList(root, path[-1][1], path[-1][0])]
+    current_sn = root
+    for sn, slot in reversed(path[1:]):
+        history.append(createHistList(current_sn, slot, sn))
+        current_sn = sn
+
+
+    return history

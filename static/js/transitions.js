@@ -1,7 +1,6 @@
 function showNode(node) {
     //UpdateNavigation code
     if (node.type != "Slot") {
-        alert(node.type);
         Dajaxice.structure.getHistory(updateNavigation, {'node_id':node.dbId, 'node_type':node.type});
     }
     //ShowNode code
