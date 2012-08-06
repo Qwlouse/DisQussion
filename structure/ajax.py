@@ -94,7 +94,7 @@ def submitVoteForTextNode(request, text_id, consent, wording):
     return json.dumps(dict())
 
 
-def createHistList(structure_node, selected_slot, selected_alternative):
+def createSlotList(structure_node, selected_slot, selected_alternative):
     slot_list = structure_node.slot_set.order_by("pk")
     return [{'title' : s.getShortTitle() if s != selected_slot else selected_alternative.getShortTitle(),
              'id' : s.pk,
@@ -109,6 +109,20 @@ def getHistory(request, node_id, node_type):
     history = []
     current_sn = root
     for sn, slot in reversed(path):
-        history.append(createHistList(current_sn, slot, sn))
+        history.append(createSlotList(current_sn, slot, sn))
         current_sn = sn
-    return json.dumps(history)
+    slot_list = createSlotList(node, None, None) if node_type == "StructureNode" else []
+    return json.dumps({"history" : history, "slot_list" : slot_list})
+
+def getTopRatedAlternatives(request, node_id, k = 5):
+    current_slot = Slot.objects.get(pk=node_id)
+    # get alternatives sorted by rating
+    alternatives = current_slot.node_set.order_by("-consent_rating")
+    # TODO: prune uninteresting old nodes
+    # get top k nodes
+    anchor_nodes = alternatives[:5]
+    # TODO: resort them to avoid crossings
+    results = {"Anchors": [{'id': n.id, 'consent': n.rating, 'total_votes': n.total_votes} for n in anchor_nodes]}
+    # TODO: get all sources and derivates sorted by rating
+    # TODO:
+    return results
