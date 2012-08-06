@@ -56,7 +56,7 @@ class Node(models.Model):
         path = []
         while currentNode.parent is not None:
             path.append((currentNode, currentNode.parent))
-            currentNode = self.parent.parent
+            currentNode = currentNode.parent.parent
         return path
 
     def getTextPath(self):
@@ -124,7 +124,7 @@ class Slot(models.Model):
 
 class TextNode(Node):
     text = models.TextField()
-    sources = models.ManyToManyField('self', symmetrical=False, related_name="derivates")
+    sources = models.ManyToManyField('self', symmetrical=False, related_name="derivates", blank=True)
 
     def __unicode__(self):
         if self.parent is not None:
