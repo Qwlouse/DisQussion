@@ -111,6 +111,4 @@ def getHistory(request, node_id, node_type):
     for sn, slot in reversed(path[1:]):
         history.append(createHistList(current_sn, slot, sn))
         current_sn = sn
-
-
-    return history
+    return json.dumps(history)
