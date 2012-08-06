@@ -26,12 +26,13 @@ div#navbar ol {
     display: inline-block;
     padding: 0;
     white-space: nowrap;
+    vertical-align: top;
 }
 
 div#navbar ol li {
     display: inline-block;
     border-right: 1px solid black;
-    height: 100%;
+    padding: 0 0.3em;
 }
 
 div#navbar ol ol {

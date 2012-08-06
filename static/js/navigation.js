@@ -21,20 +21,22 @@ function updateNavigation(data) {
     outerListElement = document.createElement('li');
     outerListElement.appendChild(graphNode);
     outerList.appendChild(outerListElement);
-    outerListElement = document.createElement('li');
-    innerList = document.createElement('ol');
-    for (i = 0; i < data['slot_list'].length; i++) {
-        innerListElement = document.createElement('li');
-        link = document.createElement('a');
-        link.setAttribute('href', data['slot_list'][i]['path']);
-        link.setAttribute('onclick', "navigateTo(event," + data['slot_list'][i]['id'] + ");");
-        title = document.createTextNode(data['slot_list'][i]['title']);
-        link.appendChild(title);
-        innerListElement.appendChild(link);
-        innerList.appendChild(innerListElement);
+    if (data['slot_list'].length > 0) {
+        outerListElement = document.createElement('li');
+        innerList = document.createElement('ol');
+        for (i = 0; i < data['slot_list'].length; i++) {
+            innerListElement = document.createElement('li');
+            link = document.createElement('a');
+            link.setAttribute('href', data['slot_list'][i]['path']);
+            link.setAttribute('onclick', "navigateTo(event," + data['slot_list'][i]['id'] + ");");
+            title = document.createTextNode(data['slot_list'][i]['title']);
+            link.appendChild(title);
+            innerListElement.appendChild(link);
+            innerList.appendChild(innerListElement);
+        }
+        outerListElement.appendChild(innerList);
+        outerList.appendChild(outerListElement);
     }
-    outerListElement.appendChild(innerList);
-    outerList.appendChild(outerListElement);
     while ( navigationNode.firstChild ) navigationNode.removeChild( navigationNode.firstChild );
     navigationNode.appendChild(outerList);
 }
