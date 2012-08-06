@@ -124,7 +124,7 @@ class Slot(models.Model):
 
 class TextNode(Node):
     text = models.TextField()
-    sources = models.ManyToManyField('self', symmetrical=False, related_name="derivates")
+    sources = models.ManyToManyField('self', symmetrical=False, related_name="derivates", blank=True)
 
     def __unicode__(self):
         if self.parent is not None:
