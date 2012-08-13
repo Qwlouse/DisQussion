@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+
+{% block title %}DisQussion: Verbessern oder Erweitern von {{ pattern_title }}{% endblock %}
+
+{% block bodytag %}
+    <body onload="initPage('{{ anchor_nodes }}', '{{ navigation }}', {{ selected_id }})">
+{% endblock %}
+
+{% block graph %}
+    <div id="graph"></div>
+    {#    <div id="newProposal"><div class="circle" onclick="showNewProposal()"><span id="bigplus">+</span></div></div>#}
+{% endblock %}
+
+{% block text %}
+    <form action="/.submit/TextNode" method="POST">
+        {% csrf_token %}
+        <h1>Vorschlag verbessern oder erweitern: {{ pattern_title }}</h1>
+
+        <p>Bitte versuche den ursprünglichen Vorschlag entweder zu verbessern oder aufbauend auf der
+            vorherigen Idee zu erweitern. Wenn du eine neue Idee hast, die mit dem Vorschlag
+            ({{ pattern_title }}) eigentlich nichts zu tun hat, dann clicke
+            <a href="http://www.google.de">hier</a>.</p>
+        {{ refine_form.as_p }}
+        <input type="submit" value="Vorschlag erstellen"/>
+    </form>
+{% endblock %}
