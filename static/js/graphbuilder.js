@@ -43,15 +43,15 @@ function buildGraph(node_id, node_title, node_type) {
     graphNode.arrows = new Array();
     showNode(graphNode.centerCircle);
     //Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : node_type});
-    graphNode.paddingTop = 30.0;
-    graphNode.paddingLeft = 30.0;
-    graphNode.paddingRight = 30.0;
-    graphNode.paddingBottom = 30.0;
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
 }
 
 
 function initPage(anchorGraphData, navigationData, selected_id) {
+    document.getElementById('graph').paddingTop = 30.0;
+    document.getElementById('graph').paddingLeft = 30.0;
+    document.getElementById('graph').paddingRight = 30.0;
+    document.getElementById('graph').paddingBottom = 30.0;
     updateNavigation(JSON.parse(navigationData));
     buildAnchorGraph(JSON.parse(anchorGraphData));
     // get selected Node:
