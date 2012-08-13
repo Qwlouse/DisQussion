@@ -14,4 +14,5 @@ def getTopRatedAlternatives(slot, k = 5, order_by="-rating"):
     # get top k nodes
     top_nodes = alternatives[:min(k, len(alternatives))]
     # TODO: resort them to avoid crossings
+    top_nodes = [n.as_leaf_class() for n in top_nodes]
     return top_nodes

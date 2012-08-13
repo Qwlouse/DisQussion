@@ -85,6 +85,27 @@ function buildAnchorGraph(data) {
         graphNode.appendChild(anchor_circle);
     }
 
+    // add related nodes
+    var relatedNodes = data['related_nodes'];
+    for (i = 0; i < relatedNodes.length; ++i) {
+        var node = relatedNodes[i];
+        var node_circle = createCircleStructure(node['id'], node['id'], node['type']);
+        node_circle.particle.y = -160;
+        node_circle.particle.x = i*80;
+        graphNode.circles.push(node_circle);
+        graphNode.appendChild(node_circle);
+    }
+
+    // add connections
+    var connections = data['connections'];
+    for (i = 0; i < connections.length; ++i) {
+        var connection = connections[i];
+        var source_node = getNodeById(graphNode.circles, connection[0], "TextNode");
+        var target_node = getNodeById(graphNode.circles, connection[1], "TextNode");
+        var arrow = createArrowStructure(source_node, target_node);
+        graphNode.arrows.push(arrow);
+        graphNode.insertBefore(arrow, graphNode.firstChild);
+    }
     if (!(graphNode.stepRuns)) {
         graphNode.stepRuns = true;
         step();
@@ -248,6 +269,13 @@ function drawArrow(arrowdiv) {
 function getIndexInCircles(circles, id, type) {
     for (var i = 0; i < circles.length; i++) {
         if ((circles[i].dbId == id) && (circles[i].type == type)) return i;
+    }
+    return -1;
+}
+
+function getNodeById(circles, id, type) {
+    for (var i = 0; i < circles.length; i++) {
+        if ((circles[i].dbId == id) && (circles[i].type == type)) return circles[i];
     }
     return -1;
 }

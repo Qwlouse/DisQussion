@@ -4,6 +4,7 @@ from __future__ import division, print_function, unicode_literals
 from dajaxice.decorators import dajaxice_register
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
+import operator
 from structure.forms import VotingForm, CreateTextNodeForm, CreateSlotWithTextForm
 from structure.models import TextNode, Slot, StructureNode, Vote
 import json
@@ -120,5 +121,23 @@ def getNavigationData(request, node_id, node_type):
 def getDataForAlternativesGraph(request, node_id, k = 5):
     top_nodes = getTopRatedAlternatives(node_id, k)
     results = {"Anchors": [{'id': n.id, 'type' : n.as_leaf_class().getType(), 'consent': n.rating, 'total_votes': n.total_votes} for n in top_nodes]}
-    #TODO: add sources and derivates
+    # add sources and derivates
+    sources_and_derivates = set()
+    for node in top_nodes:
+        #node = node.as_leaf_class()
+        if isinstance(node, TextNode):
+            sources_and_derivates = sources_and_derivates.union(set(node.sources.filter(parent=node.parent)))
+            sources_and_derivates = sources_and_derivates.union(set(node.derivates.filter(parent=node.parent)))
+    sources_and_derivates = sources_and_derivates.difference(set(top_nodes))
+    node_add_list = sorted(sources_and_derivates, key=operator.attrgetter('rating'), reverse=True)
+    node_add_list = node_add_list[:min(k, len(node_add_list))]
+    results['related_nodes'] = [{'id': n.id, 'type' : n.as_leaf_class().getType(), 'consent': n.rating, 'total_votes': n.total_votes} for n in node_add_list]
+    # add connections
+    nodes = set(top_nodes + node_add_list)
+    connections = []
+    for n in nodes :
+        if isinstance(n, TextNode):
+            connections += [(s.id, n.id) for s in n.sources.all() if s in nodes]
+            connections += [(n.id, d.id) for d in n.derivates.all() if d in nodes]
+    results['connections'] = connections
     return json.dumps(results)
