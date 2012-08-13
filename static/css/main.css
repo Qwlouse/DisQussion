@@ -48,6 +48,11 @@ div#navbar ol ol li {
     display: list-item;
     border-right-width: 0;
     font-size: 12pt;
+    font-weight: bold;
+}
+
+div#navbar ol ol li a {
+    text-decoration: no-underline;
 }
 
 div#text {
