@@ -42,6 +42,6 @@ function updateNavigation(data) {
 }
 
 function navigateTo(event, id) {
-    event.preventDefault();
-    alert(id);
+    //event.preventDefault();
+    //alert(id);
 }
