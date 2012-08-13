@@ -8,6 +8,7 @@ from structure.forms import VotingForm, CreateTextNodeForm, CreateSlotWithTextFo
 from structure.models import TextNode, Slot, StructureNode, Vote
 import json
 from structure.path_helpers import getRootNode
+from structure.query_helpers import getTopRatedAlternatives
 from structure.vote_helpers import vote_for_textNode
 
 
@@ -102,7 +103,7 @@ def createSlotList(structure_node, selected_slot, selected_alternative):
              'selected' : s == selected_slot} for s in slot_list]
 
 @dajaxice_register
-def getHistory(request, node_id, node_type):
+def getNavigationData(request, node_id, node_type):
     node = getNode(node_id, node_type)
     path = node.getPathToRoot()
     root = getRootNode()
@@ -115,18 +116,8 @@ def getHistory(request, node_id, node_type):
     return json.dumps({"history" : history, "slot_list" : slot_list})
 
 @dajaxice_register
-def getTopRatedAlternatives(request, node_id, k = 5):
-    print(0)
-    current_slot = Slot.objects.get(pk=node_id)
-    # get alternatives sorted by rating
-    print(current_slot)
-    alternatives = current_slot.node_set.order_by("-rating")
-    print(alternatives)
-    # TODO: prune uninteresting old nodes
-    # get top k nodes
-    anchor_nodes = alternatives[:min(k, len(alternatives))]
-    # TODO: resort them to avoid crossings
-    results = {"Anchors": [{'id': n.id, 'type' : n.as_leaf_class().getType(), 'consent': n.rating, 'total_votes': n.total_votes} for n in anchor_nodes]}
-    # TODO: get all sources and derivates sorted by rating
-    # TODO:
+def getDataForAlternativesGraph(request, node_id, k = 5):
+    top_nodes = getTopRatedAlternatives(node_id, k)
+    results = {"Anchors": [{'id': n.id, 'type' : n.as_leaf_class().getType(), 'consent': n.rating, 'total_votes': n.total_votes} for n in top_nodes]}
+    #TODO: add sources and derivates
     return json.dumps(results)

@@ -49,12 +49,31 @@ function buildGraph(node_id, node_title, node_type) {
 }
 
 
+function initPage(anchorGraphData, navigationData, selected_id) {
+    alert(anchorGraphData);
+    alert(navigationData);
+    updateNavigation(JSON.parse(navigationData));
+    buildAnchorGraph(JSON.parse(anchorGraphData));
+    // get selected Node:
+    var graphNode = document.getElementById('graph');
+    for (var i = 0; i < graphNode.circles.length; ++i) {
+        var node = graphNode.circles[i];
+        if ((node.dbId == selected_id) && node.type != "Slot") {
+
+            showNode(node);
+            break;
+        }
+    }
+}
+
+
 function buildAnchorGraph(data) {
     Anchors = data["Anchors"];
     var graphNode = document.getElementById('graph');
     graphNode.stepRuns = false;
     while ( graphNode.firstChild ) graphNode.removeChild( graphNode.firstChild );
     graphNode.circles = new Array();
+    graphNode.arrows = new Array();
 
     for (var i = 0; i < Anchors.length; ++i) {
         var anchor = Anchors[i];
