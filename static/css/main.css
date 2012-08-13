@@ -35,6 +35,11 @@ div#navbar ol li {
     padding: 0 0.3em;
 }
 
+div#navbar ol li div {
+    display: inline-block;
+    vertical-align: top;
+}
+
 div#navbar ol ol {
     float: none;
 }

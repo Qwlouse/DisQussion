@@ -43,10 +43,10 @@ function buildGraph(node_id, node_title, node_type) {
     graphNode.arrows = new Array();
     showNode(graphNode.centerCircle);
     //Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : node_type});
-    graphNode.paddingTop = 25.0;
-    graphNode.paddingLeft = 25.0;
-    graphNode.graphHeight = 50.0;
-    graphNode.graphWidth = 50.0;
+    graphNode.paddingTop = 30.0;
+    graphNode.paddingLeft = 30.0;
+    graphNode.paddingRight = 30.0;
+    graphNode.paddingBottom = 30.0;
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
 }
 
@@ -150,28 +150,31 @@ function step() {
     }
 
     // adjust graph dimensions
-    var minHeight = 0;
-    var maxHeight = 0;
-    var minWidth = 0;
-    var maxWidth = 0;
+    var minPosY = 0;
+    var maxPosY = 0;
+    var minPosX = 0;
+    var maxPosX = 0;
     for (i = 0; i < particles.length; i++) {
-        minHeight = Math.min(particles[i].y, minHeight);
-        maxHeight = Math.max(particles[i].y, maxHeight);
-        minWidth = Math.min(particles[i].x, minWidth);
-        maxWidth = Math.max(particles[i].x, maxWidth);
+        minPosY = Math.min(particles[i].y, minPosY);
+        maxPosY = Math.max(particles[i].y, maxPosY);
+        minPosX = Math.min(particles[i].x - 30, minPosX);
+        maxPosX = Math.max(particles[i].x - 30, maxPosX);
     }
-    var graphHeight = Math.max(maxHeight - minHeight, graphNode.graphHeight - 1);
-    graphNode.graphHeight = graphHeight;
-    var graphWidth = Math.max(maxWidth - minWidth, graphNode.graphWidth - 1);
-    graphNode.graphWidth = graphWidth;
-    graphNode.style.height = Math.round(graphHeight) + "px";
-    graphNode.style.width = Math.round(graphWidth) + "px";
-    var paddingTop = Math.max(minHeight * -1, graphNode.paddingTop - 1);
+    var paddingRight = Math.max(maxPosX + 36, graphNode.paddingRight - 1);
+    graphNode.paddingRight = paddingRight;
+    var paddingBottom = Math.max(maxPosY + 36, graphNode.paddingBottom - 1);
+    graphNode.paddingBottom = paddingBottom;
+    var paddingTop = Math.max(minPosY * -1 + 31, graphNode.paddingTop - 1);
     graphNode.paddingTop = paddingTop;
-    var paddingLeft = Math.max(minWidth * -1, graphNode.paddingLeft - 1);
+    var paddingLeft = Math.max(minPosX * -1 + 31, graphNode.paddingLeft - 1);
+    //var paddingLeft = Math.max(minPosX * -1, 0);
     graphNode.paddingLeft = paddingLeft;
+    graphNode.style.paddingRight = Math.round(paddingRight) + "px";
+    graphNode.style.paddingBottom = Math.round(paddingBottom) + "px";
     graphNode.style.paddingTop = Math.round(paddingTop) + "px";
     graphNode.style.paddingLeft = Math.round(paddingLeft) + "px";
+    //graphNode.style.width = Math.round(paddingRight+paddingLeft) + "px";
+    //graphNode.style.height = Math.round(paddingTop+paddingBottom) + "px";
     // iterate
     if (particleMovement > 0.2) {
         setTimeout("step()", 25);
