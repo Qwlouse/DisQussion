@@ -65,6 +65,11 @@ function buildAnchorGraph(data) {
         graphNode.circles.push(anchor_circle);
         graphNode.appendChild(anchor_circle);
     }
+
+    if (!(graphNode.stepRuns)) {
+        graphNode.stepRuns = true;
+        step();
+    }
 }
 
 
