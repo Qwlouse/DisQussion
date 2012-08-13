@@ -2,7 +2,12 @@
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
 from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.contrib.auth.forms import AuthenticationForm
 from structure.models import TextNode, Slot, Vote
+from structure.forms import CreateTextNodeForm
+from structure.ajax import getNavigationData, getDataForAlternativesGraph
 
 def add_auto_upvote(user, text):
     auto_upvote = Vote()
@@ -43,3 +48,20 @@ def submit_slot_with_text(request):
     t.save()
     add_auto_upvote(request.user, t)
     return HttpResponseRedirect(t.getTextPath())
+
+
+def refine_node(request, id):
+    pattern_node = TextNode.objects.get(pk=id)
+    createTextNodeForm = CreateTextNodeForm({'text' : pattern_node.getText(), 'slot_id' : pattern_node.parent_id})
+    anchor_nodes = getDataForAlternativesGraph(request, pattern_node.parent_id)
+    return render_to_response("node/refine.html",
+            {"pagename": "Verbessern oder Erweitern von "+pattern_node.getShortTitle(),
+             "pattern_title": pattern_node.getShortTitle(),
+             "pattern_text": pattern_node.getText(),
+             "this_url": pattern_node.getTextPath(),
+             "authForm": AuthenticationForm(),
+             "navigation" : getNavigationData(request, pattern_node.id, pattern_node.getType()),
+             "anchor_nodes" : anchor_nodes,
+             "selected_id" : pattern_node.id
+             },
+        context_instance=RequestContext(request))
