@@ -50,8 +50,6 @@ function buildGraph(node_id, node_title, node_type) {
 
 
 function initPage(anchorGraphData, navigationData, selected_id) {
-    alert(anchorGraphData);
-    alert(navigationData);
     updateNavigation(JSON.parse(navigationData));
     buildAnchorGraph(JSON.parse(anchorGraphData));
     // get selected Node:
