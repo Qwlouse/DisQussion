@@ -97,7 +97,7 @@ function calculateRepulsion(particles) {
 ////////////////// Global Update ////////////////////////////
 function updateParticles(particles, springs) {
     // determine forces
-    //calculateRepulsion(particles);
+    calculateRepulsion(particles);
     for (var i = 0; i < springs.length; ++i)
         springs[i].pushNpull();
     for ( i = 0; i < particles.length; ++i)

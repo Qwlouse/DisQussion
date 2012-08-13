@@ -22,7 +22,9 @@ def home(request):
     else:
         textForm = CreateTextForm() # An unbound form
     root = getRootNode()
-    anchor_nodes = json.dumps({"Anchors": [{'id': root.id, 'type' : root.getType(), 'consent': root.rating, 'total_votes': root.total_votes}] })
+    anchor_nodes = json.dumps({"Anchors": [{'id': root.id, 'type' : root.getType(), 'consent': root.rating, 'total_votes': root.total_votes}],
+                               "related_nodes" : [],
+                               "connections" : []})
 
     return render_to_response("node/show.html",
             {"pagename":"Root",
