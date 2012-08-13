@@ -3,6 +3,9 @@
 <p>
     {{ text|apply_markup:"creole" }}
 </p>
+{% if user.is_authenticated %}
+    <p><a href="/.refine/{{ dbID }}">Diesen Vorschlag verbessern oder erweitern...</a></p>
+{% endif %}
 <h2>Voting</h2>
 <ul>
     <li>Zustimmung: {{ consent_rating }}</li>

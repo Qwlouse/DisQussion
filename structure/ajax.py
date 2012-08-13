@@ -25,6 +25,7 @@ def getNodeText(node, request):
         return render_to_string('node/renderTextNode.html',
             {'title' : node.getShortTitle(),
              'text'  : node.getText(),
+             'dbID'  : node.id,
              'consent_rating' : node.calculate_consent_rating(),
              'wording_rating' : node.calculate_wording_rating(),
              'form'  : votingForm},
