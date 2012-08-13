@@ -3,7 +3,7 @@
 {% block title %}DisQussion: {{ pagename }}{% endblock %}
 
 {% block bodytag %}
-    <body onload="buildGraph({{ center_node_id }}, '{{ center_node_title }}', '{{ node_type }}')">
+    <body onload="initPage('{{ anchor_nodes }}', '{{ navigation }}', {{ selected_id }})">
 {% endblock %}
 
 {% block graph %}

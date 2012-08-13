@@ -1,47 +1,15 @@
 function showNode(node) {
     //UpdateNavigation code
     if (node.type != "Slot") {
-        Dajaxice.structure.getHistory(updateNavigation, {'node_id':node.dbId, 'node_type':node.type});
+        Dajaxice.structure.getNavigationData(updateNavigation, {'node_id':node.dbId, 'node_type':node.type});
     }
-    //ShowNode code
-    var graphNode = document.getElementById('graph');
-    while ( graphNode.firstChild ) graphNode.removeChild( graphNode.firstChild );
-    graphNode.appendChild(node);
-    var newCircles = new Array(node);
-    if (node.parent != null)
-    {
-        newCircles.push(node.parent);
-        graphNode.appendChild(node.parent);
-        graphNode.arrows = new Array(createArrowStructure(node.parent, node));
-        graphNode.insertBefore(graphNode.arrows[0], graphNode.firstChild);
-    }
-    graphNode.circles = newCircles;
-    var circles = graphNode.circles;
-    //var i = 1;
-    // remove ALL other nodes TODO: keep parent for back-navigation
-    /*while (circles.length > 3) {
-     if (circles[i] == node) {
-     i++;
-     } else {
-     if (circles[i] == node.forces[0].massB) {
-     i++;
-     } else {
-     circles.splice(i, 1);
-     }
-     }
-     }*/
+
     // reset all nodes
-    for (var i = 0; i < circles.length; i++) {
+    var graphNode = document.getElementById('graph');
+    for (var i = 0; i < graphNode.circles.length; i++) {
         // make circles clickable
         graphNode.circles[i].firstChild.firstChild.setAttribute("class", "linklike");
-        // remove force to center
-        graphNode.circles[i].particle.targetY = 0.0;
-        graphNode.circles[i].particle.targetX = null;
-        graphNode.circles[i].particle.targetForce = 0.003;
     }
-    // pull node to center
-    node.particle.targetX = 0.0;
-    node.particle.targetForce = 0.02;
 
     // mark centerCircle clicked
     for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
@@ -52,13 +20,19 @@ function showNode(node) {
 
     graphNode.centerCircle = node;
     document.getElementById("text").waitForText = true;
-    //
-    //alert(node.type);
-    if (node.type == "Slot") {
-        Dajaxice.structure.getTopRatedAlternatives(buildAnchorGraph, {'node_id':node.dbId, 'k':5});
-    } else {
-        Dajaxice.structure.getNodeInfo(amendGraph, {'node_id':node.dbId, 'node_type':node.type});
-    }
-
     showText(node);
+    Dajaxice.structure.getNodeInfo(updateNode, {'node_id':node.dbId, 'node_type':node.type});
+
+
 }
+
+
+function updateNode(data) {
+    var graphNode = document.getElementById('graph');
+
+    var currentIndex = getIndexInCircles(graphNode.circles, data['id'], data['type']);
+    var currentNode = graphNode.circles[currentIndex];
+    currentNode.textPart = data['text'];
+    document.getElementById("text").waitForText = false;
+}
+
