@@ -47,6 +47,7 @@ div#navbar ol ol {
 div#navbar ol ol li {
     display: list-item;
     border-right-width: 0;
+    font-size: 12pt;
 }
 
 div#text {
