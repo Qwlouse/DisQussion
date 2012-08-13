@@ -3582,7 +3582,7 @@ Element.addMethods({
             },
 
             'margin-top': function(element) {
-                return getPixelValue(element, 'marginTop');
+                return getPixelValue(element, 'paddingTop');
             },
 
             'margin-bottom': function(element) {
@@ -3590,7 +3590,7 @@ Element.addMethods({
             },
 
             'margin-left': function(element) {
-                return getPixelValue(element, 'marginLeft');
+                return getPixelValue(element, 'paddingLeft');
             },
 
             'margin-right': function(element) {

@@ -43,14 +43,16 @@ function buildGraph(node_id, node_title, node_type) {
     graphNode.arrows = new Array();
     showNode(graphNode.centerCircle);
     //Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : node_type});
-    document.getElementById('graph').marginTop = 20.0;
-    document.getElementById('graph').graphHeight = 20.0;
+    graphNode.paddingTop = 25.0;
+    graphNode.paddingLeft = 25.0;
+    graphNode.graphHeight = 50.0;
+    graphNode.graphWidth = 50.0;
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
 }
 
 
 function buildAnchorGraph(data) {
-    Anchors = data["Anchors"];
+    var Anchors = data["Anchors"];
     var graphNode = document.getElementById('graph');
     graphNode.stepRuns = false;
     while ( graphNode.firstChild ) graphNode.removeChild( graphNode.firstChild );
@@ -64,6 +66,11 @@ function buildAnchorGraph(data) {
         anchor_circle.particle.targetForce = 0.05;
         graphNode.circles.push(anchor_circle);
         graphNode.appendChild(anchor_circle);
+    }
+
+    if (!(graphNode.stepRuns)) {
+        graphNode.stepRuns = true;
+        step();
     }
 }
 
@@ -121,9 +128,9 @@ function amendGraph(data) {
 
 /////////////////////// Simulation /////////////////////////////////
 function step() {
-
-    var circles = document.getElementById('graph').circles;
-    var arrows = document.getElementById('graph').arrows;
+    var graphNode = document.getElementById('graph');
+    var circles = graphNode.circles;
+    var arrows = graphNode.arrows;
     var particles = new Array();
     for (var i = 0; i < circles.length; ++i)
         particles.push(circles[i].particle);
@@ -142,19 +149,29 @@ function step() {
         drawArrow(arrows[i]);
     }
 
-    // adjust graph height
+    // adjust graph dimensions
     var minHeight = 0;
     var maxHeight = 0;
+    var minWidth = 0;
+    var maxWidth = 0;
     for (i = 0; i < particles.length; i++) {
         minHeight = Math.min(particles[i].y, minHeight);
         maxHeight = Math.max(particles[i].y, maxHeight);
+        minWidth = Math.min(particles[i].x, minWidth);
+        maxWidth = Math.max(particles[i].x, maxWidth);
     }
-    var graphHeight = Math.max(maxHeight, document.getElementById('graph').graphHeight - 1)
-    document.getElementById('graph').graphHeight = graphHeight;
-    document.getElementById('graph').style.height = Math.round(graphHeight) + "px";
-    var marginTop = Math.max(minHeight * -1 + 20, document.getElementById('graph').marginTop - 1);
-    document.getElementById('graph').marginTop = marginTop;
-    document.getElementById('graph').style.marginTop = Math.round(marginTop) + "px";
+    var graphHeight = Math.max(maxHeight - minHeight, graphNode.graphHeight - 1);
+    graphNode.graphHeight = graphHeight;
+    var graphWidth = Math.max(maxWidth - minWidth, graphNode.graphWidth - 1);
+    graphNode.graphWidth = graphWidth;
+    graphNode.style.height = Math.round(graphHeight) + "px";
+    graphNode.style.width = Math.round(graphWidth) + "px";
+    var paddingTop = Math.max(minHeight * -1, graphNode.paddingTop - 1);
+    graphNode.paddingTop = paddingTop;
+    var paddingLeft = Math.max(minWidth * -1, graphNode.paddingLeft - 1);
+    graphNode.paddingLeft = paddingLeft;
+    graphNode.style.paddingTop = Math.round(paddingTop) + "px";
+    graphNode.style.paddingLeft = Math.round(paddingLeft) + "px";
     // iterate
     if (particleMovement > 0.2) {
         setTimeout("step()", 25);
