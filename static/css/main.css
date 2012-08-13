@@ -52,7 +52,7 @@ div#navbar ol ol li {
 }
 
 div#navbar ol ol li a {
-    text-decoration: no-underline;
+    text-decoration: none;
 }
 
 div#text {
