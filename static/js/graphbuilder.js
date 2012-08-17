@@ -1,5 +1,5 @@
 /////////////////////// Graph Construction /////////////////////////////////
-function createCircleStructure(title, id, type) {
+function createCircleStructure(title, id, type, consent) {
     var newText = document.createTextNode(title);
     var linkDIV = document.createElement("div");
     linkDIV.appendChild(newText);
@@ -17,6 +17,31 @@ function createCircleStructure(title, id, type) {
     //outerDIV.setAttribute("id", "circle_"+title.replace(/^\s+|\s+$/g, ''));
     outerDIV.dbId = id;
     outerDIV.type = type;
+
+    var data = [consent, 1.0-consent];
+
+    var r = 40,
+        h = 2*r,
+        w = 2*r,
+        color = ["#00ff00","#ff0000", "#0000ff"],
+        donut = d3.layout.pie().sort(null),
+        arc = d3.svg.arc().innerRadius(r - 20).outerRadius(r - 10);
+
+    var svg = d3.select(innerDIV).append("svg:svg")
+        .attr("width", w)
+        .attr("height", h)
+        .attr("transform", "translate(-100, -50)")
+        .append("svg:g")
+        .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
+
+    var arcs = svg.selectAll("path")
+        .data(donut(data))
+        .enter().append("svg:path")
+        .attr("fill", function(d, i) { return color[i]; })
+        .attr("d", arc)
+        .each(function(d) { this._current = d; });
+    //d3.select(svg).attr("transform", "translate(200,0)");
+
     return outerDIV;
 }
 
@@ -77,7 +102,7 @@ function buildAnchorGraph(data) {
 
     for (var i = 0; i < Anchors.length; ++i) {
         var anchor = Anchors[i];
-        var anchor_circle = createCircleStructure(anchor['id'], anchor['id'], anchor['type']);
+        var anchor_circle = createCircleStructure(anchor['id'], anchor['id'], anchor['type'], anchor['consent']);
         anchor_circle.particle.x = i*80;
         anchor_circle.particle.targetX = i*80;
         anchor_circle.particle.targetForce = 0.05;
@@ -89,7 +114,7 @@ function buildAnchorGraph(data) {
     var relatedNodes = data['related_nodes'];
     for (i = 0; i < relatedNodes.length; ++i) {
         var node = relatedNodes[i];
-        var node_circle = createCircleStructure(node['id'], node['id'], node['type']);
+        var node_circle = createCircleStructure(node['id'], node['id'], node['type'], anchor['consent']);
         node_circle.particle.y = -160;
         node_circle.particle.x = i*80;
         graphNode.circles.push(node_circle);
@@ -106,57 +131,6 @@ function buildAnchorGraph(data) {
         graphNode.arrows.push(arrow);
         graphNode.insertBefore(arrow, graphNode.firstChild);
     }
-    if (!(graphNode.stepRuns)) {
-        graphNode.stepRuns = true;
-        step();
-    }
-}
-
-
-function amendGraph(data) {
-    var graphNode = document.getElementById('graph');
-    var circles = graphNode.circles;
-    var arrows = graphNode.arrows;
-    var currentIndex = getIndexInCircles(circles, data['id'], data['type']);
-    var currentNode = circles[currentIndex];
-    // set text
-    document.getElementById("text").textSource.textPart = data['text'];
-    document.getElementById("text").waitForText = false;
-    // add new nodes + arrows
-    for (var i = 0; i < data['children'].length; i++) {
-        var child_data = data['children'][i];
-        var childIndex = getIndexInCircles(circles, child_data['id'], child_data['type']);
-        if (childIndex == -1) {
-            var child = createCircleStructure(child_data['short_title'], child_data['id'], child_data['type']);
-            child.parent = currentNode;
-            circles.push(child);
-            graphNode.appendChild(child);
-            var arrow = createArrowStructure(currentNode, child);
-            arrows.push(arrow);
-            graphNode.insertBefore(arrow, graphNode.firstChild);
-
-        }
-    }
-    // add parent if present
-    if (data['parent']['id'] >= 0) {
-        var parent_data = data['parent'];
-        var parentIndex = getIndexInCircles(circles, parent_data['id'], parent_data['type']);
-        if (parentIndex == -1) {
-            var parent = createCircleStructure(parent_data['short_title'], parent_data['id'], parent_data['type']);
-            circles.push(parent);
-            graphNode.appendChild(parent);
-            arrow = createArrowStructure(parent, currentNode);
-            arrows.push(arrow);
-            graphNode.insertBefore(arrow, graphNode.firstChild);
-
-        }
-    }
-    graphNode.circles = circles;
-    graphNode.arrows = arrows;
-    if (window.location.pathname != data['url']) {
-        window.history.pushState("Foo", "Bar", data['url']);
-    }
-
     if (!(graphNode.stepRuns)) {
         graphNode.stepRuns = true;
         step();
