@@ -4,13 +4,21 @@ function createCircleStructure(title, id, type, consent) {
     var linkDIV = document.createElement("div");
     linkDIV.appendChild(newText);
     linkDIV.setAttribute("class", "linklike");
-    //linkDIV.setAttribute("onClick", "showslot(this.parentNode.parentNode);");
     var innerDIV = document.createElement("div");
     innerDIV.appendChild(linkDIV);
     innerDIV.setAttribute("class", "circle");
     innerDIV.setAttribute("onClick", "showNode(this.parentNode);");
     var outerDIV = document.createElement("div");
     outerDIV.setAttribute("class", "masspoint");
+    var diagramDIV = document.createElement("div");
+    diagramDIV.setAttribute("class", "diagram_container");
+    var whiteContainerDIV = document.createElement("div");
+    var whitenerDIV = document.createElement("div");
+    whitenerDIV.setAttribute("class", "whitener");
+    whiteContainerDIV.appendChild(whitenerDIV);
+    whiteContainerDIV.setAttribute("style", "width: 0; height: 0; overflow: visible;")
+    outerDIV.appendChild(whiteContainerDIV);
+    outerDIV.appendChild(diagramDIV);
     outerDIV.appendChild(innerDIV);
     outerDIV.particle = new Particle();
     outerDIV.particle.targetY = 0.0;
@@ -27,7 +35,7 @@ function createCircleStructure(title, id, type, consent) {
         donut = d3.layout.pie().sort(null),
         arc = d3.svg.arc().innerRadius(r - 20).outerRadius(r - 10);
 
-    var svg = d3.select(innerDIV).append("svg:svg")
+    var svg = d3.select(diagramDIV).append("svg:svg")
         .attr("width", w)
         .attr("height", h)
         .attr("transform", "translate(-100, -50)")

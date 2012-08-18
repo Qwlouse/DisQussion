@@ -8,15 +8,16 @@ function showNode(node) {
     var graphNode = document.getElementById('graph');
     for (var i = 0; i < graphNode.circles.length; i++) {
         // make circles clickable
-        graphNode.circles[i].firstChild.firstChild.setAttribute("class", "linklike");
+        graphNode.circles[i].firstChild.nextSibling.nextSibling.firstChild.setAttribute("class", "linklike");
     }
 
     // mark centerCircle clicked
-    for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
+    node.firstChild.nextSibling.nextSibling.firstChild.setAttribute("class", "");
+    /*for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
         if (node.firstChild.firstChild.attributes[i].name == "class"){
             node.firstChild.firstChild.attributes[i].value = "";
         }
-    }
+    }*/
 
     graphNode.centerCircle = node;
     document.getElementById("text").waitForText = true;
