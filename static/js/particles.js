@@ -86,7 +86,7 @@ function calculateRepulsion(particles) {
                 dy = -0.5 + Math.random();
                 d = Math.sqrt(dx*dx + dy*dy);
             }
-            var force = 7 * Math.pow((50 / (d + 40)), 2);
+            var force = 20 * Math.pow((50 / (d + 40)), 3);
             p1.addForce(force*dx/d, force*dy/d);
             p2.addForce(-force*dx/d, -force*dy/d);
         }
