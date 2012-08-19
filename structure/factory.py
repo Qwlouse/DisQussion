@@ -80,9 +80,10 @@ def createDummyUsers(cnt):
 
 
 def castVotesFor(text, consent):
+    text_node = lookupNode(text)
     dummy_users = User.objects.filter(username__startswith="user_")
     # get/create users that can cast additional votes
-    free_users = list(dummy_users.exclude(vote__text=text))
+    free_users = list(dummy_users.exclude(vote__text=text_node))
     number_of_votes = sum(consent)
     number_of_free_users = len(free_users)
     if number_of_free_users < number_of_votes :
@@ -92,7 +93,7 @@ def castVotesFor(text, consent):
     # generate the votes
     consent_values = [-1] * consent[0]  + [1] * consent[1]
     for i in range(number_of_votes):
-        vote_for_textNode(free_users[i], text, consent_values[i])
+        vote_for_textNode(free_users[i], text_node, consent_values[i])
 
 def clearVotesFor(text):
     Vote.objects.filter(text=text).delete()
