@@ -109,7 +109,7 @@ function buildAnchorGraph(data) {
 
     for (var i = 0; i < Anchors.length; ++i) {
         var anchor = Anchors[i];
-        var anchor_circle = createCircleStructure(anchor['id'], anchor['id'], anchor['type'], anchor['consent']);
+        var anchor_circle = createCircleStructure(anchor['nr_in_parent'], anchor['id'], anchor['type'], anchor['consent']);
         anchor_circle.particle.x = i*80;
         anchor_circle.particle.targetX = i*80;
         anchor_circle.particle.targetForce = 0.05;
@@ -121,7 +121,7 @@ function buildAnchorGraph(data) {
     var relatedNodes = data['related_nodes'];
     for (i = 0; i < relatedNodes.length; ++i) {
         var node = relatedNodes[i];
-        var node_circle = createCircleStructure(node['id'], node['id'], node['type'], anchor['consent']);
+        var node_circle = createCircleStructure(node['nr_in_parent'], node['id'], node['type'], anchor['consent']);
         node_circle.particle.y = -160;
         node_circle.particle.x = i*80;
         graphNode.circles.push(node_circle);

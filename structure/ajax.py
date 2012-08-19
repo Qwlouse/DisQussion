@@ -119,6 +119,7 @@ def getNavigationData(request, node_id, node_type):
 
 def getGraphInfoForNode(node):
     return {'id': node.id,
+            'nr_in_parent' : node.nr_in_parent(),
             'type' : node.as_leaf_class().getType(),
             'consent': node.rating,
             'total_votes': node.total_votes}
