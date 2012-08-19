@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
-from structure.ajax import getDataForAlternativesGraph, getNavigationData
+from structure.ajax import getDataForAlternativesGraph, getNavigationData, getGraphInfoForNode
 
 from structure.forms import CreateTextForm
 from structure.models import Slot
@@ -22,7 +22,7 @@ def home(request):
     else:
         textForm = CreateTextForm() # An unbound form
     root = getRootNode()
-    anchor_nodes = json.dumps({"Anchors": [{'id': root.id, 'type' : root.getType(), 'consent': root.rating, 'total_votes': root.total_votes}],
+    anchor_nodes = json.dumps({"Anchors": [getGraphInfoForNode(root)],
                                "related_nodes" : [],
                                "connections" : []})
 
