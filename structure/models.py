@@ -180,8 +180,8 @@ def calculate_vote_cache_TextNode(node):
     """
     Recount the votes associated with the TextNode node and write result to consent_cache and wording_cache.
     """
-    node.consent_cache = Vote.objects.filter(text=node).aggregate(Sum('consent'))['consent__sum']
-    node.wording_cache = Vote.objects.filter(text=node).aggregate(Sum('wording'))['wording__sum']
+    node.consent_cache = Vote.objects.filter(text=node).aggregate(Sum('consent'))['consent__sum'] or 0
+    node.wording_cache = Vote.objects.filter(text=node).aggregate(Sum('wording'))['wording__sum'] or 0
     node.total_votes = Vote.objects.filter(text=node).count() + voting_bias
     node.rating = node.calculate_consent_rating()
     node.save()
