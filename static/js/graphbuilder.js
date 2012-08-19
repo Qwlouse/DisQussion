@@ -55,11 +55,38 @@ function createCircleStructure(title, id, type, consent) {
 
 
 function createArrowStructure(parentCircle, childCircle) {
-    var innerArrow = document.createElement("div");
-    innerArrow.setAttribute("class", "arrow");
+    //create arrow svg
+    var svgDocument = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svgDocument.setAttribute("version", "1.2");
+    svgDocument.setAttribute("width", "10");
+    svgDocument.setAttribute("height", "10");
+    var defsTag = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    var marker = document.createElementNS("http://www.w3.org/2000/svg", "marker");
+    marker.setAttribute("refX", "13");
+    marker.setAttribute("refY", "0");
+    marker.setAttribute("id", "arrow");
+    marker.setAttribute("orient", "auto");
+    marker.setAttribute("style", "overflow:visible;");
+    var markerPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    markerPath.setAttribute("d", "M -1,-3 7,0 -1,3 0,0 z");
+    markerPath.setAttribute("fill", "black");
+    markerPath.setAttribute("transform", "scale(0.5)");
+    marker.appendChild(markerPath);
+    defsTag.appendChild(marker);
+    svgDocument.appendChild(defsTag);
+    var arrowLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    arrowLine.setAttribute("x1", "0");
+    arrowLine.setAttribute("y1", "0");
+    arrowLine.setAttribute("x2", "10");
+    arrowLine.setAttribute("y2", "0");
+    arrowLine.setAttribute("stroke", "black");
+    arrowLine.setAttribute("stroke-width", "3");
+    arrowLine.setAttribute("style", "marker-end:url(#arrow)");
+    svgDocument.appendChild(arrowLine);
+    //create container
     var outerArrow = document.createElement("div");
     outerArrow.setAttribute("class", "fixpoint");
-    outerArrow.appendChild(innerArrow);
+    outerArrow.appendChild(svgDocument);
     outerArrow.spring = new Spring(parentCircle.particle, childCircle.particle, 80.0);
     outerArrow.A = parentCircle;
     outerArrow.B = childCircle;
@@ -205,44 +232,31 @@ function step() {
 
 /////////////////////// Drawing /////////////////////////////////
 function drawArrow(arrowdiv) {
+    var svg = arrowdiv.firstChild;
+    var arrowLine = svg.firstChild.nextSibling;
     var particleA = arrowdiv.A.particle;
     var particleB = arrowdiv.B.particle;
-    var dx = particleA.x - particleB.x;
-    var dy = particleA.y - particleB.y;
-    var lenAB = Math.sqrt(dx * dx + dy * dy);
-    // set length
-    arrowdiv.firstChild.style.width = Math.round(lenAB)+"px";
-    // set position
-    arrowdiv.style.left = Math.round(particleA.x - 30)+"px";
-    arrowdiv.style.top = Math.round(particleA.y - arrowdiv.style.height / 2)+"px";
-    // set rotation
-    var alpha;
-    if (dy > 0) {
-        if (dx > 0) {
-            alpha = Math.PI+Math.atan(Math.abs(dy) / Math.abs(dx));
-        } else {
-            if (dx < 0) {
-                alpha = 2*Math.PI - Math.atan(Math.abs(dy) / Math.abs(dx));
-            } else {
-                alpha = Math.PI/2*3;
-            }
-        }
+    svg.setAttribute("width", Math.max(Math.round(Math.abs(particleB.x-particleA.x)),5));
+    svg.setAttribute("height", Math.max(Math.round(Math.abs(particleB.y-particleA.y)),5));
+    if (particleB.x - particleA.x < 0) {
+        arrowLine.setAttribute("x2", "0");
+        arrowLine.setAttribute("x1", particleA.x-particleB.x);
+        //alert(arrowdiv.style.width);
+        arrowdiv.style.left = Math.round(particleA.x - 28)+Math.round(particleB.x - particleA.x)+"px";
     } else {
-        if (dx > 0) {
-            alpha = Math.PI - Math.atan(Math.abs(dy) / Math.abs(dx));
-        } else {
-            if (dx < 0) {
-                alpha = 2*Math.PI + Math.atan(Math.abs(dy) / Math.abs(dx));
-            } else {
-                alpha = Math.PI/2;
-            }
-        }
+        arrowLine.setAttribute("x1", "0");
+        arrowLine.setAttribute("x2", particleB.x-particleA.x);
+        arrowdiv.style.left = Math.round(particleA.x - 28)+"px";
     }
-    arrowdiv.style.webkitTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
-    arrowdiv.style.msTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
-    arrowdiv.style.OTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
-    arrowdiv.style.MozTransform = "rotate("+(alpha/Math.PI*180)+"deg)";
-    arrowdiv.style.transform = "rotate("+(alpha/Math.PI*180)+"deg)";
+    if (particleB.y - particleA.y < 0) {
+        arrowLine.setAttribute("y2", "0");
+        arrowLine.setAttribute("y1", particleA.y-particleB.y);
+        arrowdiv.style.top = Math.round(particleA.y - arrowdiv.style.height / 2)+Math.round(particleB.y - particleA.y)+"px";
+    } else {
+        arrowLine.setAttribute("y1", "0");
+        arrowLine.setAttribute("y2", particleB.y-particleA.y);
+        arrowdiv.style.top = Math.round(particleA.y - arrowdiv.style.height / 2)+"px";
+    }
 }
 
 
