@@ -62,6 +62,7 @@ def refine_node(request, id):
              "authForm": AuthenticationForm(),
              "navigation" : getNavigationData(request, pattern_node.id, pattern_node.getType()),
              "anchor_nodes" : anchor_nodes,
-             "selected_id" : pattern_node.id
+             "selected_id" : pattern_node.id,
+             "refine_form" : createTextNodeForm
              },
         context_instance=RequestContext(request))
