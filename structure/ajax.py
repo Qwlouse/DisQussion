@@ -94,7 +94,7 @@ def submitVoteForTextNode(request, text_id, consent, wording):
     user = request.user
     node = TextNode.objects.get(id=text_id)
     vote_for_textNode(user, node, consent, wording)
-    return json.dumps(dict())
+    return getDataForAlternativesGraph(request, node.parent)
 
 
 def createSlotList(structure_node, selected_slot, selected_alternative):
@@ -117,10 +117,18 @@ def getNavigationData(request, node_id, node_type):
     slot_list = createSlotList(node, None, None) if node_type == "StructureNode" else []
     return json.dumps({"history" : history, "slot_list" : slot_list})
 
+def getGraphInfoForNode(node):
+    return {'id': node.id,
+            'nr_in_parent' : node.nr_in_parent(),
+            'type' : node.as_leaf_class().getType(),
+            'consent': node.rating,
+            'total_votes': node.total_votes}
+
+
 @dajaxice_register
 def getDataForAlternativesGraph(request, node_id, k = 5):
     top_nodes = getTopRatedAlternatives(node_id, k)
-    results = {"Anchors": [{'id': n.id, 'type' : n.as_leaf_class().getType(), 'consent': n.rating, 'total_votes': n.total_votes} for n in top_nodes]}
+    results = {"Anchors": [getGraphInfoForNode(n) for n in top_nodes]}
     # add sources and derivates
     sources_and_derivates = set()
     for node in top_nodes:
@@ -131,7 +139,7 @@ def getDataForAlternativesGraph(request, node_id, k = 5):
     sources_and_derivates = sources_and_derivates.difference(set(top_nodes))
     node_add_list = sorted(sources_and_derivates, key=operator.attrgetter('rating'), reverse=True)
     node_add_list = node_add_list[:min(k, len(node_add_list))]
-    results['related_nodes'] = [{'id': n.id, 'type' : n.as_leaf_class().getType(), 'consent': n.rating, 'total_votes': n.total_votes} for n in node_add_list]
+    results['related_nodes'] = [getGraphInfoForNode(n) for n in node_add_list]
     # add connections
     nodes = set(top_nodes + node_add_list)
     connections = []

@@ -19,7 +19,5 @@ function submit_vote_for_text_node(frm) {
     var text_id = frm.text_id.value
     // alert('User voted consent: ' + consent + ", wording: " + wording + " for text " + text_id );
     // now the ajax stuff
-    Dajaxice.structure.submitVoteForTextNode(empty, {'text_id' : text_id, 'consent' : consent, 'wording' : wording});
+    Dajaxice.structure.submitVoteForTextNode(updateGraph, {'text_id' : text_id, 'consent' : consent, 'wording' : wording});
 }
-
-function empty(data) {}
