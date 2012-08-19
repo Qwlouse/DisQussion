@@ -151,12 +151,13 @@ function updateGraph(data) {
     var newCircles = new Array();
     for (var i = 0; i < Anchors.length; ++i) {
         var anchor = Anchors[i];
-        var anchor_circle = getNodeById(graphNode.circles, anchor['id'], anchor['type'])
-        if (anchor_circle == -1) {
-            anchor_circle = createCircleStructure(anchor['nr_in_parent'], anchor['id'], anchor['type'], anchor['consent']);
-            anchor_circle.particle.x = i*80;
+        var old_circle = getNodeById(graphNode.circles, anchor['id'], anchor['type']);
+        var anchor_circle = createCircleStructure(anchor['nr_in_parent'], anchor['id'], anchor['type'], anchor['consent']);
+        anchor_circle.particle.x = i*80;
+        if (old_circle != -1) {
+            anchor_circle.particle.x = old_circle.particle.x;
+            anchor_circle.particle.y = old_circle.particle.y;
         }
-
         anchor_circle.particle.targetX = i*80;
         anchor_circle.particle.targetForce = 0.05;
         newCircles.push(anchor_circle);
@@ -166,11 +167,13 @@ function updateGraph(data) {
     var relatedNodes = data['related_nodes'];
     for (i = 0; i < relatedNodes.length; ++i) {
         var node = relatedNodes[i];
-        var node_circle = getNodeById(graphNode.circles, node['id'], node['type']);
-        if (node_circle == -1) {
-            node_circle = createCircleStructure(node['nr_in_parent'], node['id'], node['type'], anchor['consent']);
-            node_circle.particle.y = -160;
-            node_circle.particle.x = i*80;
+        var node_circle = createCircleStructure(node['nr_in_parent'], node['id'], node['type'], anchor['consent']);
+        node_circle.particle.y = -160;
+        node_circle.particle.x = i*80;
+        old_circle = getNodeById(graphNode.circles, node['id'], node['type']);
+        if (old_circle != -1) {
+            node_circle.particle.x = old_circle.particle.x;
+            node_circle.particle.y = old_circle.particle.y;
         }
         newCircles.push(node_circle);
     }
