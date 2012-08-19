@@ -94,7 +94,7 @@ def submitVoteForTextNode(request, text_id, consent, wording):
     user = request.user
     node = TextNode.objects.get(id=text_id)
     vote_for_textNode(user, node, consent, wording)
-    return json.dumps(dict())
+    return getDataForAlternativesGraph(request, node.parent)
 
 
 def createSlotList(structure_node, selected_slot, selected_alternative):

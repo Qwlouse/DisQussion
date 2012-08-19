@@ -144,6 +144,60 @@ function buildAnchorGraph(data) {
     }
 }
 
+function updateGraph(data) {
+    var graphNode = document.getElementById('graph');
+    var Anchors = data["Anchors"];
+
+    var newCircles = new Array();
+    for (var i = 0; i < Anchors.length; ++i) {
+        var anchor = Anchors[i];
+        var anchor_circle = getNodeById(graphNode.circles, anchor['id'], anchor['type'])
+        if (anchor_circle == -1) {
+            anchor_circle = createCircleStructure(anchor['nr_in_parent'], anchor['id'], anchor['type'], anchor['consent']);
+            anchor_circle.particle.x = i*80;
+        }
+
+        anchor_circle.particle.targetX = i*80;
+        anchor_circle.particle.targetForce = 0.05;
+        newCircles.push(anchor_circle);
+    }
+
+    // add related nodes
+    var relatedNodes = data['related_nodes'];
+    for (i = 0; i < relatedNodes.length; ++i) {
+        var node = relatedNodes[i];
+        var node_circle = getNodeById(graphNode.circles, node['id'], node['type']);
+        if (node_circle == -1) {
+            node_circle = createCircleStructure(node['nr_in_parent'], node['id'], node['type'], anchor['consent']);
+            node_circle.particle.y = -160;
+            node_circle.particle.x = i*80;
+        }
+        newCircles.push(node_circle);
+    }
+    // clear graphNode and (re-)insert nodes
+    while ( graphNode.firstChild ) graphNode.removeChild( graphNode.firstChild );
+    graphNode.circles = newCircles;
+    for (i = 0; i < newCircles.length; ++i) {
+        graphNode.appendChild(newCircles[i]);
+    }
+
+    // add connections
+    var connections = data['connections'];
+    for (i = 0; i < connections.length; ++i) {
+        var connection = connections[i];
+        var source_node = getNodeById(graphNode.circles, connection[0], "TextNode");
+        var target_node = getNodeById(graphNode.circles, connection[1], "TextNode");
+        var arrow = createArrowStructure(source_node, target_node);
+        graphNode.arrows.push(arrow);
+        graphNode.insertBefore(arrow, graphNode.firstChild);
+    }
+    if (!(graphNode.stepRuns)) {
+        graphNode.stepRuns = true;
+        step();
+    }
+}
+
+
 
 /////////////////////// Simulation /////////////////////////////////
 function step() {
