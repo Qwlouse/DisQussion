@@ -23,6 +23,8 @@ def submit_textNode(request):
     t.text = request.POST['text']
     t.parent_id = int(request.POST['slot_id'])
     t.save()
+    if request.POST['source'] >= 0: t.sources.add(TextNode.objects.get(pk=request.POST['source']))
+    t.save()
     add_auto_upvote(request.user, t)
     return HttpResponseRedirect(t.getTextPath())
 
@@ -62,6 +64,7 @@ def refine_node(request, id):
              "authForm": AuthenticationForm(),
              "navigation" : getNavigationData(request, pattern_node.id, pattern_node.getType()),
              "anchor_nodes" : anchor_nodes,
-             "selected_id" : pattern_node.id
+             "selected_id" : pattern_node.id,
+             "refine_form" : createTextNodeForm
              },
         context_instance=RequestContext(request))

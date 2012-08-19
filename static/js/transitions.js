@@ -1,4 +1,4 @@
-function showNode(node) {
+function showNode(node, doNodeUpdate) {
     //UpdateNavigation code
     if (node.type != "Slot") {
         Dajaxice.structure.getNavigationData(updateNavigation, {'node_id':node.dbId, 'node_type':node.type});
@@ -13,18 +13,13 @@ function showNode(node) {
 
     // mark centerCircle clicked
     node.firstChild.nextSibling.nextSibling.firstChild.setAttribute("class", "");
-    /*for (i = 0; i < node.firstChild.firstChild.attributes.length; i++){
-        if (node.firstChild.firstChild.attributes[i].name == "class"){
-            node.firstChild.firstChild.attributes[i].value = "";
-        }
-    }*/
 
     graphNode.centerCircle = node;
-    document.getElementById("text").waitForText = true;
-    showText(node);
-    Dajaxice.structure.getNodeInfo(updateNode, {'node_id':node.dbId, 'node_type':node.type});
-
-
+    if (doNodeUpdate) {
+        document.getElementById("text").waitForText = true;
+        showText(node);
+        Dajaxice.structure.getNodeInfo(updateNode, {'node_id':node.dbId, 'node_type':node.type});
+    }
 }
 
 

@@ -7,7 +7,7 @@ function createCircleStructure(title, id, type, consent) {
     var innerDIV = document.createElement("div");
     innerDIV.appendChild(linkDIV);
     innerDIV.setAttribute("class", "circle");
-    innerDIV.setAttribute("onClick", "showNode(this.parentNode);");
+    innerDIV.setAttribute("onClick", "showNode(this.parentNode, true);");
     var outerDIV = document.createElement("div");
     outerDIV.setAttribute("class", "masspoint");
     var diagramDIV = document.createElement("div");
@@ -74,13 +74,13 @@ function buildGraph(node_id, node_title, node_type) {
     graphNode.appendChild(graphNode.centerCircle);
     graphNode.circles = new Array(graphNode.centerCircle);
     graphNode.arrows = new Array();
-    showNode(graphNode.centerCircle);
+    showNode(graphNode.centerCircle, true);
     //Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : node_type});
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
 }
 
 
-function initPage(anchorGraphData, navigationData, selected_id) {
+function initPage(anchorGraphData, navigationData, selected_id, doNodeUpdate) {
     document.getElementById('graph').paddingTop = 30.0;
     document.getElementById('graph').paddingLeft = 30.0;
     document.getElementById('graph').paddingRight = 30.0;
@@ -92,8 +92,7 @@ function initPage(anchorGraphData, navigationData, selected_id) {
     for (var i = 0; i < graphNode.circles.length; ++i) {
         var node = graphNode.circles[i];
         if ((node.dbId == selected_id) && node.type != "Slot") {
-
-            showNode(node);
+            showNode(node, doNodeUpdate);
             break;
         }
     }
