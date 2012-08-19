@@ -56,10 +56,12 @@ signals.post_syncdb.connect(create_testuser,
 ############################ Initial Data creation ###########################
 from django.db.models.signals import post_syncdb
 from initial_data import createInitialData, createRoot
-import initial_data
+import sys
+current_module = sys.modules[__name__]
+
 
 def my_callback(sender, **kwargs):
     createRoot()
     createInitialData()
 
-post_syncdb.connect(my_callback, sender=initial_data)
+post_syncdb.connect(my_callback, sender=current_module)
