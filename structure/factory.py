@@ -6,11 +6,13 @@ from structure.models import TextNode, StructureNode, Slot, Node, Vote, adjust_v
 from structure.path_helpers import getRootNode
 from structure.vote_helpers import vote_for_textNode
 
-root = getRootNode()
-nodeDict = {'root' : root}
+
+nodeDict = dict()
 
 def populateNodeDict():
     global nodeDict
+    root = getRootNode()
+    nodeDict['root'] = root
     textNodeDict = {t.getTextPath() : t  for t in TextNode.objects.all()}
     structureNodeDict = {sn.getTextPath() : sn  for sn in StructureNode.objects.all()}
     slotDict = {s.getTextPath() : s  for s in Slot.objects.all()}

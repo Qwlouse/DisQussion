@@ -8,6 +8,8 @@ from django.contrib.auth import models as auth_models
 from django.contrib.auth.management import create_superuser
 from django.db.models import signals
 
+####################### Add profile to each user #############################
+
 class UserProfile(models.Model):
     # This field is required.
     user = models.OneToOneField(User)
@@ -22,6 +24,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 signals.post_save.connect(create_user_profile, sender=User)
 
+
+############################ Automatical Superuser creation ##################
 
 # From http://stackoverflow.com/questions/1466827/ --
 #
@@ -48,3 +52,14 @@ def create_testuser(app, created_models, verbosity, **kwargs):
 
 signals.post_syncdb.connect(create_testuser,
     sender=auth_models, dispatch_uid='common.models.create_testuser')
+
+############################ Initial Data creation ###########################
+from django.db.models.signals import post_syncdb
+from initial_data import createInitialData, createRoot
+import initial_data
+
+def my_callback(sender, **kwargs):
+    createRoot()
+    createInitialData()
+
+post_syncdb.connect(my_callback, sender=initial_data)
