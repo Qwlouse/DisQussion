@@ -21,6 +21,7 @@
             ({{ pattern_title }}) eigentlich nichts zu tun hat, dann clicke
             <a href="http://www.google.de">hier</a>.</p>
         {{ refine_form.as_p }}
+        <input type="hidden" name="source" value="{{ selected_id }}">
         <input type="submit" value="Vorschlag erstellen"/>
     </form>
 {% endblock %}
