@@ -30,6 +30,9 @@ urlpatterns = patterns('',
     # Refine proposals
     url(r'^\.refine/(?P<id>\d+)$', 'structure.views.refine_node'),
 
+    # Create new proposals
+    url(r'^\.create/(?P<parent_id>\d+)$', 'structure.views.create_node'),
+
     (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
     
     url(r'^(?P<path>([a-zA-Z-_]+\.\d+/)*[a-zA-Z-_]+(\.\d+)?/?)$', 'DisQussion.views.path')

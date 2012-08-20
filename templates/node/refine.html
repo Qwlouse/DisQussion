@@ -1,6 +1,6 @@
 {% extends "main.html" %}
 
-{% block title %}DisQussion: Verbessern oder Erweitern von {{ pattern_title }}{% endblock %}
+{% block title %}DisQussion: {{ pagename }}{% endblock %}
 
 {% block bodytag %}
     <body onload="initPage('{{ anchor_nodes }}', '{{ navigation }}', {{ selected_id }}, false)">
@@ -19,9 +19,13 @@
         <p>Bitte versuche den ursprünglichen Vorschlag entweder zu verbessern oder aufbauend auf der
             vorherigen Idee zu erweitern. Wenn du eine neue Idee hast, die mit dem Vorschlag
             ({{ pattern_title }}) eigentlich nichts zu tun hat, dann clicke
-            <a href="http://www.google.de">hier</a>.</p>
+            <a href="/.create/{{ parent_id }}">hier</a>.</p>
         {{ refine_form.as_p }}
-        <input type="hidden" name="source" value="{{ selected_id }}">
+        <input type="hidden" name="source" value="{{ selected_id }}"/>
         <input type="submit" value="Vorschlag erstellen"/>
     </form>
+{% endblock %}
+
+{% block unused %}
+    </body>
 {% endblock %}

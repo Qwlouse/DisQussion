@@ -23,8 +23,9 @@ def submit_textNode(request):
     t.text = request.POST['text']
     t.parent_id = int(request.POST['slot_id'])
     t.save()
-    if request.POST['source'] >= 0: t.sources.add(TextNode.objects.get(pk=request.POST['source']))
-    t.save()
+    if int(request.POST['source']) >= 0:
+        t.sources.add(TextNode.objects.get(pk=request.POST['source']))
+        t.save()
     add_auto_upvote(request.user, t)
     return HttpResponseRedirect(t.getTextPath())
 
@@ -57,7 +58,7 @@ def refine_node(request, id):
     createTextNodeForm = CreateTextNodeForm({'text' : pattern_node.getText(), 'slot_id' : pattern_node.parent_id})
     anchor_nodes = getDataForAlternativesGraph(request, pattern_node.parent_id)
     return render_to_response("node/refine.html",
-            {"pagename": "Verbessern oder Erweitern von "+pattern_node.getShortTitle(),
+            {"pagename": "Verbessern oder erweitern von "+pattern_node.getShortTitle(),
              "pattern_title": pattern_node.getShortTitle(),
              "pattern_text": pattern_node.getText(),
              "this_url": pattern_node.getTextPath(),
@@ -65,6 +66,22 @@ def refine_node(request, id):
              "navigation" : getNavigationData(request, pattern_node.id, pattern_node.getType()),
              "anchor_nodes" : anchor_nodes,
              "selected_id" : pattern_node.id,
+             "parent_id" : pattern_node.parent_id,
              "refine_form" : createTextNodeForm
              },
+        context_instance=RequestContext(request))
+
+
+def create_node(request, parent_id):
+    parent = Slot.objects.get(pk=parent_id)
+    createTextNodeForm = CreateTextNodeForm({'text' : "", 'slot_id' : parent_id})
+    anchor_nodes = getDataForAlternativesGraph(request, parent.id)
+    return render_to_response("node/create.html",
+            {"pagename": "Alternative erstellen in "+parent.getShortTitle(),
+             "slot_title": parent.getShortTitle(),
+             "authForm": AuthenticationForm(),
+             "navigation" : getNavigationData(request, parent_id, parent.getType()),
+             "anchor_nodes" : anchor_nodes,
+             "alternative_form" : createTextNodeForm
+            },
         context_instance=RequestContext(request))
