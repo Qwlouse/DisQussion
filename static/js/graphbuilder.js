@@ -293,26 +293,26 @@ function drawArrow(arrowdiv) {
     var arrowLine = svg.firstChild.nextSibling;
     var particleA = arrowdiv.A.particle;
     var particleB = arrowdiv.B.particle;
-    svg.setAttribute("width", Math.max(Math.round(Math.abs(particleB.x-particleA.x)),5));
-    svg.setAttribute("height", Math.max(Math.round(Math.abs(particleB.y-particleA.y)),5));
+    svg.setAttribute("width", Math.max(Math.round(Math.abs(particleB.x-particleA.x))+10,10));
+    svg.setAttribute("height", Math.max(Math.round(Math.abs(particleB.y-particleA.y))+10,10));
     if (particleB.x - particleA.x < 0) {
-        arrowLine.setAttribute("x2", "0");
-        arrowLine.setAttribute("x1", particleA.x-particleB.x);
+        arrowLine.setAttribute("x2", "5");
+        arrowLine.setAttribute("x1", particleA.x-particleB.x+5);
         //alert(arrowdiv.style.width);
-        arrowdiv.style.left = Math.round(particleA.x - 28)+Math.round(particleB.x - particleA.x)+"px";
+        arrowdiv.style.left = Math.round(particleA.x - 28)+Math.round(particleB.x - particleA.x)-5+"px";
     } else {
-        arrowLine.setAttribute("x1", "0");
-        arrowLine.setAttribute("x2", particleB.x-particleA.x);
-        arrowdiv.style.left = Math.round(particleA.x - 28)+"px";
+        arrowLine.setAttribute("x1", "5");
+        arrowLine.setAttribute("x2", particleB.x-particleA.x+5);
+        arrowdiv.style.left = Math.round(particleA.x - 28 - 5)+"px";
     }
     if (particleB.y - particleA.y < 0) {
-        arrowLine.setAttribute("y2", "0");
-        arrowLine.setAttribute("y1", particleA.y-particleB.y);
-        arrowdiv.style.top = Math.round(particleA.y - arrowdiv.style.height / 2)+Math.round(particleB.y - particleA.y)+"px";
+        arrowLine.setAttribute("y2", "5");
+        arrowLine.setAttribute("y1", particleA.y-particleB.y+5);
+        arrowdiv.style.top = Math.round(particleA.y - arrowdiv.style.height / 2)+Math.round(particleB.y - particleA.y)-5+"px";
     } else {
-        arrowLine.setAttribute("y1", "0");
-        arrowLine.setAttribute("y2", particleB.y-particleA.y);
-        arrowdiv.style.top = Math.round(particleA.y - arrowdiv.style.height / 2)+"px";
+        arrowLine.setAttribute("y1", "5");
+        arrowLine.setAttribute("y2", particleB.y-particleA.y+5);
+        arrowdiv.style.top = Math.round(particleA.y - arrowdiv.style.height / 2 - 5)+"px";
     }
 }
 
