@@ -27,6 +27,7 @@ def getNodeText(node, request):
             {'title' : node.getShortTitle(),
              'text'  : node.getText(),
              'dbID'  : node.id,
+             'parentID' : node.parent_id,
              'consent_rating' : node.calculate_consent_rating(),
              'wording_rating' : node.calculate_wording_rating(),
              'form'  : votingForm},

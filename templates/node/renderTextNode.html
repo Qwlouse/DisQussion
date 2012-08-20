@@ -5,6 +5,7 @@
 </p>
 {% if user.is_authenticated %}
     <p><a href="/.refine/{{ dbID }}">Diesen Vorschlag verbessern oder erweitern...</a></p>
+    <p><a href="/.create/{{ parentID }}">Einen neuen Alternativvorschlag erstellen...</a></p>
 {% endif %}
 {% if user.is_authenticated %}
 <h2>Bewertung</h2>
