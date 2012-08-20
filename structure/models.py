@@ -98,6 +98,9 @@ class Slot(models.Model):
     def __unicode__(self):
         return self.short_title
 
+    def getPathToRoot(self):
+        return [(self,self)]+self.parent.getPathToRoot() #TODO: is (self,self) correct? Not sure if this could cause errors.
+
     def getTextPath(self):
         parent_path = self.parent.getTextPath()
         if not parent_path.endswith("/") :
