@@ -1,7 +1,5 @@
 {% extends "main.html" %}
 
-{% block title %}DisQussion: {{ pagename }}{% endblock %}
-
 {% block bodytag %}
     <body onload="initPage('{{ anchor_nodes }}', '{{ navigation }}', {{ selected_id }}, true)">
 {% endblock %}
@@ -9,4 +7,8 @@
 {% block text %}
     <h1>&nbsp;</h1>
     <p><small>Text noch nicht geladen.</small></p>
+{% endblock %}
+
+{% block unused %}
+    </body>
 {% endblock %}
