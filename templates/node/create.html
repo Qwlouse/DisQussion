@@ -6,11 +6,6 @@
     <body onload="initPage('{{ anchor_nodes }}', '{{ navigation }}', -1, false)">
 {% endblock %}
 
-{% block graph %}
-    <div id="graph"></div>
-    {#    <div id="newProposal"><div class="circle" onclick="showNewProposal()"><span id="bigplus">+</span></div></div>#}
-{% endblock %}
-
 {% block text %}
     <form action="/.submit/TextNode" method="POST">
         {% csrf_token %}
