@@ -88,6 +88,20 @@ h2 {
     margin-top: 1.2em;
 }
 
+div#text ul {
+    padding-left: 1.5em;
+}
+
+div#text ol {
+    padding-left: 1.5em;
+}
+
+div#text li {
+    font-family: CMU serif, CMUSerif, cmr12, serif;
+    font-size: 12pt;
+    text-align: justify;
+}
+
 a {
 	color: #d27206;
 }
