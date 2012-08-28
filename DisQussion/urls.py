@@ -35,7 +35,7 @@ urlpatterns = patterns('',
 
     (r'^%s/' % settings.DAJAXICE_MEDIA_PREFIX, include('dajaxice.urls')),
     
-    url(r'^(?P<path>([a-zA-Z-_]+\.\d+/)*[a-zA-Z-_]+(\.\d+)?/?)$', 'DisQussion.views.path')
+    url(r'^(?P<path>([a-zA-Z0-9-_]+\.\d+/)*[a-zA-Z0-9-_]+(\.\d+)?/?)$', 'DisQussion.views.path')
 )
 
 # Static files for development
