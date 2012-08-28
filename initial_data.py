@@ -56,7 +56,11 @@ def createInitialData():
     modul01b_text = textfile.read()
     textfile.close()
     modul01b_slot, modul01b_textNode = createSlot(grundsaetze, "Modul01b", modul01b_text)
-    modul01b_schulpflicht_slot, modul01b_schulpflicht_textNode = createSlot(grundsaetze, "Modul01b", modul01b_text.replace("Alle Lernenden haben ein Anrecht auf 13 Schuljahre.","Die Lernenden haben ein Anrecht auf 13 Schuljahre. Die Schulpflicht von 12 Jahren bleibt davon unberührt."))
+    search_text = u'Alle Lernenden haben ein Anrecht auf 13 Schuljahre.'
+    additional_text = u' Die Schulpflicht von 12 Jahren bleibt davon unberührt.'
+    modul01b_schulpflicht_textNode = createText(modul01b_slot,
+        modul01b_text.decode(encoding='utf-8').replace(search_text, search_text + additional_text),
+        [modul01b_textNode])
     textfile = open("initial_data_storage/modul01c-i.txt", 'r')
     modul01ci_text = textfile.read()
     textfile.close()
