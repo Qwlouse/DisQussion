@@ -38,7 +38,8 @@ def createInitialData():
     textfile = open("initial_data_storage/oktoberkonzept.txt", 'r')
     oktoberkonzept_text = textfile.read()
     textfile.close()
-    oktoberkonzept_slot, oktoberkonzept_textNode = createSlot(bildung_okt, "Oktoberkonzept", oktoberkonzept_text)
+    oktoberkonzept_slot = createSlot(bildung_okt, "Oktoberkonzept")
+    oktoberkonzept_textNode = createText(oktoberkonzept_slot, oktoberkonzept_text, [wp_bildung_textNode, bilstr_posp_textNode])
 
     # Konzept AG Bildung
     bildung_ag = StructureNode()
