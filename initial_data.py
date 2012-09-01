@@ -107,7 +107,7 @@ def createInitialData():
     textfile = open("initial_data_storage/modul02d.txt", 'r')
     modul02d_text = textfile.read()
     textfile.close()
-    modul02d_slot, modul02d_textNode = createSlot(bildungssystem, "alternative Schulen", modul02d_text)
+    modul02d_slot, modul02d_textNode = createSlot(bildungssystem, "alternative_Schulen", modul02d_text)
     textfile = open("initial_data_storage/modul02e.txt", 'r')
     modul02e_text = textfile.read()
     textfile.close()
