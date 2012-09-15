@@ -57,6 +57,24 @@ div#inputText textarea {
     width: 100%;
 }
 
+div.button_bar {
+    margin-left: 5em;
+}
+
+div.button {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #666;
+    box-shadow: 0 1px 1px #555;
+    background-color: gray;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    margin: 1px;
+    display: inline-block;
+}
+
 span#bigplus {
     font-size: 66px;
     font-weight: bold;

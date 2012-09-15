@@ -5,10 +5,15 @@
 {% endblock %}
 
 {% block text %}
-    <form action="/.submit/TextNode" method="POST">
+    <form name="text_form" action="/.submit/TextNode" method="POST">
         {% csrf_token %}
         <h1>Alternativen Vorschlag erstellen in {{ slot_title }}</h1>
-
+        <div class="button_bar">
+        <div class="button" onclick="insert_tag('**','**');"><strong>B</strong>
+        </div><div class="button" onclick="insert_tag('//','//');"><em>I</em>
+        </div><div class="button" onclick="insert_line_tag('* ');">ul
+        </div><div class="button" onclick="insert_line_tag('# ');">ol
+        </div></div>
         {{ alternative_form.as_p }}
         <input type="hidden" name="source" value="-1"/>
         <input type="submit" value="Vorschlag erstellen"/>
