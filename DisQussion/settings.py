@@ -173,6 +173,13 @@ LOGGING = {
 # Registration settings
 ACCOUNT_ACTIVATION_DAYS=7
 EMAIL_HOST='localhost'
-EMAIL_PORT=1023
-EMAIL_HOST_USER='username'
-EMAIL_HOST_PASSWORD='password'
+ADMINS = (
+    ('Your Name', 'your_name@email.com'),
+)
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = 'DisQussionRulez'
+EMAIL_HOST_USER = 'disqussion.mail@gmail.com'
+EMAIL_SUBJECT_PREFIX = 'something'
+EMAIL_USE_TLS = True
