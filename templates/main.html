@@ -33,10 +33,10 @@
     </form>
     <ul>
         {% if user.is_staff %}
-        <li><a href=".admin/">Admin</a></li>
+        <li><a href="/.admin/">Admin</a></li>
         {% endif %}
         {% if user.is_authenticated %}
-        <li><a href=".users/{{ user.username }}">
+        <li><a href="/.users/{{ user.username }}">
             {% if user.first_name|length > 0 or user.last_name|length > 0 %}{{ user.first_name }} {{ user.last_name }}
             {% else %}{{ user.username }}{% endif %}</a></li>
             <li>
