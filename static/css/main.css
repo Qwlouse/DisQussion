@@ -68,6 +68,10 @@ div#text p {
 	margin: 0;
 }
 
+div#text p.noindent {
+    text-indent: 0;
+}
+
 h1 {
 	font-family: CMU serif, CMUSerif, cmr17, serif;
 	font-size: 20pt;
