@@ -129,7 +129,6 @@ INSTALLED_APPS = (
     'structure',
     'accounts',
     'dajaxice',
-    'dajax',
     'django_markup'
 )
 
