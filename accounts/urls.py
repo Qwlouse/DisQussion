@@ -4,8 +4,12 @@ from __future__ import division, print_function, unicode_literals
 from django.conf.urls import patterns, include, url
 
 from django.contrib.auth.views import password_change
+import registration.backends.default.urls
 
 urlpatterns = patterns('',
+    # Registration
+    url(r'^.registration/', include(registration.backends.default.urls)),
+
     # Login and Logout
     (r'^login$', 'django.contrib.auth.views.login', {'redirect_field_name': "login_redirect"}),
     (r'^logout$', 'django.contrib.auth.views.logout', {'redirect_field_name': "logout_redirect"}),

@@ -23,8 +23,6 @@ urlpatterns = patterns('',
     # User administration
     url(r'^\.users/', include(accounts.urls)),
 
-    (r'^\.registration/', include('registration.urls')),
-
     # Submissions
     url(r'^\.submit/TextNode', 'structure.views.submit_textNode'),
     url(r'^\.submit/SlotWithText', 'structure.views.submit_slot_with_text'),
