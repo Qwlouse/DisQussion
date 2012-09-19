@@ -129,7 +129,8 @@ INSTALLED_APPS = (
     'structure',
     'accounts',
     'dajaxice',
-    'django_markup'
+    'django_markup',
+    'registration'
 )
 
 # Add custom user profile information
@@ -166,3 +167,11 @@ LOGGING = {
         },
     }
 }
+
+# django-registration
+# Registration settings
+ACCOUNT_ACTIVATION_DAYS=7
+EMAIL_HOST='localhost'
+EMAIL_PORT=1023
+EMAIL_HOST_USER='username'
+EMAIL_HOST_PASSWORD='password'
