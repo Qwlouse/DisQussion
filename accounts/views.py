@@ -90,7 +90,7 @@ def show_profile(request, user_name):
              "emailForm" : EMailForm(instance=user),
              "descriptionForm" : DescriptionForm(instance=profile),
              "passwordForm" : PasswordChangeForm(user),
-             "this_url": ".users/" + user_name},
+             "this_url": "/.users/" + user_name},
         context_instance=RequestContext(request))
 
 def change_email(request):
