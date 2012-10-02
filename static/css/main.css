@@ -55,9 +55,19 @@ div#navbar ol ol li a {
     text-decoration: none;
 }
 
+div#floatblock {
+    float: right;
+    position: relative;
+    left:-50%;
+    text-align:left;
+}
+
 div#text {
+    position: relative;
+    left: 50%;
 	max-width: 33em;
     float: left;
+    margin: 0 auto;
 }
 
 div#text p {
