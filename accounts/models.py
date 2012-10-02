@@ -15,8 +15,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     # Other fields here
-    description = models.TextField()
-    following = models.ManyToManyField('self', related_name='followers', symmetrical=False)
+    description = models.TextField(blank=True)
+    following = models.ManyToManyField(User, related_name='followers', symmetrical=False, blank=True)
 
     def __unicode__(self):
         return u'Profile of %s' % self.user.username

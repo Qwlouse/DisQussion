@@ -20,4 +20,4 @@ class Entry(models.Model):
 
 
 def getFeedForUser(user):
-    return Entry.objects.filter(owner__followers=user)
+    return Entry.objects.filter(user__followers=user).order_by('-time')
