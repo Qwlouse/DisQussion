@@ -1,5 +1,7 @@
 div#microblog {
     float: right;
+    left: 50%;
+    position: relative;
     max-width: 23em;
     padding-left: 1em;
     margin-top: 4.2em;
