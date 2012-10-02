@@ -17,3 +17,7 @@ class Entry(models.Model):
         verbose_name_plural = "entries"
         ordering = ['-post_date']
         get_latest_by = 'post_date'
+
+
+def getFeedForUser(user):
+    return Entry.objects.filter(owner__followers=user)
