@@ -29,7 +29,7 @@
                     </ul>
                 {% elif activity.type == 1 %}
                     <p>{{ userinfo.name }} hat {% if activity.wording == 0 %}sich {% endif %}bei
-                        <a href="../{{ activity.text_url }}">{{ activity.title }}</a>
+                        <a href="{{ activity.text_url }}">{{ activity.title }}</a>
                         {% if activity.wording != 0 %}die Formulierung mit {{ activity.wording }} bewertet
                         {% else %}der Formulierung enthalten{% endif %}
                         {% if activity.consent == 1 %}{% if activity.wording == -1 %}aber{% else %}und{% endif %} dem Inhalt
