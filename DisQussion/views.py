@@ -10,7 +10,7 @@ from structure.ajax import getDataForAlternativesGraph, getNavigationData, getGr
 from structure.forms import CreateTextForm
 from structure.models import Slot, Vote
 from structure.path_helpers import getNodeForPath, getRootNode
-from microblogging.models import Entry
+from microblogging.models import Entry, getFeedForUser
 from view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost
 
 
@@ -27,8 +27,12 @@ def home(request):
     anchor_nodes = json.dumps({"Anchors": [getGraphInfoForNode(root)],
                                "related_nodes" : [],
                                "connections" : []})
-    recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.all().order_by("time")]
-    recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("time")]
+    if request.user.is_authenticated():
+        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=request.user).order_by("time")]
+        recentEntries = [convertEntryToBlogPost(e) for e in getFeedForUser(request.user)]
+    else:
+        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.all().order_by("time")]
+        recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("time")]
     activities = sorted(recentVotes + recentEntries, key=lambda x: -x["plain_time"])
     return render_to_response("index.html",
             {"pagename":"Root",
