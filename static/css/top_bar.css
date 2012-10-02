@@ -8,13 +8,17 @@ div#leiste {
 div#leiste div#logo {
     width: 6em;
     display: inline;
-    color: #484848;
-    font-size: 12pt;
-    font-stretch: expanded;
     float: left;
 }
 
-div#leiste div#logo span.smaller {
+div#leiste div#logo a {
+    color: #484848;
+    text-decoration: none;
+    font-size: 12pt;
+    font-stretch: expanded;
+}
+
+div#leiste div#logo a span.smaller {
     font-size: 85%;
 }
 

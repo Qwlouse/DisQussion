@@ -26,7 +26,7 @@
 <body>
 {% endblock %}
 <div id="leiste">
-    <div id="logo">D<span class="smaller">IS</span><strong>Q</strong><span class="smaller">USSION</span></div>
+    <div id="logo"><a href="/">D<span class="smaller">IS</span><strong>Q</strong><span class="smaller">USSION</span></a></div>
     <form method="get" action="/search" accept-charset="UTF-8">
         <div class="inline"><input name="suchfeld" id="suchfeld" type="search" size="10" maxlength="140"
                                    autocomplete="on" results="5" placeholder="suchen"/></div>
@@ -35,6 +35,7 @@
         {% if user.is_staff %}
         <li><a href="/.admin/">Admin</a></li>
         {% endif %}
+        <li><a id="home_link" href="/">Home</a></li>
         {% if user.is_authenticated %}
         <li><a href="/.users/{{ user.username }}">
             {% if user.first_name|length > 0 or user.last_name|length > 0 %}{{ user.first_name }} {{ user.last_name }}
@@ -52,6 +53,7 @@
         {% endif %}
     </ul>
 </div>
+{% block navigation %}
 <div id="navbar">
     <ol>
         <li>
@@ -83,6 +85,7 @@
         </li>
     </ol>
 </div>
+{% endblock %}
 <div id="text">
     {% block text %}
         <h1>Main Template</h1>
