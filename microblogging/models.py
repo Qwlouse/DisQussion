@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 
 # Create your models here.
 from django.contrib.auth.models import User
@@ -20,4 +21,6 @@ class Entry(models.Model):
 
 
 def getFeedForUser(user):
-    return Entry.objects.filter(user__followers=user).order_by('-time')
+    followed = Q(user__followers=user)
+    own = Q(user = user)
+    return Entry.objects.filter(followed | own).order_by('-time')
