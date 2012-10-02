@@ -16,7 +16,7 @@ class UserProfile(models.Model):
 
     # Other fields here
     description = models.TextField()
-    followers = models.ManyToManyField('self', related_name='following', symmetrical=False)
+    following = models.ManyToManyField('self', related_name='followers', symmetrical=False)
 
     def __unicode__(self):
         return u'Profile of %s' % self.user.username
