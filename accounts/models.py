@@ -16,6 +16,10 @@ class UserProfile(models.Model):
 
     # Other fields here
     description = models.TextField()
+    followers = models.ManyToManyField('self', related_name='following', symmetrical=False)
+
+    def __unicode__(self):
+        return u'Profile of %s' % self.user.username
 
 # Use signals to ensure the profile will be created automatically when a user is created
 def create_user_profile(sender, instance, created, **kwargs):

@@ -131,7 +131,8 @@ INSTALLED_APPS = (
     'accounts',
     'dajaxice',
     'django_markup',
-    'registration'
+    'registration',
+    'microblogging'
 )
 
 # Add custom user profile information
