@@ -4,9 +4,20 @@
     <body onload="initPage('{{ anchor_nodes }}', '{{ navigation }}', {{ selected_id }}, true)">
 {% endblock %}
 
+{% block graph %}{% endblock %}
+
 {% block text %}
-    <h1>&nbsp;</h1>
-    <p><small>Text noch nicht geladen.</small></p>
+    <h1>Neue Weiterentwicklungen</h1>
+    <p>Hier werden veränderte Texte von Vorschlägen aufgelistet, die ich entweder erstellt, editiert oder bewertet,
+        oder bei denen ich Argumente erstellt oder editiert habe.</p>
+    <h1>Neue Vorschläge</h1>
+    <p>Hier werden neue Alternativen zu Vorschlägen angezeigt, die ich entweder erstellt,editiert oder bewertet,
+        oder bei denen ich Argumente erstellt oder editiert habe.</p>
+    <h1>Neue Argumente</h1>
+    <p>Hier werden direkte Links zu neuen Argumenten, zu vorschlägen mit denen ich interagiert habe, gelistet.</p>
+    <h1>Veränderte Mehrheiten</h1>
+    <p>Hier wird angezeigt, bei welchen Vorschlägen sich die Mehrheitsverhältnisse verändert haben, seit meinem
+        letzten Besuch.</p>
 {% endblock %}
 
 {% block microblog %}

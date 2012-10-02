@@ -108,21 +108,23 @@ function buildGraph(node_id, node_title, node_type) {
 
 
 function initPage(anchorGraphData, navigationData, selected_id, doNodeUpdate) {
-    document.getElementById('graph').paddingTop = 30.0;
-    document.getElementById('graph').paddingLeft = 30.0;
-    document.getElementById('graph').paddingRight = 30.0;
-    document.getElementById('graph').paddingBottom = 30.0;
-    updateNavigation(JSON.parse(navigationData));
-    buildAnchorGraph(JSON.parse(anchorGraphData));
-    // get selected Node:
-    var graphNode = document.getElementById('graph');
-    for (var i = 0; i < graphNode.circles.length; ++i) {
-        var node = graphNode.circles[i];
-        if ((node.dbId == selected_id) && node.type != "Slot") {
-            showNode(node, doNodeUpdate);
-            break;
+    if (document.getElementById('graph')) {
+        document.getElementById('graph').paddingTop = 30.0;
+        document.getElementById('graph').paddingLeft = 30.0;
+        document.getElementById('graph').paddingRight = 30.0;
+        document.getElementById('graph').paddingBottom = 30.0;
+        buildAnchorGraph(JSON.parse(anchorGraphData));
+        // get selected Node:
+        var graphNode = document.getElementById('graph');
+        for (var i = 0; i < graphNode.circles.length; ++i) {
+            var node = graphNode.circles[i];
+            if ((node.dbId == selected_id) && node.type != "Slot") {
+                showNode(node, doNodeUpdate);
+                break;
+            }
         }
     }
+    updateNavigation(JSON.parse(navigationData));
 }
 
 

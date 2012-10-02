@@ -1,6 +1,5 @@
 function updateNavigation(data) {
     var navigationNode = document.getElementById('navbar');
-    var graphNode = document.getElementById('graph');
     var outerList = document.createElement('ol');
     for (var i = 0; i < data['history'].length; i++) {
         var outerListElement = document.createElement('li');
@@ -19,7 +18,9 @@ function updateNavigation(data) {
         outerList.appendChild(outerListElement);
     }
     outerListElement = document.createElement('li');
-    outerListElement.appendChild(graphNode);
+    if (document.getElementById('graph')) {
+        outerListElement.appendChild(document.getElementById('graph'));
+    }
     outerList.appendChild(outerListElement);
     if (data['slot_list'].length > 0) {
         outerListElement = document.createElement('li');
