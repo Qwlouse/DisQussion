@@ -8,9 +8,11 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from accounts.forms import EMailForm, DescriptionForm
 from structure.models import Vote
+from microblogging.models import Entry
 
 from django.utils import timezone
 from datetime import datetime
+from time import mktime
 
 
 def howLongAgo(time=False):
@@ -59,12 +61,23 @@ def howLongAgo(time=False):
 def convertVoteToVoteInfo(vote):
     voteinfo = dict()
     voteinfo["type"] = 1
+    voteinfo["plain_time"] = mktime(vote.time.timetuple())
     voteinfo["time"] = howLongAgo(vote.time)
     voteinfo["text_url"] = vote.text.getTextPath()
     voteinfo["title"] = vote.text.parent.short_title
     voteinfo["consent"] = vote.consent
     voteinfo["wording"] = vote.wording
     return voteinfo
+
+
+def convertEntryToBlogPost(entry):
+    post = dict()
+    post["type"] = 0
+    post["plain_time"] = mktime(entry.time.timetuple())
+    post["time"] = howLongAgo(entry.time)
+    post["text"] = entry.content
+    return post
+
 
 def show_profile(request, user_name):
     users = User.objects.filter(username = user_name)
@@ -82,7 +95,8 @@ def show_profile(request, user_name):
 
     # Activities
     recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=user).order_by("time")]
-    userinfo["activities"] = recentVotes
+    recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.filter(user=user).order_by("time")]
+    userinfo["activities"] = sorted(recentVotes + recentEntries, key=lambda x: -x["plain_time"])
 
     return render_to_response("accounts/profile.html",
             {"userinfo": userinfo,
