@@ -8,8 +8,10 @@ from django.contrib.auth.forms import AuthenticationForm
 from structure.ajax import getDataForAlternativesGraph, getNavigationData, getGraphInfoForNode
 
 from structure.forms import CreateTextForm
-from structure.models import Slot
+from structure.models import Slot, Vote
 from structure.path_helpers import getNodeForPath, getRootNode
+from microblogging.models import Entry
+from view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost
 
 
 def home(request):
@@ -25,15 +27,18 @@ def home(request):
     anchor_nodes = json.dumps({"Anchors": [getGraphInfoForNode(root)],
                                "related_nodes" : [],
                                "connections" : []})
-
-    return render_to_response("node/show.html",
+    recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.all().order_by("time")]
+    recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("time")]
+    activities = sorted(recentVotes + recentEntries, key=lambda x: -x["plain_time"])
+    return render_to_response("index.html",
             {"pagename":"Root",
              "this_url": "/",
              "authForm": AuthenticationForm(),
              "textForm": textForm,
              "navigation" : getNavigationData(request, root.id, root.getType()),
              "anchor_nodes" : anchor_nodes,
-             "selected_id" : root.id
+             "selected_id" : root.id,
+             "activities" : activities
              },
         context_instance=RequestContext(request))
 
