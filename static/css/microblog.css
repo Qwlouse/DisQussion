@@ -8,7 +8,12 @@ div#microblog {
     text-align: left;
 }
 
-div.text div.micropost, div.text div.micropost p {
+div.micropost, div.micropost p {
+    font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
+    font-size: 10pt;
+}
+
+div#text div.micropost, div#text div.micropost p, div#text div.micropost ul.micropost-controls li {
     font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
     font-size: 10pt;
 }
