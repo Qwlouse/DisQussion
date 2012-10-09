@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 class Entry(models.Model):
     content = models.CharField(max_length=140)
-    time = models.DateTimeField('date posted')
+    time = models.DateTimeField('date posted', auto_now=True)
     user = models.ForeignKey(User, related_name='entries')
 
     def __unicode__(self):

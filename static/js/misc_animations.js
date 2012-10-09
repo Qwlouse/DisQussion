@@ -34,6 +34,42 @@ function showlogin_step() {
     }
 }
 
+function closepostfield() {
+    document.getElementById("post_field").style.opacity = "1.0";
+    closepostfield_step();
+}
+
+function closepostfield_step() {
+    var opac = parseFloat(document.getElementById("post_field").style.opacity);
+    document.getElementById("post_field").style.opacity = "" + (opac - 0.11);
+    document.getElementById("post_field_overlay").style.opacity = "" + ((opac - 0.11)*0.5);
+    if (opac >= 0.01) {
+        setTimeout("closepostfield_step()", 25);
+    } else {
+        document.getElementById("post_field_overlay").style.display = "none";
+        document.getElementById("post_field").style.display = "none";
+    }
+}
+
+function showpostfield() {
+    document.getElementById("post_field").style.display = "block";
+    document.getElementById("post_field_overlay").style.display = "block";
+    document.getElementById("post_field").style.opacity = "0.0";
+    showpostfield_step();
+}
+
+function showpostfield_step() {
+    var opac = parseFloat(document.getElementById("post_field").style.opacity);
+    document.getElementById("post_field").style.opacity = "" + (opac + 0.11);
+    document.getElementById("post_field_overlay").style.opacity = "" + ((opac + 0.11)*0.5);
+    if (opac < 0.9) {
+        setTimeout("showpostfield_step()", 25);
+    } else {
+        document.getElementById("post_field").style.opacity = "1.0";
+        document.getElementById("post_field_overlay").style.opacity = "0.5";
+    }
+}
+
 function hideText() {
     document.getElementById("text").style.opacity = "1.0";
     hideText_step();

@@ -47,6 +47,19 @@ div#leiste ul li {
     display: inline;
 }
 
+div#leiste ul li button {
+    background: #2e64ae url("../images/wgrad.png") repeat-x;
+    border-width: 1px;
+    border-right-color: #1f5ba1;
+    border-bottom-color: #1e589e;
+    border-left-color: #3e74be;
+    border-top-color: #3f78c2;
+    box-shadow: 0 1px 1px #505050;
+    border-radius: 5px;
+    margin: 0;
+    padding: 0;
+}
+
 div#leiste ul li a {
     color: #ffa500;
 }

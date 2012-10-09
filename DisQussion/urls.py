@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     # Submissions
     url(r'^\.submit/TextNode', 'structure.views.submit_textNode'),
     url(r'^\.submit/SlotWithText', 'structure.views.submit_slot_with_text'),
+    url(r'^\.submit/MicroblogPost', 'microblogging.views.submit_Microblog_Entry'),
 
     # Refine proposals
     url(r'^\.refine/(?P<id>\d+)$', 'structure.views.refine_node'),
