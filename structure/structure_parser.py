@@ -87,3 +87,4 @@ def parse(s, parent_slot):
         slot.save()
         print("Generated Slot", slot)
         parse("= %s =\n"%title + text, slot)
+    return node
