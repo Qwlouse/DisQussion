@@ -83,7 +83,7 @@ def parse(s, parent_slot):
             short_title=title[:min(15, len(title))]
         slot = Slot()
         slot.parent = node
-        slot.short_title = short_title
+        slot.short_title = short_title.strip().replace(" ", "_")
         slot.save()
         print("Generated Slot", slot)
         parse("= %s =\n"%title + text, slot)
