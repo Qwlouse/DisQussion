@@ -34,6 +34,7 @@ def show_profile(request, user_name):
 
     return render_to_response("accounts/profile.html",
             {"userinfo": userinfo,
+             "is_follow": request.user and user in request.user.userprofile.following.all(),
              "authForm": AuthenticationForm(),
              "emailForm" : EMailForm(instance=user),
              "descriptionForm" : DescriptionForm(instance=profile),
