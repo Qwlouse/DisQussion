@@ -5,7 +5,7 @@ from dajaxice.decorators import dajaxice_register
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
 import operator
-from structure.forms import VotingForm, CreateTextNodeForm, CreateSlotWithTextForm
+from structure.forms import VotingForm, CreateTextForm
 from structure.models import TextNode, Slot, StructureNode, Vote
 import json
 from structure.path_helpers import getRootNode
@@ -34,7 +34,7 @@ def getNodeText(node, request):
             RequestContext(request))
 
     elif isinstance(node, StructureNode):
-        createSlotWithTextForm = CreateSlotWithTextForm({'parent_id' : node.id})
+        createTextForm = CreateTextForm({'slot_id' : node.parent_id})
         slots = node.slot_set.all()
         slots_info = [{'short_title' : slots[0].getShortTitle(), 'text' : slots[0].getText()}]
         slots_info += [{'short_title' : s.getShortTitle(), 'text' : s.getText(1)} for s in slots[1:]]
@@ -44,7 +44,7 @@ def getNodeText(node, request):
              'consent_rating' : node.calculate_consent_rating(),
              'wording_rating' : node.calculate_wording_rating(),
              'slots' : slots_info,
-             'create_slot_with_text_form' : createSlotWithTextForm},
+             'create_text_form' : createTextForm},
             RequestContext(request))
     else :
         return ""

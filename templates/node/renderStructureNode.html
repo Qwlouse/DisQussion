@@ -9,9 +9,9 @@
 {% if user.is_authenticated %}
 <h2>Alternative erstellen</h2>
 <p>
-<form action="/.submit/SlotWithText" method="POST">
+<form action="/.submit/TextNode" method="POST">
     {% csrf_token %}
-    {{ create_slot_with_text_form.as_p }}
+    {{ create_text_form.as_p }}
     <input type='submit' value="Abschicken">
 </form>
 </p>

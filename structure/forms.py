@@ -16,14 +16,6 @@ class VotingForm(forms.Form):
     wording = forms.MultipleChoiceField(label='Formulierung', widget=forms.RadioSelect, choices=WORDING_CHOICES, required=False)
     text_id = forms.IntegerField(widget=forms.HiddenInput())
 
-class CreateTextNodeForm(forms.Form):
+class CreateTextForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea, required=False)
     slot_id = forms.IntegerField(widget=forms.HiddenInput)
-
-class CreateSlotWithTextForm(forms.Form):
-    short_title = forms.CharField(max_length=20,
-        label="Kurztitel (20 Zeichen)",
-        required=False
-    )
-    text = forms.CharField(widget=forms.Textarea, required=False)
-    parent_id = forms.IntegerField(widget=forms.HiddenInput)

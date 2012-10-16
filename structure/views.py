@@ -6,9 +6,11 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
 from structure.models import TextNode, Slot, Vote
-from structure.forms import CreateTextNodeForm
+from structure.forms import CreateTextForm
 from structure.ajax import getNavigationData, getDataForAlternativesGraph
 from structure_parser import  parse
+
+
 def add_auto_upvote(user, text):
     auto_upvote = Vote()
     auto_upvote.consent = 1
@@ -52,7 +54,7 @@ def submit_slot_with_text(request):
 
 def refine_node(request, id):
     pattern_node = TextNode.objects.get(pk=id)
-    createTextNodeForm = CreateTextNodeForm({'text' : pattern_node.getText(), 'slot_id' : pattern_node.parent_id})
+    createTextNodeForm = CreateTextForm({'text' : pattern_node.getText(), 'slot_id' : pattern_node.parent_id})
     anchor_nodes = getDataForAlternativesGraph(request, pattern_node.parent_id)
     return render_to_response("node/refine.html",
             {"pagename": "Verbessern oder erweitern von "+pattern_node.getShortTitle(),
@@ -71,7 +73,7 @@ def refine_node(request, id):
 
 def create_node(request, parent_id):
     parent = Slot.objects.get(pk=parent_id)
-    createTextNodeForm = CreateTextNodeForm({'text' : "", 'slot_id' : parent_id})
+    createTextNodeForm = CreateTextForm({'text' : "", 'slot_id' : parent_id})
     anchor_nodes = getDataForAlternativesGraph(request, parent.id)
     return render_to_response("node/create.html",
             {"pagename": "Alternative erstellen in "+parent.getShortTitle(),
