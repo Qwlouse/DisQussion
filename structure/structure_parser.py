@@ -37,7 +37,7 @@ def parse(s, parent_slot):
         t.parent = parent_slot
         t.save()
         print("Generated TextNode", t)
-        return
+        return t
     # else : StructureNode
 
     node = StructureNode()
