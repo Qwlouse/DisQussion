@@ -14,13 +14,9 @@ def createInitialData():
     bildung = createSlot('root', "Bildung")
 
     # Wahlprogramm
-    bildung_wp = StructureNode()
-    bildung_wp.parent = lookupNode(bildung, Slot)
-    bildung_wp.save()
-    textfile = open("initial_data_storage/wahlprogramm.txt", 'r')
-    wahlprogramm_text = textfile.read()
-    textfile.close()
-    wp_bildung, wp_bildung_textNode = createSlot(bildung_wp, "Wahlprogramm", wahlprogramm_text)
+    with open("initial_data_storage/wahlprogramm.txt", 'r') as f:
+        wahlprogramm_text = f.read()
+    wp_bildung = parseWiki(bildung, unicode(wahlprogramm_text, encoding='utf-8'))
 
     # Bildungsstreik Positionspapier
     bildung_posp = StructureNode()
@@ -39,7 +35,7 @@ def createInitialData():
     oktoberkonzept_text = textfile.read()
     textfile.close()
     oktoberkonzept_slot = createSlot(bildung_okt, "Oktoberkonzept")
-    oktoberkonzept_textNode = createText(oktoberkonzept_slot, oktoberkonzept_text, [wp_bildung_textNode, bilstr_posp_textNode])
+    oktoberkonzept_textNode = createText(oktoberkonzept_slot, oktoberkonzept_text, [bilstr_posp_textNode])
 
     # Konzept AG Bildung
     bildung_ag = StructureNode()
