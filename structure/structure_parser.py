@@ -15,8 +15,8 @@ def getHeadingMatcher(level=0):
         raise ValueError("level must be between 1 and 6 or 0, but was %d."%level)
     return re.compile(r"^\s*={%s}(?P<title>[^=§]+)(?:§\s*(?P<short_title>[^=§\s]+)\s*)?=*\s*$"%s, flags=re.MULTILINE)
 
-h1_start = re.compile(r"^\s*=(?P<title>[^=§]+)=*\s*$", flags=re.MULTILINE)
-general_h = re.compile(r"^\s*={2,6}(?P<title>[^=]+)=*\s*$", flags=re.MULTILINE)
+h1_start = re.compile(r"^\s*=(?P<title>[^=]+)=*\s*$", flags=re.MULTILINE)
+general_h = re.compile(r"^\s*(={2,6}(?P<title>[^=]+)=*)\s*$", flags=re.MULTILINE)
 
 
 def parse(s, parent_slot):
@@ -24,6 +24,7 @@ def parse(s, parent_slot):
     m = h1_start.match(s) # TODO: match short titles and warn about
     if m :
         title = m.groups("title")[0]
+        title = title.partition("§")[0] # silently remove attempt to set short_title in H1
         s = h1_start.sub("", s)
     else :
         # TODO: warn about missing title
@@ -73,7 +74,7 @@ def parse(s, parent_slot):
     # assert that no headings are in intro-text
     if general_h.search(intro_text):
         # TODO: Warn!
-        pass
+        intro_text = general_h.sub(r"~\1", intro_text)
         #general_h.
     introduction_text.text = "= %s =\n"%title + intro_text
     introduction_text.save()

@@ -28,7 +28,7 @@ class StructureParserTest(unittest.TestCase):
     def test_three_headings_results_in_TextNode(self):
         s = "Introduction\n==== Heading 1 ====\nMy name is Harry.\n=== Heading 2 ===\nI'm quite an idiot.\n==  Heading 3   ==\n\nI reversed the ordering of the headings."
         titles = ["Einleitung", "Heading_3"]
-        textparts = ["= TestSlot =\nIntroduction\n==== Heading 1 ====\nMy name is Harry.\n=== Heading 2 ===\nI'm quite an idiot.\n",
+        textparts = ["= TestSlot =\nIntroduction\n~==== Heading 1 ====\nMy name is Harry.\n~=== Heading 2 ===\nI'm quite an idiot.\n",
                      "= Heading 3 =\nI reversed the ordering of the headings."]
         n = parse(s, self.test_slot)
         self.assertEqual(n.getType(), "StructureNode")
