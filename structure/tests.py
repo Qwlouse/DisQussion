@@ -29,7 +29,7 @@ class StructureParserTest(unittest.TestCase):
         s = "Introduction\n==== Heading 1 ====\nMy name is Harry.\n=== Heading 2 ===\nI'm quite an idiot.\n== Heading 3 ==\nI reversed the ordering of the headings."
         titles = ["Einleitung", "Heading_3"]
         textparts = ["= TestSlot =\nIntroduction\n==== Heading 1 ====\nMy name is Harry.\n=== Heading 2 ===\nI'm quite an idiot.\n",
-                     "=   Heading 3   =\n\nI reversed the ordering of the headings."]
+                     "= Heading 3 =\nI reversed the ordering of the headings."]
         n = parse(s, self.test_slot)
         self.assertEqual(n.getType(), "StructureNode")
         for i, slot in enumerate(n.slot_set.all()):
