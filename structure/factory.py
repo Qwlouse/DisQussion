@@ -4,6 +4,7 @@ from __future__ import division, print_function, unicode_literals
 from django.contrib.auth.models import User
 from structure.models import TextNode, StructureNode, Slot, Node, Vote, adjust_vote_caches
 from structure.path_helpers import getRootNode
+from structure.structure_parser import parse
 from structure.vote_helpers import vote_for_textNode
 
 
@@ -69,6 +70,9 @@ def createStructure(parent, slots):
     else :
         slot_list = [createSlot(st, s) for s in slots]
     return st, slot_list
+
+def parseWiki(parent, wiki_text):
+    return parse(wiki_text, parent)
 
 def createDummyUsers(cnt):
     dummy_users_count = User.objects.filter(username__startswith="user_").count()
