@@ -16,7 +16,7 @@ def getHeadingMatcher(level=0):
     return re.compile(r"^\s*={%s}(?P<title>[^=§]+)(?:§\s*(?P<short_title>[^=§\s]+)\s*)?=*\s*$"%s, flags=re.MULTILINE)
 
 h1_start = re.compile(r"^\s*=(?P<title>[^=§]+)=*\s*$", flags=re.MULTILINE)
-general_h = re.compile(r"^\s*={2,6}(?P<title>[^=]+)=*\s*$", flags=re.MULTILINE)
+general_h = re.compile(r"^\s*(={2,6}(?P<title>[^=]+)=*)\s*$", flags=re.MULTILINE)
 
 
 def parse(s, parent_slot):
@@ -73,7 +73,7 @@ def parse(s, parent_slot):
     # assert that no headings are in intro-text
     if general_h.search(intro_text):
         # TODO: Warn!
-        pass
+        intro_text = general_h.sub(r"~\1", intro_text)
         #general_h.
     introduction_text.text = "= %s =\n"%title + intro_text
     introduction_text.save()
