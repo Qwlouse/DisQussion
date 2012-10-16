@@ -23,7 +23,7 @@ def parse(s, parent_slot):
     #make sure we start with a heading 1
     m = h1_start.match(s) # TODO: match short titles and warn about
     if m :
-        title = m.groups("title")
+        title = m.groups("title")[0]
         s = h1_start.sub("", s)
     else :
         # TODO: warn about missing title
@@ -33,7 +33,7 @@ def parse(s, parent_slot):
     if not general_h.search(s) :
         # TextNode
         t = TextNode()
-        t.text = "= %s =\n"%title + s
+        t.text = "= %s =\n"%title.strip() + s.strip()
         t.parent = parent_slot
         t.save()
         print("Generated TextNode", t)
@@ -69,7 +69,13 @@ def parse(s, parent_slot):
     print("created intro node", introduction)
     introduction_text = TextNode()
     introduction_text.parent = introduction
-    introduction_text.text = "= %s =\n"%title + split_doc[0]
+    intro_text = split_doc[0]
+    # assert that no headings are in intro-text
+    if general_h.search(intro_text):
+        # TODO: Warn!
+        pass
+        #general_h.
+    introduction_text.text = "= %s =\n"%title + intro_text
     introduction_text.save()
     print("created intro-text", introduction_text)
 
@@ -86,5 +92,5 @@ def parse(s, parent_slot):
         slot.short_title = short_title.strip().replace(" ", "_")
         slot.save()
         print("Generated Slot", slot)
-        parse("= %s =\n"%title + text, slot)
+        parse("= %s =\n"%title.strip() + text.strip(), slot)
     return node
