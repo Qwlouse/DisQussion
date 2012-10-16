@@ -33,18 +33,6 @@ def getNodeText(node, request):
              'form'  : votingForm},
             RequestContext(request))
 
-    elif isinstance(node, Slot):
-        createTextNodeForm = CreateTextNodeForm({'slot_id' : node.id})
-        return render_to_string('node/renderSlot.html',
-            {'title' : node.getShortTitle(),
-             'alternatives' : [{'id' : a.nr_in_parent(),
-                                'text' : a.getText(),
-                                'consent_rating' : a.calculate_consent_rating(),
-                                'wording_rating' : a.calculate_wording_rating()
-                                } for a in node.node_set.order_by('-rating')],
-             'new_alternative_form' : createTextNodeForm},
-            RequestContext(request))
-
     elif isinstance(node, StructureNode):
         createSlotWithTextForm = CreateSlotWithTextForm({'parent_id' : node.id})
 
