@@ -169,5 +169,9 @@ div.shorttitle {
     font-size: 8pt;
     font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
     border-bottom: 1px dotted #D0D0D0;
-    margin: 0;
+    margin: 2em 0 0 0;
+}
+
+div.slot h1:first-of-type, div.slot h2:first-of-type, div.slot h3:first-of-type, div.slot h4:first-of-type, div.slot h5:first-of-type {
+    margin-top: 0;
 }
