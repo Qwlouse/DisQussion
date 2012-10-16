@@ -1,8 +1,6 @@
-<h1>{{ title }}</h1>
+<div class="shorttitle">{{ title }}</div>
 {% load markup_tags %}
-<p>
-    {{ text|apply_markup:"creole" }}
-</p>
+{{ text|apply_markup:"creole" }}
 {% if user.is_authenticated %}
     <p><a href="/.refine/{{ dbID }}">Diesen Vorschlag verbessern oder erweitern...</a></p>
     <p><a href="/.create/{{ parentID }}">Einen neuen Alternativvorschlag erstellen...</a></p>

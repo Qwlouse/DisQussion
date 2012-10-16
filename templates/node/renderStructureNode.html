@@ -1,10 +1,8 @@
-<h1>{{ title }}</h1>
+<div class="shorttitle">{{ title }}</div>
 {% load markup_tags %}
 {% for slot in slots %}
-    <h2>{{ slot.short_title }}</h2>
-    <p>
-        {{ slot.text|apply_markup:"creole" }}
-    </p>
+    <div class="shorttitle">{{ slot.short_title }}</div>
+    {{ slot.text|apply_markup:"creole" }}
 {% endfor %}
 {% if user.is_authenticated %}
 <h2>Alternative erstellen</h2>
