@@ -34,14 +34,17 @@ def getNodeText(node, request):
             RequestContext(request))
 
     elif isinstance(node, StructureNode):
-        createTextForm = CreateTextForm({'slot_id' : node.id})
+        createSlotWithTextForm = CreateSlotWithTextForm({'parent_id' : node.id})
+        slots = node.slot_set.all()
+        slots_info = [{'short_title' : slots[0].getShortTitle(), 'text' : slots[0].getText()}]
+        slots_info += [{'short_title' : s.getShortTitle(), 'text' : s.getText(1)} for s in slots[1:]]
 
         return render_to_string('node/renderStructureNode.html',
             {'title' : node.getShortTitle(),
              'consent_rating' : node.calculate_consent_rating(),
              'wording_rating' : node.calculate_wording_rating(),
-             'slots' : [{'short_title' : s.getShortTitle(), 'text' : s.getText()} for s in node.slot_set.all()],
-             'create_text_form' : createTextForm},
+             'slots' : slots_info,
+             'create_slot_with_text_form' : createSlotWithTextForm},
             RequestContext(request))
     else :
         return ""

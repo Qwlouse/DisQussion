@@ -65,11 +65,11 @@ class Node(models.Model):
         """
         return "/" + "/".join("{}.{}".format(slot.short_title, sn.nr_in_parent()) for sn, slot in reversed(self.getPathToRoot()))
 
-    def getText(self):
+    def getText(self, level=0):
         """
         Traverse the subtree spanned by this node and gather the texts with highest consent.
         """
-        return self.as_leaf_class().getText()
+        return self.as_leaf_class().getText(level)
 
     def getShortTitle(self):
         if self.parent is None:
@@ -107,12 +107,12 @@ class Slot(models.Model):
             parent_path += "/"
         return parent_path + self.short_title
 
-    def getText(self):
+    def getText(self, level=0):
         alternatives = self.node_set.order_by('-rating')
         if not alternatives :
             return ""
         else :
-            return alternatives[0].as_leaf_class().getText()
+            return alternatives[0].as_leaf_class().getText(level)
 
     def getShortTitle(self):
         return self.short_title
@@ -134,8 +134,8 @@ class TextNode(Node):
         else:
             return "Unpositioned TextNode"
 
-    def getText(self):
-        return self.text
+    def getText(self, level=0):
+        return "="*level + self.text
 
     def getType(self):
         return "TextNode"
@@ -151,11 +151,12 @@ class StructureNode(Node):
     def slot_cnt(self):
         return self.slot_set.count()
 
-    def getText(self):
-        return "\n".join(self.getPassages())
+    def getText(self, level=0):
+        return "\n".join(self.getPassages(level))
 
-    def getPassages(self):
-        passages = [slot.getText() for slot in self.slot_set.all()]
+    def getPassages(self, level=0):
+        slots = self.slot_set.all()
+        passages = [slots[0].getText(level)] + [slot.getText(level+1) for slot in slots[1:]]
         return passages
 
     def getType(self):
