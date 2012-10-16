@@ -26,7 +26,7 @@ class StructureParserTest(unittest.TestCase):
         self.assertEqual(n.getType(), "TextNode")
 
     def test_three_headings_results_in_TextNode(self):
-        s = "Introduction\n==== Heading 1 ====\nMy name is Harry.\n=== Heading 2 ===\nI'm quite an idiot.\n== Heading 3 ==\nI reversed the ordering of the headings."
+        s = "Introduction\n==== Heading 1 ====\nMy name is Harry.\n=== Heading 2 ===\nI'm quite an idiot.\n==  Heading 3   ==\n\nI reversed the ordering of the headings."
         titles = ["Einleitung", "Heading_3"]
         textparts = ["= TestSlot =\nIntroduction\n~==== Heading 1 ====\nMy name is Harry.\n~=== Heading 2 ===\nI'm quite an idiot.\n",
                      "= Heading 3 =\nI reversed the ordering of the headings."]
@@ -36,3 +36,42 @@ class StructureParserTest(unittest.TestCase):
             self.assertEqual(slot.getType(), "Slot")
             self.assertEqual(slot.short_title, titles[i])
             self.assertEqual(slot.getText(), textparts[i])
+
+    def test_multilayer(self):
+        s = """
+        = Long Title =
+        Banana.
+        == Holla ==
+        Elmtree
+        === Hiracical ===
+        Exceptionally good.
+        == Julliosh ==
+        Pineapple
+        """
+        n = parse(s, self.test_slot)
+        self.assertEqual(n.getType(), "StructureNode")
+        titles = ["Einleitung", "Holla", "Julliosh"]
+        textparts = ["Banana", "Elmtree", "Pineapple"]
+        for i, slot in enumerate(n.slot_set.all()):
+            self.assertEqual(slot.getType(), "Slot")
+            self.assertEqual(slot.short_title, titles[i])
+            self.assertGreaterEqual(slot.getText().find(textparts[i]), 0)
+            if i == 1:
+                for x in slot.node_set.all():
+                    self.assertEqual(x.as_leaf_class().getType(), "StructureNode")
+                    self.assertEqual(x.as_leaf_class().slot_set.all()[1].short_title, "Hiracical")
+                    self.assertGreaterEqual(x.as_leaf_class().getText().find("Exceptionally good."), 0)
+
+    def test_long_title_short_title(self):
+        s = """
+        = Heading1§Mama =
+        Some text.
+        == Heading 2§Papa ==
+        More text.
+        """
+        n = parse(s, self.test_slot)
+        self.assertEqual(n.getType(), "StructureNode")
+        self.assertNotEqual(n.getShortTitle(), "Mama")
+        self.assertEqual(n.slot_set.all()[0].short_title, "Einleitung")
+        self.assertEqual(n.slot_set.all()[1].short_title, "Papa")
+        self.assertGreaterEqual(n.slot_set.all()[1].getText().find("Heading 2"), 0)
