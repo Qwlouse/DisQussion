@@ -37,14 +37,12 @@ def parse(s, parent_slot):
         t.text = "= %s =\n"%title.strip() + s.strip()
         t.parent = parent_slot
         t.save()
-        print("Generated TextNode", t)
         return t
     # else : StructureNode
 
     node = StructureNode()
     node.parent = parent_slot
     node.save()
-    print("Generated StructureNode", node)
 
     # determine used header depth:
     level = 0
@@ -54,7 +52,6 @@ def parse(s, parent_slot):
             level = i
             break
     assert 1 < level < 7
-    print("going on to split at level", level)
 
     split_doc = m.split(s)
     # now the text before, between and after headings is split_doc[0::3]
@@ -67,7 +64,6 @@ def parse(s, parent_slot):
     introduction.parent = node
     introduction.short_title = "Einleitung"
     introduction.save()
-    print("created intro node", introduction)
     introduction_text = TextNode()
     introduction_text.parent = introduction
     intro_text = split_doc[0]
@@ -78,7 +74,6 @@ def parse(s, parent_slot):
         #general_h.
     introduction_text.text = "= %s =\n"%title + intro_text
     introduction_text.save()
-    print("created intro-text", introduction_text)
 
 
     # iterate the headings, short_titles, and corresponding texts:
@@ -92,6 +87,5 @@ def parse(s, parent_slot):
         slot.parent = node
         slot.short_title = short_title.strip().replace(" ", "_")
         slot.save()
-        print("Generated Slot", slot)
         parse("= %s =\n"%title.strip() + text.strip(), slot)
     return node
