@@ -9,8 +9,10 @@
 {% block text %}
     <h1>Suche nach {{ search_string }}</h1>
     {% for result in search_results %}
-        <h2><a href="{{ result.path }}">{{ result.path }}</a></h2>
-        <p>{{ result.snippet }}</p>
+        <div class="slot">
+            <div class="shorttitle"><a href="{{ result.path }}">{{ result.path }}</a></div>
+            <p>{{ result.snippet }}</p>
+        </div>
     {% endfor %}
 {% endblock %}
 

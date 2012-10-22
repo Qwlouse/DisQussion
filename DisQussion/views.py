@@ -124,5 +124,5 @@ def search(request):
             },
             context_instance=RequestContext(request))
     else:
-        HttpResponseRedirect('/') # No search
+        return HttpResponseRedirect('/') # No search
 
