@@ -28,6 +28,9 @@ urlpatterns = patterns('',
     url(r'^\.submit/SlotWithText', 'structure.views.submit_slot_with_text'),
     url(r'^\.submit/MicroblogPost', 'microblogging.views.submit_Microblog_Entry'),
 
+    # Search
+    url(r'^\.search$', 'DisQussion.views.search'),
+
     # Refine proposals
     url(r'^\.refine/(?P<id>\d+)$', 'structure.views.refine_node'),
 

@@ -1,0 +1,54 @@
+{% extends "main.html" %}
+
+{% block bodytag %}
+    <body onload="initPage('{{ anchor_nodes }}', '{{ navigation }}', {{ selected_id }}, true)">
+{% endblock %}
+
+{% block graph %}{% endblock %}
+
+{% block text %}
+    <h1>Suche nach {{ search_string }}</h1>
+    {% for result in search_results %}
+        <h2><a href="{{ result.path }}">{{ result.path }}</a></h2>
+        <p>{{ result.snippet }}</p>
+    {% endfor %}
+{% endblock %}
+
+{% block microblog %}
+    <div id="microblog">
+        {% for activity in activities %}
+            <div class="micropost">
+                <p class="micropost-time">{{ activity.time }}</p>
+
+                <h2>{% if activity.type == 0 %}<a href="/.users/{{ activity.username }}">{{ activity.username }}</a>
+                {% elif activity.type == 1 %}System
+                {% else %}Fehler: Unbekannter Typ.{% endif %}</h2>
+                {% if activity.type == 0 %}
+                    <p>{{ activity.text }}</p>
+                    <ul class="micropost-controls">
+                        {% if activity.type == 0 %}
+                            <li>Antworten</li>{% endif %}
+                        <li>Weitersagen</li>
+                        {% if activity.type == 0 %}
+                            <li>Interpretieren</li>{% endif %}
+                    </ul>
+                {% elif activity.type == 1 %}
+                    <p>{{ userinfo.name }} hat {% if activity.wording == 0 %}sich {% endif %}bei
+                        <a href="{{ activity.text_url }}">{{ activity.title }}</a>
+                        {% if activity.wording != 0 %}die Formulierung mit {{ activity.wording }} bewertet
+                        {% else %}der Formulierung enthalten{% endif %}
+                        {% if activity.consent == 1 %}{% if activity.wording == -1 %}aber{% else %}und{% endif %} dem Inhalt
+                            zugestimmt.
+                        {% elif activity.consent == 0 %}und sich zum Inhalt enthalten.
+                            {% else %}{% if activity.wording == -1 %}und{% else %}aber{% endif %} den Inhalt
+                            abgelehnt.{% endif %}
+                    </p>
+                    {% else %}<p>Fehler: Unbekannter Typ.</p>{% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block unused %}
+    </body>
+{% endblock %}
