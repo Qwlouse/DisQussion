@@ -1,7 +1,7 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.db.models import Q
-
-# Create your models here.
 from django.contrib.auth.models import User
 
 # copied from here: http://gitorious.org/microblog-demo/mainline/trees/master
