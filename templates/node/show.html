@@ -9,6 +9,12 @@
     <p><small>Text noch nicht geladen.</small></p>
 {% endblock %}
 
+{% block microblog %}
+    <div id="microblog">
+        {% include "microblogging/renderMicroblogging.html" %}
+    </div>
+{% endblock %}
+
 {% block unused %}
     </body>
 {% endblock %}

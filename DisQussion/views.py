@@ -56,13 +56,16 @@ def path(request, path):
     ###            Content: slots
 
     anchor_nodes = getDataForAlternativesGraph(request, node.parent_id)
+    Entry_query = get_query(path, ['content', ])
+    activities = [convertEntryToBlogPost(e) for e in Entry.objects.filter(Entry_query).order_by("-time")]
     return render_to_response("node/show.html",
         {"pagename": node.getShortTitle(),
          "this_url": node.getTextPath(),
          "authForm": AuthenticationForm(),
          "navigation": getNavigationData(request, node.id, node.getType()),
          "anchor_nodes": anchor_nodes,
-         "selected_id": node.id
+         "selected_id": node.id,
+         "activities" : activities
         },
         context_instance=RequestContext(request))
 
