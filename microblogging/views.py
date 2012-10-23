@@ -2,12 +2,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import division, print_function, unicode_literals
 from django.http import HttpResponseRedirect
-import time
-from microblogging.models import Entry
+from microblogging.models import create_entry
 
 def submit_Microblog_Entry(request):
-    p = Entry()
-    p.content = request.POST['text']
-    p.user = request.user
-    p.save()
+    p = create_entry(request.POST['text'], request.user)
     return HttpResponseRedirect(request.POST['post_redirect'])
