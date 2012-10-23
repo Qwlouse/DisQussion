@@ -92,8 +92,21 @@
 
             <h2>{% if activity.type == 0 %}{{ userinfo.name }}
             {% elif activity.type == 1 %}System
+            {% elif activity.type == 2 %}
+                <a href="/.users/{{ activity.original_author }}">{{ activity.original_author }}</a>
+                weitergesagt von
+                <a href="/.users/{{ activity.username }}">{{ activity.username }}</a>
             {% else %}Fehler: Unbekannter Typ.{% endif %}</h2>
             {% if activity.type == 0 %}
+                <p>{{ activity.text }}</p>
+                <ul class="micropost-controls">
+                    {% if activity.type == 0 %}
+                        <li>Antworten</li>{% endif %}
+                    <li>Weitersagen</li>
+                    {% if activity.type == 0 %}
+                        <li>Interpretieren</li>{% endif %}
+                </ul>
+            {% elif activity.type == 2 %}
                 <p>{{ activity.text }}</p>
                 <ul class="micropost-controls">
                     {% if activity.type == 0 %}

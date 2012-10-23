@@ -69,3 +69,14 @@ def convertEntryToBlogPost(entry):
     post["text"] = entry.content
     post["username"] = entry.user.username
     return post
+
+
+def convertReferenceToBlogPost(reference, entry):
+    post = dict()
+    post["type"] = 2
+    post["plain_time"] = mktime(reference.time.timetuple())
+    post["time"] = howLongAgo(entry.time)
+    post["text"] = entry.content
+    post["original_author"] = entry.user.username
+    post["username"] = reference.user.username
+    return post

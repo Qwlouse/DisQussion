@@ -13,7 +13,7 @@ from structure.models import Slot, Vote
 from structure.path_helpers import getNodeForPath, getRootNode
 from microblogging.models import Entry, getFeedForUser
 from structure.models import TextNode
-from view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost
+from view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost, convertReferenceToBlogPost
 
 
 def home(request):
@@ -23,11 +23,14 @@ def home(request):
                                "connections" : []})
     if request.user.is_authenticated():
         recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=request.user).order_by("time")]
-        recentEntries = [convertEntryToBlogPost(e) for e in getFeedForUser(request.user)]
+        feed_entries, feed_references = getFeedForUser(request.user)
+        recentEntries = [convertEntryToBlogPost(e) for e in feed_entries]
+        recentReferences = [convertReferenceToBlogPost(r, e) for r, e in feed_references]
     else:
         recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.all().order_by("time")]
         recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("time")]
-    activities = sorted(recentVotes + recentEntries, key=lambda x: -x["plain_time"])
+        recentReferences = []
+    activities = sorted(recentVotes + recentEntries + recentReferences, key=lambda x: -x["plain_time"])
     return render_to_response("index.html",
             {"pagename":"Root",
              "this_url": "/",
