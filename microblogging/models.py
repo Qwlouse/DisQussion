@@ -30,7 +30,7 @@ class EntryReference(models.Model):
 
 
 def getFeedForUser(user):
-    references = EntryReference.objects.filter(user__followers=user).order_by('-time')
+    references = EntryReference.objects.filter(user=user).order_by('-time')
     referenced_entries = set()
     references_and_entries = []
     for reference in references:
