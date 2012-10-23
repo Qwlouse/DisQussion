@@ -1,11 +1,10 @@
 {% for activity in activities %}
     <div class="micropost">
-        {% if activity.type == 2 %}
-            {# This is only for debugging because it doesn't look nice #}
-            <p class="micropost-time">{{ activity.time }} weitergesagt vor {{ activity.reference_time }}</p>
-        {% else %}
+        {#{% if activity.type == 2 %}#}
+        {#    <p class="micropost-time">{{ activity.time }} weitergesagt vor {{ activity.reference_time }}</p>#}
+        {#{% else %}#}
             <p class="micropost-time">{{ activity.time }}</p>
-        {% endif %}
+        {#{% endif %}#}
 
         <h2>{% if activity.type == 0 %}<a href="/.users/{{ activity.username }}">{{ activity.username }}</a>
         {% elif activity.type == 1 %}System
