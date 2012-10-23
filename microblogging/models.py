@@ -21,11 +21,11 @@ def create_entry(text, user):
     for i in range(1, len(split_text), 2):
         username = split_text[i]
         try:
-            user = User.objects.get(username=username)
+            u = User.objects.get(username=username)
             split_text[i] = '<a href="/.users/{0}">@{0}</a>'.format(username)
-            mentions.append(user)
+            mentions.append(u)
         except User.DoesNotExist:
-            pass
+            split_text[i] = '@'+username
     text = "".join(split_text)
 
     split_text = tag_pattern.split(text)
