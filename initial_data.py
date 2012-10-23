@@ -43,26 +43,20 @@ def createInitialData():
     bildung_ag.save()
 
     grundsaetze_slot = createSlot(bildung_ag, "Grundsaetze")
-    grundsaetze = StructureNode()
-    grundsaetze.parent = lookupNode(grundsaetze_slot, Slot)
-    grundsaetze.save()
-    textfile = open("initial_data_storage/modul01a.txt", 'r')
-    modul01a_text = textfile.read()
-    textfile.close()
-    modul01a_slot, modul01a_textNode = createSlot(grundsaetze, "Modul01a", modul01a_text)
-    textfile = open("initial_data_storage/modul01b.txt", 'r')
-    modul01b_text = textfile.read()
-    textfile.close()
-    modul01b_slot, modul01b_textNode = createSlot(grundsaetze, "Modul01b", modul01b_text)
-    search_text = u'Alle Lernenden haben ein Anrecht auf 13 Schuljahre.'
-    additional_text = u' Die Schulpflicht von 12 Jahren bleibt davon unberührt.'
-    modul01b_schulpflicht_textNode = createText(modul01b_slot,
-        modul01b_text.decode(encoding='utf-8').replace(search_text, search_text + additional_text),
-        [modul01b_textNode])
-    textfile = open("initial_data_storage/modul01c-i.txt", 'r')
-    modul01ci_text = textfile.read()
-    textfile.close()
-    modul01ci_slot, modul01ci_textNode = createSlot(grundsaetze, "Modul01c-i", modul01ci_text)
+    #grundsaetze = StructureNode()
+    #grundsaetze.parent = lookupNode(grundsaetze_slot, Slot)
+    #grundsaetze.save()
+    with open("initial_data_storage/modul01.txt", 'r') as f:
+        modul01_text = f.read()
+    modul01 = parseWiki(grundsaetze_slot, unicode(modul01_text, encoding='utf-8'))
+    with open("initial_data_storage/modul01b_schulpflicht.txt", 'r') as f:
+        modul01b_text = f.read()
+    modul01b_alt = parseWiki(modul01.slot_set.all()[2], unicode(modul01b_text, encoding='utf-8'))
+    #search_text = u'Alle Lernenden haben ein Anrecht auf 13 Schuljahre.'
+    #additional_text = u' Die Schulpflicht von 12 Jahren bleibt davon unberührt.'
+    #modul01b_schulpflicht_textNode = createText(modul01b_slot,
+    #    modul01b_text.decode(encoding='utf-8').replace(search_text, search_text + additional_text),
+    #    [modul01b_textNode])
 
     bildungssystem_slot = createSlot(bildung_ag, "Bildungssystem")
     bildungssystem = StructureNode()
