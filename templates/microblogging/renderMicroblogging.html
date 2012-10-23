@@ -1,0 +1,39 @@
+{% for activity in activities %}
+    <div class="micropost">
+        <p class="micropost-time">{{ activity.time }}</p>
+
+        <h2>{% if activity.type == 0 %}<a href="/.users/{{ activity.username }}">{{ activity.username }}</a>
+        {% elif activity.type == 1 %}System
+        {% elif activity.type == 2 %}
+            <a href="/.users/{{ activity.original_author }}">{{ activity.original_author }}</a>
+            weitergesagt von
+            <a href="/.users/{{ activity.username }}">{{ activity.username }}</a>
+        {% else %}Fehler: Unbekannter Typ.{% endif %}</h2>
+        {% if activity.type == 0 %}
+            <p>{{ activity.text }}</p>
+            <ul class="micropost-controls">
+                <li onclick="showResponse('{{ activity.username }}');">Antworten</li>
+                <li>Weitersagen</li>
+                <li>Interpretieren</li>
+            </ul>
+        {% elif activity.type == 2 %}
+            <p>{{ activity.text }}</p>
+            <ul class="micropost-controls">
+                <li onclick="showTwoResponses('{{ activity.username }}','{{ activity.original_author }}');">Antworten</li>
+                <li>Weitersagen</li>
+                <li>Interpretieren</li>
+            </ul>
+        {% elif activity.type == 1 %}
+            <p>{{ userinfo.name }} hat {% if activity.wording == 0 %}sich {% endif %}bei
+                <a href="{{ activity.text_url }}">{{ activity.title }}</a>
+                {% if activity.wording != 0 %}die Formulierung mit {{ activity.wording }} bewertet
+                {% else %}der Formulierung enthalten{% endif %}
+                {% if activity.consent == 1 %}{% if activity.wording == -1 %}aber{% else %}und{% endif %} dem Inhalt
+                    zugestimmt.
+                {% elif activity.consent == 0 %}und sich zum Inhalt enthalten.
+                    {% else %}{% if activity.wording == -1 %}und{% else %}aber{% endif %} den Inhalt
+                    abgelehnt.{% endif %}
+            </p>
+            {% else %}<p>Fehler: Unbekannter Typ.</p>{% endif %}
+    </div>
+{% endfor %}
