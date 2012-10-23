@@ -5,6 +5,10 @@ from __future__ import division, print_function, unicode_literals
 import re
 from structure.models import TextNode, StructureNode, Slot
 
+import unicodedata
+
+def strip_accents(s):
+   return ''.join((c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn'))
 
 def getHeadingMatcher(level=0):
     if 0 < level < 7:
@@ -17,7 +21,7 @@ def getHeadingMatcher(level=0):
 
 h1_start = re.compile(r"^\s*=(?P<title>[^=]+)=*\s*$", flags=re.MULTILINE)
 general_h = re.compile(r"^\s*(={2,6}(?P<title>[^=]+)=*)\s*$", flags=re.MULTILINE)
-
+invalid_symbols = re.compile(r"[^\w\-_\s]+")
 
 def parse(s, parent_slot):
     #make sure we start with a heading 1
@@ -77,12 +81,18 @@ def parse(s, parent_slot):
 
 
     # iterate the headings, short_titles, and corresponding texts:
+    short_title_set = set()
     for title, short_title, text in zip(split_doc[1::3], split_doc[2::3], split_doc[3::3]):
         # check if short_title is valid/unique/exists
-        # TODO: further validity checks
-        # TODO: Check uniqueness
         if not short_title or len(short_title.strip()) == 0:
-            short_title=title[:min(15, len(title))]
+            short_title=strip_accents(title[:min(15, len(title))])
+            short_title = invalid_symbols.sub('',short_title)
+            if short_title in short_title_set:
+                i = 1
+                while short_title + str(i) in short_title_set:
+                    i += 1
+                short_title += str(i)
+        short_title_set.add(short_title)
         slot = Slot()
         slot.parent = node
         slot.short_title = short_title.strip().replace(" ", "_")
