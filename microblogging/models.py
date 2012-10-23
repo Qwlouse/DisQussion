@@ -22,7 +22,7 @@ def create_entry(text, user):
         username = split_text[i]
         try:
             user = User.objects.get(username=username)
-            split_text[i] = '<a href="/.users/{0}">{0}</a>'.format(username)
+            split_text[i] = '<a href="/.users/{0}">@{0}</a>'.format(username)
             mentions.append(user)
         except User.DoesNotExist:
             pass
