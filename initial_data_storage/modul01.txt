@@ -15,29 +15,29 @@ Aus diesen Grundsätzen ergeben sich folgende Regeln für alle Bildungsangebote:
 * Bildungsangebote können, sofern sie nicht verpflichtend sind, zu jedem Zeitpunkt freiwillig wahrgenommen werden.
 Zur Durchsetzung dieser Ziele wollen wir die Mittel für das steuerfinanzierte Bildungssystem deutlich erhöhen.
 
-== 1c: Wahlfreiheit ==
+== 1c: Wahlfreiheit §Wahlfreiheit==
 Eltern haben das Recht die Schulform für ihr Kind auszuwählen, die sie für die angemessenste halten.
 
 Um Chancengleichheit zu wahren, dürfen etwaige Empfehlungen sowohl für die Wahl einer weiterführenden Schule als auch für die Berufswahl nicht auf offiziellen Zeugnissen vermerkt werden. Auch Zusatzdokumente mit offiziellen Empfehlungen sollen nicht erstellt werden.
 
-== 1d: Persönlichkeitsrechte von Schülern und Lehrern achten ==
+== 1d: Persönlichkeitsrechte von Schülern und Lehrern achten §Persoen_Recht_achten==
 Die Privat- und Intimsphäre sowie das Recht auf informationelle Selbstbestimmung von Schülern und Lehrern müssen gewahrt bleiben. Videoüberwachung und private Sicherheitsdienste haben keinen Platz in Schulen. Durchsuchungen und Kontrollen (beispielsweise Urinuntersuchungen) sind zu unterlassen. Die Unschuldsvermutung gilt auch für Schüler. Diese unter Generalverdacht zu stellen, zerstört das Vertrauen zu Schule und Lehrern, ohne welches Unterricht und Erziehung nicht möglich sind.
 
-== 1e: Vereinbarkeit von Familie und Beruf ==
+== 1e: Vereinbarkeit von Familie und Beruf §Familie_und_Beruf==
 Staatliche Bildungseinrichtungen sollen den Familien dabei helfen, die notwendige Flexibilität zu erreichen, den Anforderungen des Familien- und Berufslebens gerecht zu werden. Dafür soll an allen Schulen ein Angebot zur Ganztagsbetreuung geschaffen werden. Das Betreuungsangebot ergänzt den Unterricht um zusätzliche Bildungsmöglichkeiten und außerschulische Aktivitäten. Neben Wahlfächern, Hausaufgabenbetreuung und Nachhilfe soll ein möglichst breites Angebot an kulturellen oder sportlichen Tätigkeiten ermöglicht werden.
 
-== 1f: Säkularisierung der Bildung ==
+== 1f: Säkularisierung der Bildung §Saekularisierung==
 Staatliche Bildungseinrichtungen müssen weltanschaulich und religiös neutral sein. Der bisher im Schulgesetz vorhandene Religions- und Gottesbezug soll deswegen gestrichen werden.
 
 Ethikunterricht muss flächendeckend für alle Schüler bereits ab der ersten Klasse angeboten werden. Der Religionsunterricht soll als fakultatives Fach beibehalten werden.
 
-== 1g: Abschaffung aller Studiengebühren ==
+== 1g: Abschaffung aller Studiengebühren §Studiengebuehren==
 Jeder Mensch hat das Recht auf die Teilhabe an der Gesellschaft, auf Bildung und kulturelle Betätigung. Studiengebühren und andere finanzielle Zusatzbelastungen im Studium halten Menschen aber vom Studieren ab. Wir fordern daher die Abschaffung aller Studiengebühren und weiterer finanzieller Zusatzbelastungen für Studierende wie Verwaltungsgebühren, um barriere- und kostenfreie Bildung für alle zu realisieren.
 
-== 1h: Individuelle Bildung ==
+== 1h: Individuelle Bildung §Indiv_Bildung==
 Derzeit ist das Bildungsangebot in vielen Hinsichten stark eingeschränkt und umfasst wenig Spielraum für die optimale Entfaltung der eigenen Fähigkeiten. Daher sollen Maßnahmen gefördert werden, die die Auswahl von Bildungsangeboten erhöhen.
 
-== 1i: Individuelle Förderung ==
+== 1i: Individuelle Förderung §Indiv_Foerderung==
 Jeder Schüler hat seine individuellen Stärken, Schwächen und Bedürfnisse. Werden diese nicht erkannt und gefördert, verschlechtert sich das allgemeine Schulklima und die individuelle Leistungsfähigkeit wird nicht voll ausgeschöpft.
 
 Wir möchten daher eine bessere Förderung einzelner Schüler und deren Interessen. Dies kann durch Angebote wie Arbeitsgruppen, Wahlpflichtfächer und Förderunterricht erreicht werden.

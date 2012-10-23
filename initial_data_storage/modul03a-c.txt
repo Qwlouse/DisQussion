@@ -1,9 +1,9 @@
-== 3a: Umfassendere politische Bildung ==
+== 3a: Umfassendere politische Bildung §Politische_Bildung==
 Um als mündiger Bürger an der demokratischen Willensbildung mitzuwirken, wird ein gutes Verständnis unseres politischen Systems benötigt. Wir fordern deshalb die Verbesserung der demokratischen und politischen Bildung durch größere Zeitkontingente für den Sozialkundeunterricht.
 
 Die Erweiterung des Sozialkundeunterrichts soll auch dazu genutzt werden, die wirtschaftskundlichen Inhalte auszubauen. Wirtschaftskunde soll dabei Aspekte aller relevanten Themenbereiche von der Verbraucherbildung bis zu den Grundfragen des Wirtschaftssystems umfassen. Dabei muss darauf geachtet werden, dass ein unparteiischer und kritischer Unterricht angeboten wird, der nicht von Wirtschaftsinteressen gesteuert wird.
 
-== 3b: Ernährung, Bewegung, Gesundheit ==
+== 3b: Ernährung, Bewegung, Gesundheit §Ern_Bew_Ges==
 Wir setzen uns dafür ein, dass die Themen Gesundheit, Ernährung und Bewegung unter aktuellen wissenschaftlichen Erkenntnissen und in ausreichendem Maß an Schulen gelehrt werden. Erklärtes Ziel ist es, Schülern eine ausgewogene Lebensweise zu vermitteln. Dies kann gefördert werden, indem theoretische Überlegungen praktisch angewandt werden, beispielsweise durch gemeinsames Kochen und Essen, bei gleichzeitiger Erläuterung der theoretischen Hintergründe.
 
 Wir fordern die Einführung gesunder und ausgewogener Ernährung an allen Schulen und Kindertagesstätten. Die Finanzierung ist dabei so zu gestalten, dass alle Schüler unabhängig von der sozialen oder finanziellen Lage der Familie daran teilnehmen können. Zur Vermeidung von Ausgrenzung sollen finanzielle Erleichterungen so gestaltet sein, dass andere Schüler nicht erfahren, wer gefördert wird. Bei der Planung sollte auch berücksichtigt werden, ob die Verwaltungskosten für die Essensgebühren die Einnahmen übersteigen oder eine vollständig kostenlose gesunde Ernährung günstiger wäre.
@@ -12,7 +12,7 @@ Der Spaß an Bewegung soll gefördert werden. Statt des üblichen Rahmenlehrplan
 
 Die Schüler sollen über die Bereiche Sexualität, Gewalt und Suchtprävention ausgiebig aufgeklärt werden.
 
-==3c: Keine Bundeswehr an Schulen ==
+==3c: Keine Bundeswehr an Schulen §keine_Bundeswehr==
 Wir sehen die Entsendung von Jugendoffizieren der Bundeswehr für Lehrzwecke in Schulen und zur Aus- bzw. Weiterbildung von Lehrkräften sehr kritisch. Klassenzimmer sollen nicht zu Rekrutierungsbüros werden.
 
 Von der Bundeswehr ausgebildete Referendare, einseitiges Unterrichtsmaterial, Bundeswehrbesuche und von Soldaten gestaltete Unterrichtseinheiten mit Abiturprüfungsinhalten dienen der Manipulation und Rekrutierung, nicht der Erziehung zur eigenständigen Auseinandersetzung mit der Problematik.
