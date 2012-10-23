@@ -1,4 +1,4 @@
-== 1b: Bildung in Deutschland §Grundsaetze_Schulpfl==
+= 1b: Bildung in Deutschland =
 Bildung in Deutschland soll Menschen aller Altersgruppen entsprechend ihrer Entwicklung und ihrer Fähigkeiten möglichst optimal fördern sowie ihnen erlauben, ihre Persönlichkeit frei zu entfalten. Bildungsziele sind neben der Vermittlung von Wissen, die Entwicklung von Fähigkeiten, Fertigkeiten und Kompetenzen. Der nachwachsende Teil der Gesellschaft soll aufgeklärt, bewusst und reflektiert mit gesellschaftlichen Möglichkeiten und Problemen umgehen können und damit zu einem selbstbestimmten, den eigenen Bedürfnissen und Talenten entsprechenden Leben befähigt werden.
 
 Das Bildungssystem muss der Tatsache Rechnung tragen, dass Menschen individuelle Fähigkeiten, Fertigkeiten, Wissen und Kompetenzen besitzen. Dabei wird eine Balance zwischen Fördern und Fordern angestrebt. Der Grad an Bildung, den jeder Einzelne erreicht, darf nicht von sozialer Herkunft, Wohnort oder wirtschaftlichem Hintergrund abhängen. Daher muss allgemeine Bildung lebenslang kostenfrei sein und allen unabhängig von ihrer sozialen Herkunft zur Verfügung stehen.
