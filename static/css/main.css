@@ -172,6 +172,11 @@ div.shorttitle {
     margin: 2em 0 0 0;
 }
 
+div.shorttitle a {
+    color: #4f4f4f;
+    text-decoration: none;
+}
+
 div.slot h1:first-of-type, div.slot h2:first-of-type, div.slot h3:first-of-type, div.slot h4:first-of-type, div.slot h5:first-of-type {
     margin-top: 0;
 }
