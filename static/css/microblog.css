@@ -65,3 +65,9 @@ div.micropost ul.micropost-controls li:hover {
     color: #d27206;
     cursor: pointer;
 }
+
+div.micropost ul.micropost-controls li.reference_done, div.micropost ul.micropost-controls li.reference_done:hover {
+    color: black;
+    font-weight: bold;
+    cursor: auto;
+}

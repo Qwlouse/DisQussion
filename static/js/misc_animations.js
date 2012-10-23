@@ -51,6 +51,21 @@ function closepostfield_step() {
     }
 }
 
+function showResponse(username) {
+    document.getElementById("post_field_textarea").innerHTML = "@"+username+" ";
+    showpostfield();
+}
+
+function showTwoResponses(username1, username2) {
+    document.getElementById("post_field_textarea").innerHTML = "@"+username1+" @"+username2+" ";
+    showpostfield();
+}
+
+function showEmptyPostField() {
+    document.getElementById("post_field_textarea").innerHTML = "";
+    showpostfield();
+}
+
 function showpostfield() {
     document.getElementById("post_field").style.display = "block";
     document.getElementById("post_field_overlay").style.display = "block";

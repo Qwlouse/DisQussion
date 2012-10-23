@@ -8,9 +8,9 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from accounts.forms import EMailForm, DescriptionForm
 from structure.models import Vote
-from microblogging.models import Entry
+from microblogging.models import Entry, EntryReference
 
-from DisQussion.view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost
+from DisQussion.view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost, convertReferenceToBlogPost
 
 
 def show_profile(request, user_name):
@@ -29,8 +29,20 @@ def show_profile(request, user_name):
 
     # Activities
     recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=user).order_by("time")]
-    recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.filter(user=user).order_by("time")]
-    userinfo["activities"] = sorted(recentVotes + recentEntries, key=lambda x: -x["plain_time"])
+    references = EntryReference.objects.filter(user=user).order_by('-time')
+    referenced_entries = set()
+    recentReferences = []
+    for reference in references:
+        if not reference.entry_id in referenced_entries:
+            referenced_entries.add(reference.entry_id)
+            recentReferences.append(convertReferenceToBlogPost(reference, reference.entry))
+    entries = Entry.objects.filter(user=user).order_by('-time')
+    recentEntries = []
+    for entry in entries:
+        if not entry.id in referenced_entries:
+            recentEntries.append(convertEntryToBlogPost(entry))
+
+    userinfo["activities"] = sorted(recentVotes + recentEntries + recentReferences, key=lambda x: -x["plain_time"])
 
     return render_to_response("accounts/profile.html",
             {"userinfo": userinfo,

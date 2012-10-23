@@ -41,7 +41,7 @@
             <li><a href="/.users/{{ user.username }}">
             {% if user.first_name|length > 0 or user.last_name|length > 0 %}{{ user.first_name }} {{ user.last_name }}
             {% else %}{{ user.username }}{% endif %}</a></li>
-            <li><button name="compose microblog post" type="button" onclick="showpostfield()"><img src="{% static "images/write.png" %}" alt="verfasse Post" /></button></li>
+            <li><button name="compose microblog post" type="button" onclick="showEmptyPostField()"><img src="{% static "images/write.png" %}" alt="verfasse Post" /></button></li>
             <li>
                 <form method="post" action="{% url django.contrib.auth.views.logout %}" id="logout">
                     {% csrf_token %}
@@ -163,7 +163,7 @@
     <form method="post" action="{% url microblogging.views.submit_Microblog_Entry %}" id="post_write_fields">
         {% csrf_token %}
         <h2>Post verfassen</h2>
-        <textarea name="text"></textarea>
+        <textarea id="post_field_textarea" name="text"></textarea>
         <p>
             <input type="hidden" name="post_redirect" value="{{ this_url }}"/>
             <input type="submit" id="post_write_submit" value="Senden &rarr;"/>

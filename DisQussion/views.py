@@ -13,7 +13,7 @@ from structure.models import Slot, Vote
 from structure.path_helpers import getNodeForPath, getRootNode
 from microblogging.models import Entry, getFeedForUser
 from structure.models import TextNode
-from view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost
+from view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost, convertReferenceToBlogPost
 
 
 def home(request):
@@ -22,12 +22,15 @@ def home(request):
                                "related_nodes" : [],
                                "connections" : []})
     if request.user.is_authenticated():
-        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=request.user).order_by("time")]
-        recentEntries = [convertEntryToBlogPost(e) for e in getFeedForUser(request.user)]
+        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=request.user).order_by("-time")]
+        feed_entries, feed_references = getFeedForUser(request.user)
+        recentEntries = [convertEntryToBlogPost(e) for e in feed_entries]
+        recentReferences = [convertReferenceToBlogPost(r, e) for r, e in feed_references]
     else:
-        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.all().order_by("time")]
-        recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("time")]
-    activities = sorted(recentVotes + recentEntries, key=lambda x: -x["plain_time"])
+        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.all().order_by("-time")]
+        recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("-time")]
+        recentReferences = []
+    activities = sorted(recentVotes + recentEntries + recentReferences, key=lambda x: -x["plain_time"])
     return render_to_response("index.html",
             {"pagename":"Root",
              "this_url": "/",
@@ -97,20 +100,15 @@ def get_query(query_string, search_fields):
 def search(request):
     if request.method == 'GET' and 'search_string' in request.GET and request.GET['search_string'].strip():
         query_string = request.GET['search_string']
-        entry_query = get_query(query_string, ['text', ])
-        textNodes = TextNode.objects.filter(entry_query).order_by("-id")
+        textNode_query = get_query(query_string, ['text', ])
+        textNodes = TextNode.objects.filter(textNode_query).order_by("-id")
         search_results = []
         for node in textNodes:
             search_results.append({"path": node.getTextPath(), "snippet": node.text[:min(len(node.text), 140)]})
         root = getRootNode()
         anchor_nodes = json.dumps({"Anchors": [getGraphInfoForNode(root)], "related_nodes": [], "connections": []})
-        if request.user.is_authenticated():
-            recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=request.user).order_by("time")]
-            recentEntries = [convertEntryToBlogPost(e) for e in getFeedForUser(request.user)]
-        else:
-            recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.all().order_by("time")]
-            recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("time")]
-        activities = sorted(recentVotes + recentEntries, key=lambda x: -x["plain_time"])
+        Entry_query = get_query(query_string, ['content', ])
+        activities = [convertEntryToBlogPost(e) for e in Entry.objects.filter(Entry_query).order_by("-time")]
         return render_to_response("search_results.html",
             {"pagename": "Root",
              "this_url": "/",

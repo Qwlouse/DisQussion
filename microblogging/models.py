@@ -20,7 +20,24 @@ class Entry(models.Model):
         get_latest_by = 'time'
 
 
+class EntryReference(models.Model):
+    entry = models.ForeignKey(Entry, related_name='references')
+    time = models.DateTimeField('date referenced', auto_now=True)
+    user = models.ForeignKey(User, related_name='entry_references')
+
+    def __unicode__(self):
+        return u'%s references "%s" on %s' % (self.user.username, self.entry, self.time)
+
+
 def getFeedForUser(user):
+    references = EntryReference.objects.filter(user=user).order_by('-time')
+    referenced_entries = set()
+    references_and_entries = []
+    for reference in references:
+        if not reference.entry_id in referenced_entries:
+            referenced_entries.add(reference.entry_id)
+            references_and_entries.append((reference, reference.entry))
     followed = Q(user__followers=user)
     own = Q(user = user)
-    return Entry.objects.filter(followed | own).order_by('-time')
+    entries = Entry.objects.filter(followed | own).order_by('-time')
+    return [e for e in entries if not e.id in referenced_entries], references_and_entries
