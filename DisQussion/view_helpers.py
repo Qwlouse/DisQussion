@@ -64,6 +64,7 @@ def convertVoteToVoteInfo(vote):
 def convertEntryToBlogPost(entry):
     post = dict()
     post["type"] = 0
+    post["id"] = entry.id
     post["plain_time"] = mktime(entry.time.timetuple())
     post["time"] = howLongAgo(entry.time)
     post["text"] = entry.content
@@ -74,6 +75,7 @@ def convertEntryToBlogPost(entry):
 def convertReferenceToBlogPost(reference, entry):
     post = dict()
     post["type"] = 2
+    post["id"] = entry.id
     post["plain_time"] = mktime(reference.time.timetuple())
     post["time"] = howLongAgo(entry.time)
     post["text"] = entry.content

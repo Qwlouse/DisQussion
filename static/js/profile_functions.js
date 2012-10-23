@@ -15,3 +15,14 @@ function updateFollowing(str) {
         document.getElementById("follow_button").setAttribute("onClick","follow('"+str.substr(1)+"');");
     }
 }
+
+function referenceEntry(id,li) {
+    Dajaxice.microblogging.reference(updateReferenceDisplay, {'id':id});
+
+}
+
+function updateReferenceDisplay(id_str) {
+    var li =  document.getElementById("reference_link_"+id_str)
+    li.innerHTML = "Weitergesagt";
+    li.setAttribute("class", "reference_done");
+}

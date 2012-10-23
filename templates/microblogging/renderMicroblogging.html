@@ -13,14 +13,14 @@
             <p>{{ activity.text }}</p>
             <ul class="micropost-controls">
                 <li onclick="showResponse('{{ activity.username }}');">Antworten</li>
-                <li>Weitersagen</li>
+                <li id="reference_link_{{ activity.id }}" onclick="referenceEntry({{ activity.id }},this);">Weitersagen</li>
                 <li>Interpretieren</li>
             </ul>
         {% elif activity.type == 2 %}
             <p>{{ activity.text }}</p>
             <ul class="micropost-controls">
                 <li onclick="showTwoResponses('{{ activity.username }}','{{ activity.original_author }}');">Antworten</li>
-                <li>Weitersagen</li>
+                <li id="reference_link_{{ activity.id }}" onclick="referenceEntry({{ activity.id }},this);">Weitersagen</li>
                 <li>Interpretieren</li>
             </ul>
         {% elif activity.type == 1 %}
@@ -34,6 +34,6 @@
                     {% else %}{% if activity.wording == -1 %}und{% else %}aber{% endif %} den Inhalt
                     abgelehnt.{% endif %}
             </p>
-            {% else %}<p>Fehler: Unbekannter Typ.</p>{% endif %}
+        {% else %}<p>Fehler: Unbekannter Typ.</p>{% endif %}
     </div>
 {% endfor %}
