@@ -26,7 +26,9 @@
             </ul>
             {% endif %}
         {% elif activity.type == 2 %}
-            <p>{{ activity.text }}</p>
+            {% autoescape off %}
+                <p>{{ activity.text }}</p>
+            {% endautoescape %}
             {% if user.is_authenticated %}
             <ul class="micropost-controls">
                 <li onclick="showTwoResponses('{{ activity.username }}','{{ activity.original_author }}');">Antworten</li>
