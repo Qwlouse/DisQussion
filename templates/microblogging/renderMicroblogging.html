@@ -15,7 +15,9 @@
             <a href="/.users/{{ activity.username }}">{{ activity.username }}</a>
         {% else %}Fehler: Unbekannter Typ.{% endif %}</h2>
         {% if activity.type == 0 %}
-            <p>{{ activity.text }}</p>
+            {% autoescape off %}
+                <p>{{ activity.text }}</p>
+            {% endautoescape %}
             {% if user.is_authenticated %}
             <ul class="micropost-controls">
                 <li onclick="showResponse('{{ activity.username }}');">Antworten</li>
