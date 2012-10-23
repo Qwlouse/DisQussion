@@ -57,7 +57,7 @@ def path(request, path):
 
     anchor_nodes = getDataForAlternativesGraph(request, node.parent_id)
     Entry_query = get_query(path, ['content', ])
-    activities = [convertEntryToBlogPost(e) for e in Entry.objects.filter(Entry_query).order_by("-time")]
+    activities = [convertEntryToBlogPost(e) for e in node.references.order_by("-time")]
     return render_to_response("node/show.html",
         {"pagename": node.getShortTitle(),
          "this_url": node.getTextPath(),
