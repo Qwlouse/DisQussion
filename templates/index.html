@@ -36,20 +36,16 @@
                 {% if activity.type == 0 %}
                     <p>{{ activity.text }}</p>
                     <ul class="micropost-controls">
-                        {% if activity.type == 0 %}
-                            <li>Antworten</li>{% endif %}
+                        <li onclick="showResponse('{{ activity.username }}');">Antworten</li>
                         <li>Weitersagen</li>
-                        {% if activity.type == 0 %}
-                            <li>Interpretieren</li>{% endif %}
+                        <li>Interpretieren</li>
                     </ul>
                 {% elif activity.type == 2 %}
                     <p>{{ activity.text }}</p>
                     <ul class="micropost-controls">
-                        {% if activity.type == 0 %}
-                            <li>Antworten</li>{% endif %}
+                        <li onclick="showTwoResponses('{{ activity.username }}','{{ activity.original_author }}');">Antworten</li>
                         <li>Weitersagen</li>
-                        {% if activity.type == 0 %}
-                            <li>Interpretieren</li>{% endif %}
+                        <li>Interpretieren</li>
                     </ul>
                 {% elif activity.type == 1 %}
                     <p>{{ userinfo.name }} hat {% if activity.wording == 0 %}sich {% endif %}bei
