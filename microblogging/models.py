@@ -30,17 +30,14 @@ class EntryReference(models.Model):
 
 
 def getFeedForUser(user):
-    followed = Q(user__followers=user)
-    own = Q(user = user)
     references = EntryReference.objects.filter(user__followers=user).order_by('-time')
     referenced_entries = set()
     references_and_entries = []
     for reference in references:
-        if reference.entry_id in referenced_entries:
-            del reference
-        else: referenced_entries.add(reference.entry_id)
-        references_and_entries.append((reference, reference.entry))
+        if not reference.entry_id in referenced_entries:
+            referenced_entries.add(reference.entry_id)
+            references_and_entries.append((reference, reference.entry))
+    followed = Q(user__followers=user)
+    own = Q(user = user)
     entries = Entry.objects.filter(followed | own).order_by('-time')
-    for entry in entries:
-        if entry.id in referenced_entries: del entry
-    return entries, references_and_entries
+    return [e for e in entries if not e.id in referenced_entries], references_and_entries

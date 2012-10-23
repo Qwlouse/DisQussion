@@ -22,13 +22,13 @@ def home(request):
                                "related_nodes" : [],
                                "connections" : []})
     if request.user.is_authenticated():
-        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=request.user).order_by("time")]
+        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=request.user).order_by("-time")]
         feed_entries, feed_references = getFeedForUser(request.user)
         recentEntries = [convertEntryToBlogPost(e) for e in feed_entries]
         recentReferences = [convertReferenceToBlogPost(r, e) for r, e in feed_references]
     else:
-        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.all().order_by("time")]
-        recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("time")]
+        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.all().order_by("-time")]
+        recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("-time")]
         recentReferences = []
     activities = sorted(recentVotes + recentEntries + recentReferences, key=lambda x: -x["plain_time"])
     return render_to_response("index.html",

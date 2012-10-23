@@ -78,6 +78,7 @@ def convertReferenceToBlogPost(reference, entry):
     post["id"] = entry.id
     post["plain_time"] = mktime(reference.time.timetuple())
     post["time"] = howLongAgo(entry.time)
+    post["reference_time"] = howLongAgo(reference.time)
     post["text"] = entry.content
     post["original_author"] = entry.user.username
     post["username"] = reference.user.username
