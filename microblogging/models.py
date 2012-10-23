@@ -21,8 +21,8 @@ class Entry(models.Model):
 
 
 class EntryReference(models.Model):
-    entry = models.ForeignKey(Entry, related_name='+')
-    time = models.DateTimeField('date posted', auto_now=True)
+    entry = models.ForeignKey(Entry, related_name='references')
+    time = models.DateTimeField('date referenced', auto_now=True)
     user = models.ForeignKey(User, related_name='entry_references')
 
     def __unicode__(self):
