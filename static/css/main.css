@@ -9,10 +9,12 @@
 }
 
 body {
-	background-color: white;
+	background-color: #F9F9F9;
+    background-image: url(../images/priming.png);
 	margin: 0;
 	font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
 	font-size: 10pt;
+    line-height: 1.5EM;
 }
 
 div#navbar {
@@ -30,25 +32,28 @@ div#navbar ol {
 }
 
 div#navbar ol li {
-    display: inline-block;
+    display: block;
+    float: left;
     border-right: 1px solid black;
     padding: 0 0.3em;
+    line-height: normal;
 }
 
 div#navbar ol li div {
-    display: inline-block;
+    display: block;
     vertical-align: top;
 }
 
 div#navbar ol ol {
-    float: none;
+    clear: both;
 }
 
 div#navbar ol ol li {
     display: list-item;
+    clear: left;
     border-right-width: 0;
     font-size: 12pt;
-    font-weight: bold;
+    font-variant: small-caps;
 }
 
 div#navbar ol ol li a {
@@ -63,11 +68,13 @@ div#floatblock {
 }
 
 div#text {
+    background-color: white;
     position: relative;
     left: 50%;
 	max-width: 33em;
     float: left;
     margin: 0 auto;
+    padding: 0 2em;
 }
 
 .text {

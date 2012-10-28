@@ -6,6 +6,7 @@ div#microblog {
     padding-left: 1em;
     margin-top: 4.2em;
     text-align: left;
+    background-color: white;
 }
 
 div.micropost, div.micropost p {
