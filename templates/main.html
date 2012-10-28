@@ -22,6 +22,11 @@
     <script src="{% static "js/lib/d3.v2.min.js" %}" type="text/javascript"></script>
     <script src="{% static "js/editor_functions.js" %}" type="text/javascript"></script>
     <script src="{% static "js/profile_functions.js" %}" type="text/javascript"></script>
+    <script src="{% static "js/lib/Hyphenator.js" %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        Hyphenator.config({useCSS3hyphenation: true, minwordlength : 4, defaultlanguage: 'de', displaytogglebox: false});
+        Hyphenator.run();
+    </script>
 </head>
 {% block bodytag %}
 <body>
@@ -89,7 +94,7 @@
 </div>
 {% endblock %}
 <div id="floatblock">
-<div id="text">
+<div id="text" class="hyphenate text" lang="de">
     {% block text %}
         <h1>Main Template</h1>
         <p>Lorem ipsum dolor sit ämet, consectetur adipisici elit, sed eiusmöd tempor incidunt ut labore et
@@ -100,7 +105,7 @@
     {% endblock %}
 </div>
 {% block microblog %}
-<div id="microblog">
+<div id="microblog" class="hyphenate">
     <div class="micropost">
         <p class="micropost-time">35m</p>
 
