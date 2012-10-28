@@ -115,9 +115,10 @@ h3 {
 h4 {
     font-family: CMU serif, CMUSerif, cmr17, serif;
     font-size: 12pt;
-    font-weight: bold;
+    font-weight: normal;
+    font-variant: small-caps;
     text-align: left;
-    line-height: 110%;
+    line-height: 115%;
     margin-bottom: 0.3em;
     margin-top: 0.5em;
 }
@@ -177,6 +178,6 @@ div.shorttitle a {
     text-decoration: none;
 }
 
-div.slot h1:first-of-type, div.slot h2:first-of-type, div.slot h3:first-of-type, div.slot h4:first-of-type, div.slot h5:first-of-type {
+div.slot h1:first-of-type, div.slot h2:first-of-type {
     margin-top: 0;
 }
