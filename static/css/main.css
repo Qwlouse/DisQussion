@@ -70,6 +70,10 @@ div#text {
     margin: 0 auto;
 }
 
+.text {
+    text-align: justify;
+}
+
 div#text p {
 	font-family: CMU serif, CMUSerif, cmr12, serif;
 	font-size: 12pt;

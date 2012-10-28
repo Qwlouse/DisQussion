@@ -125,6 +125,8 @@ function initPage(anchorGraphData, navigationData, selected_id, doNodeUpdate) {
         }
     }
     updateNavigation(JSON.parse(navigationData));
+    Hyphenator.config({useCSS3hyphenation: true, minwordlength : 4, defaultlanguage: 'de', displaytogglebox: false});
+    Hyphenator.run();
 }
 
 

@@ -30,5 +30,6 @@ function updateNode(data) {
     var currentNode = graphNode.circles[currentIndex];
     currentNode.textPart = data['text'];
     document.getElementById("text").waitForText = false;
+    Hyphenator.run();
 }
 
