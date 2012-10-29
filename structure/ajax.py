@@ -49,6 +49,7 @@ def getNodeText(node, request):
             {'title' : node.getShortTitle(),
              'consent_rating' : node.calculate_consent_rating(),
              'wording_rating' : node.calculate_wording_rating(),
+             'dbID' : node.id,
              'slots' : slots_info,
              'vote_form' : votingForm,
              'create_text_form' : createTextForm},
