@@ -43,11 +43,9 @@ def getNodeText(node, request):
         textnodes = node.get_active_subtree()
         # check if there is already a vote
         votes = Vote.objects.filter(user=request.user, text__in=textnodes)
-        print("counts", votes.count(), len(textnodes))
         if not (0 < votes.count() < len(textnodes)) :
 
             a = votes.aggregate(Max('consent'), Min('consent'), Max('wording'), Min('wording'))
-            print(a)
             if a['consent__min'] == a['consent__max'] or \
                a['wording__min'] == a['wording__max']:
                 votingForm = VotingForm(initial={'text_id' : node.id,
