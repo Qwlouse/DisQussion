@@ -145,3 +145,9 @@ div#profilesettings {
 button#follow_button {
     margin-top: 2em;
 }
+
+div.vote_field {
+    width: 97px;
+    height: 80px;
+    background-image: url(../images/voting.png);
+}

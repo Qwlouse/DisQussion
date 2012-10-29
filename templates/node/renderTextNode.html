@@ -7,6 +7,7 @@
 {% endif %}
 {% if user.is_authenticated %}
 <h2>Bewertung</h2>
+<div class="vote_field" id="vote_field_{{ dbID }}" onclick="process_vote(event, this, {{ dbID }});"></div>
 <p>
     <form name="vote_form">
     {% csrf_token %}

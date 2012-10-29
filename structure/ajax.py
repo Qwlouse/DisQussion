@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
+from sqlalchemy.sql.functions import concat
 from dajaxice.decorators import dajaxice_register
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
@@ -87,7 +88,8 @@ def submitVoteForTextNode(request, text_id, consent, wording):
     user = request.user
     node = TextNode.objects.get(id=text_id)
     vote_for_textNode(user, node, consent, wording)
-    return getDataForAlternativesGraph(request, node.parent)
+    return json.dumps({"graph_data" : getDataForAlternativesGraph(request, node.parent),
+                       "voting_data" : {"consent" : consent, "wording" : wording, "id" : text_id}})
 
 @dajaxice_register
 def submitVoteForStructureNode(request, node_id, consent, wording):
