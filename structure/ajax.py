@@ -51,6 +51,8 @@ def getNodeText(node, request):
             if a['consent__min'] == a['consent__max'] or \
                a['wording__min'] == a['wording__max']:
                 votingForm = VotingForm(initial={'text_id' : node.id,
+                                                 'consent' : a['consent__min'],
+                                                 'wording' : a['wording__min'],
                                                  'consistent' : True})
         createTextForm = CreateTextForm({'slot_id' : node.parent_id})
         slots = node.slot_set.all()
