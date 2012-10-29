@@ -100,7 +100,7 @@ function buildGraph(node_id, node_title, node_type) {
     graphNode.centerCircle = createCircleStructure(node_title, node_id, node_type);
     graphNode.appendChild(graphNode.centerCircle);
     graphNode.circles = new Array(graphNode.centerCircle);
-    graphNode.arrows = new Array();
+    graphNode.arrows = [];
     showNode(graphNode.centerCircle, true);
     //Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : node_type});
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
@@ -135,8 +135,8 @@ function buildAnchorGraph(data) {
     var graphNode = document.getElementById('graph');
     graphNode.stepRuns = false;
     while ( graphNode.firstChild ) graphNode.removeChild( graphNode.firstChild );
-    graphNode.circles = new Array();
-    graphNode.arrows = new Array();
+    graphNode.circles = [];
+    graphNode.arrows = [];
 
     for (var i = 0; i < Anchors.length; ++i) {
         var anchor = Anchors[i];
@@ -182,7 +182,7 @@ function updateGraph(data) {
     updateVoting(data["voting_data"]);
 
     //alert("0");
-    var newCircles = new Array();
+    var newCircles = [];
     for (var i = 0; i < Anchors.length; ++i) {
         var anchor = Anchors[i];
         var old_circle = getNodeById(graphNode.circles, anchor['id'], anchor['type']);
