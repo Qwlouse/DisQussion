@@ -71,6 +71,9 @@ class Node(models.Model):
         """
         return self.as_leaf_class().getText(level)
 
+    def get_active_subtree(self):
+        return self.as_leaf_class().get_active_subtree()
+
     def getShortTitle(self):
         if self.parent is None:
             return "Root"
@@ -114,6 +117,14 @@ class Slot(models.Model):
         else :
             return alternatives[0].as_leaf_class().getText(level)
 
+    def get_active_subtree(self):
+        alternatives = self.node_set.order_by('-rating')
+        if not alternatives :
+            return []
+        else :
+            return alternatives[0].as_leaf_class().get_active_subtree()
+
+
     def getShortTitle(self):
         return self.short_title
 
@@ -140,6 +151,9 @@ class TextNode(Node):
     def getType(self):
         return "TextNode"
 
+    def get_active_subtree(self):
+        return [self]
+
 
 class StructureNode(Node):
     def __unicode__(self):
@@ -153,6 +167,12 @@ class StructureNode(Node):
 
     def getText(self, level=0):
         return "\n".join(self.getPassages(level))
+
+    def get_active_subtree(self):
+        subtree = []
+        for s in self.slot_set.all():
+            subtree += s.as_leaf_class().get_active_subtree()
+        return subtree
 
     def getPassages(self, level=0):
         slots = self.slot_set.all()

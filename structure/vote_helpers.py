@@ -28,6 +28,39 @@ def vote_for_textNode(user, node, consent=None, wording=None):
         v.save()
     adjust_vote_caches(node)
 
+def vote_for_structure_node(user, node, consent=None, wording=None):
+    # get subtree
+    textnodes = node.get_active_subtree()
+    all_nodes = textnodes[:]
+    # check if there is already a vote
+    votes = Vote.objects.filter(user=user, text__in=textnodes)
+    if votes :
+        #todo warn
+        for v in votes:
+            # overwrite values
+            if consent is not None:
+                v.consent = consent
+            if wording is not None:
+                v.wording = wording
+            v.full_clean()
+            v.save()
+            # remove text from textnodes
+            textnodes.remove(v.text)
+
+    for n in textnodes:
+        v = Vote()
+        v.user = user
+        v.text = n
+        v.consent = 0 if consent is None else consent
+        v.wording = 0 if wording is None else wording
+        v.full_clean()
+        v.save()
+
+    for n in all_nodes:
+        adjust_vote_caches(n)
+
+
+
 def get_voting_result(node):
     result = {}
     consent = Vote.objects.filter(text=node).aggregate(Sum('consent'))['consent__sum']
