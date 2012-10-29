@@ -27,19 +27,20 @@ def getNodeText(node, request):
     elif isinstance(node, StructureNode):
         votingForm = VotingForm(initial={'text_id' : node.id,
                                          'consistent' : False})
-        # get subtree
-        textnodes = node.get_active_subtree()
-        # check if there is already a vote
-        votes = Vote.objects.filter(user=request.user, text__in=textnodes)
-        if not (0 < votes.count() < len(textnodes)) :
+        if request.user.is_authenticated():
+            # get subtree
+            textnodes = node.get_active_subtree()
+            # check if there is already a vote
+            votes = Vote.objects.filter(user=request.user, text__in=textnodes)
+            if not (0 < votes.count() < len(textnodes)) :
 
-            a = votes.aggregate(Max('consent'), Min('consent'), Max('wording'), Min('wording'))
-            if a['consent__min'] == a['consent__max'] or \
-               a['wording__min'] == a['wording__max']:
-                votingForm = VotingForm(initial={'text_id' : node.id,
-                                                 'consent' : a['consent__min'],
-                                                 'wording' : a['wording__min'],
-                                                 'consistent' : True})
+                a = votes.aggregate(Max('consent'), Min('consent'), Max('wording'), Min('wording'))
+                if a['consent__min'] == a['consent__max'] or \
+                   a['wording__min'] == a['wording__max']:
+                    votingForm = VotingForm(initial={'text_id' : node.id,
+                                                     'consent' : a['consent__min'],
+                                                     'wording' : a['wording__min'],
+                                                     'consistent' : True})
         createTextForm = CreateTextForm({'slot_id' : node.parent_id})
         slots = node.slot_set.all()
         slots_info = [{'short_title' : slots[0].getShortTitle(), 'text' : slots[0].getText(), 'path' : slots[0].getTextPath()}]
