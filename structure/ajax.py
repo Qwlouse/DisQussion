@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
-from sqlalchemy.sql.functions import concat
 from dajaxice.decorators import dajaxice_register
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
@@ -12,17 +11,20 @@ import json
 from structure.path_helpers import getRootNode
 from structure.query_helpers import getTopRatedAlternatives
 from structure.vote_helpers import vote_for_textNode, vote_for_structure_node
-
+from django.db.models import Max, Min
 
 def getNodeText(node, request):
     if isinstance(node, TextNode):
         #get vote
-        votingForm = VotingForm(initial={'text_id' : node.id})
+        votingForm = VotingForm(initial={'text_id' : node.id, 'consistent' : True})
         if request.user.is_authenticated() :
             votes = Vote.objects.filter(user = request.user, text=node)
             if votes :
                 vote = votes[0]
-                votingForm = VotingForm(initial={'text_id' : node.id, 'consent' : vote.consent, 'wording' : vote.wording})
+                votingForm = VotingForm(initial={'text_id' : node.id,
+                                                 'consent' : vote.consent,
+                                                 'wording' : vote.wording,
+                                                 'consistent' : True})
 
         return render_to_string('node/renderTextNode.html',
             {'title' : node.getShortTitle(),
@@ -35,11 +37,26 @@ def getNodeText(node, request):
             RequestContext(request))
 
     elif isinstance(node, StructureNode):
+        votingForm = VotingForm(initial={'text_id' : node.id,
+                                         'consistent' : False})
+        # get subtree
+        textnodes = node.get_active_subtree()
+        # check if there is already a vote
+        votes = Vote.objects.filter(user=request.user, text__in=textnodes)
+        print("counts", votes.count(), len(textnodes))
+        if not (0 < votes.count() < len(textnodes)) :
+
+            a = votes.aggregate(Max('consent'), Min('consent'), Max('wording'), Min('wording'))
+            print(a)
+            if a['consent__min'] == a['consent__max'] or \
+               a['wording__min'] == a['wording__max']:
+                votingForm = VotingForm(initial={'text_id' : node.id,
+                                                 'consistent' : True})
         createTextForm = CreateTextForm({'slot_id' : node.parent_id})
         slots = node.slot_set.all()
         slots_info = [{'short_title' : slots[0].getShortTitle(), 'text' : slots[0].getText(), 'path' : slots[0].getTextPath()}]
         slots_info += [{'short_title' : s.getShortTitle(), 'text' : s.getText(1), 'path' : s.getTextPath()} for s in slots[1:]]
-        votingForm = VotingForm(initial={'text_id' : node.id})
+
         return render_to_string('node/renderStructureNode.html',
             {'title' : node.getShortTitle(),
              'consent_rating' : node.calculate_consent_rating(),
@@ -93,7 +110,6 @@ def submitVoteForTextNode(request, text_id, consent, wording):
 
 @dajaxice_register
 def submitVoteForStructureNode(request, node_id, consent, wording):
-    print("=\((?-}")
     user = request.user
     node = StructureNode.objects.get(id=node_id)
     vote_for_structure_node(user, node, consent, wording)

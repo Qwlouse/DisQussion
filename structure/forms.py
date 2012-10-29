@@ -9,6 +9,7 @@ class VotingForm(forms.Form):
     consent = forms.MultipleChoiceField(label='Zustimmung', widget=forms.RadioSelect, choices=CONSENT_CHOICES, required=False)
     wording = forms.MultipleChoiceField(label='Formulierung', widget=forms.RadioSelect, choices=WORDING_CHOICES, required=False)
     text_id = forms.IntegerField(widget=forms.HiddenInput())
+    consistent = forms.BooleanField(widget=forms.HiddenInput())
 
 class CreateTextForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea, required=False)

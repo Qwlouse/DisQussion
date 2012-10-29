@@ -83,7 +83,10 @@ function submit_vote_for_structure_node(frm) {
     }
 
     var node_id = frm.text_id.value;
-    alert('User voted consent: ' + consent + ", wording: " + wording + ", node: " + node_id);
+    if (frm.consistent.value == 'False') {
+        alert('Du zerstörst gerade deine abstimmung...');
+    }
+    //alert('User voted consent: ' + consent + ", wording: " + wording + ", node: " + node_id);
     // now the ajax stuff
 
     Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id' : node_id, 'consent' : consent, 'wording' : wording});
