@@ -1,13 +1,14 @@
 #!/usr/bin/python
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
-
+from django.db import transaction
 from structure.factory import *
 
 def createRoot():
     root = StructureNode()
     root.save()
 
+@transaction.commit_on_success
 def createInitialData():
     populateNodeDict()
 
