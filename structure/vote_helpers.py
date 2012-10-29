@@ -35,7 +35,6 @@ def vote_for_structure_node(user, node, consent=None, wording=None):
     # check if there is already a vote
     votes = Vote.objects.filter(user=user, text__in=textnodes)
     if votes :
-        #todo warn
         for v in votes:
             # overwrite values
             if consent is not None:
