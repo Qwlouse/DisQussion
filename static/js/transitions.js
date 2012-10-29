@@ -29,7 +29,7 @@ function updateNode(data) {
     var currentIndex = getIndexInCircles(graphNode.circles, data['id'], data['type']);
     var currentNode = graphNode.circles[currentIndex];
     currentNode.textPart = data['text'];
+    currentNode.votingInfo = {'wording':data['wording'],'consent':data['consent'],'id':data['id']};
     document.getElementById("text").waitForText = false;
-    Hyphenator.run();
 }
 

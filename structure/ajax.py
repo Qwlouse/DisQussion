@@ -16,22 +16,13 @@ from structure.vote_helpers import vote_for_textNode, vote_for_structure_node
 
 def getNodeText(node, request):
     if isinstance(node, TextNode):
-        #get vote
-        votingForm = VotingForm(initial={'text_id' : node.id})
-        if request.user.is_authenticated() :
-            votes = Vote.objects.filter(user = request.user, text=node)
-            if votes :
-                vote = votes[0]
-                votingForm = VotingForm(initial={'text_id' : node.id, 'consent' : vote.consent, 'wording' : vote.wording})
-
         return render_to_string('node/renderTextNode.html',
             {'title' : node.getShortTitle(),
              'text'  : node.getText(),
              'dbID'  : node.id,
              'parentID' : node.parent_id,
              'consent_rating' : node.calculate_consent_rating(),
-             'wording_rating' : node.calculate_wording_rating(),
-             'vote_form'  : votingForm},
+             'wording_rating' : node.calculate_wording_rating()},
             RequestContext(request))
 
     elif isinstance(node, StructureNode):
@@ -73,13 +64,23 @@ def getNodeInfo(request, node_id, node_type):
         parent_title = node.parent.getShortTitle()
         parent_id = node.parent_id
         parent_type = node.parent.getType()
+    consent = 100
+    wording = 100
+    if request.user.is_authenticated() :
+        votes = Vote.objects.filter(user = request.user, text=node)
+        if votes :
+            vote = votes[0]
+            consent = vote.consent
+            wording = vote.wording
     return json.dumps({'text' : getNodeText(node, request),
                        'type' : node.getType(),
                        'short_title' : node.getShortTitle(),
                        'id' : node.id,
                        'children' : [ {'short_title' : c.getShortTitle(), 'type' : c.getType(), 'id' : c.id} for c in children],
                        'parent' : {'short_title' : parent_title, 'type' : parent_type, 'id' : parent_id},
-                       'url' : node.getTextPath()
+                       'url' : node.getTextPath(),
+                       'consent' : consent,
+                       'wording' : wording
                        })
 
 

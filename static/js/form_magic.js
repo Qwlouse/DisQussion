@@ -55,17 +55,19 @@ function process_vote(subEvent, vote_field, text_id) {
 }
 
 function updateVoting(data) {
-    var vote_field = document.getElementById("vote_field_"+data["id"]);
-    while ( vote_field.firstChild ) vote_field.removeChild( vote_field.firstChild );
-    var dot = document.createElement("div");
-    dot.style.width = "5px";
-    dot.style.height = "5px";
-    dot.style.position = "relative";
-    var positions = {0:[50, 70], 1:[36, 57], 3:[63, 57], 2:[22, 43], 4:[50, 43], 6:[77, 43], 5:[36, 29], 7:[63, 29], 8:[50, 16]};
-    dot.style.top = positions[(3*(data["wording"]+1)+data["consent"]+1)][1]-4+"px";
-    dot.style.left = positions[(3*(data["wording"]+1)+data["consent"]+1)][0]-4+"px";
-    dot.style.backgroundColor = "red";
-    vote_field.appendChild(dot);
+    var vote_field = document.getElementById("vote_field_" + data["id"]);
+    while (vote_field.firstChild) vote_field.removeChild(vote_field.firstChild);
+    if (data["wording"] <= 1 && data["consent"] <= 1) {
+        var dot = document.createElement("div");
+        dot.style.width = "5px";
+        dot.style.height = "5px";
+        dot.style.position = "relative";
+        var positions = {0:[50, 70], 1:[36, 57], 3:[63, 57], 2:[22, 43], 4:[50, 43], 6:[77, 43], 5:[36, 29], 7:[63, 29], 8:[50, 16]};
+        dot.style.top = positions[(3 * (data["wording"] + 1) + data["consent"] + 1)][1] - 4 + "px";
+        dot.style.left = positions[(3 * (data["wording"] + 1) + data["consent"] + 1)][0] - 4 + "px";
+        dot.style.backgroundColor = "red";
+        vote_field.appendChild(dot);
+    }
 }
 
 function submit_vote_for_structure_node(frm) {

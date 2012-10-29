@@ -112,6 +112,8 @@ function showText_intermission() {
         setTimeout("showText_intermission()", 25);
     } else {
         document.getElementById("text").innerHTML = document.getElementById("text").textSource.textPart;
+        updateVoting(document.getElementById("text").textSource.votingInfo);
+        Hyphenator.run();
         showText_step();
     }
 }
