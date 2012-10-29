@@ -10,7 +10,7 @@ from structure.models import TextNode, Slot, StructureNode, Vote
 import json
 from structure.path_helpers import getRootNode
 from structure.query_helpers import getTopRatedAlternatives
-from structure.vote_helpers import vote_for_textNode
+from structure.vote_helpers import vote_for_textNode, vote_for_structure_node
 
 
 def getNodeText(node, request):
@@ -30,7 +30,7 @@ def getNodeText(node, request):
              'parentID' : node.parent_id,
              'consent_rating' : node.calculate_consent_rating(),
              'wording_rating' : node.calculate_wording_rating(),
-             'form'  : votingForm},
+             'vote_form'  : votingForm},
             RequestContext(request))
 
     elif isinstance(node, StructureNode):
@@ -38,12 +38,13 @@ def getNodeText(node, request):
         slots = node.slot_set.all()
         slots_info = [{'short_title' : slots[0].getShortTitle(), 'text' : slots[0].getText(), 'path' : slots[0].getTextPath()}]
         slots_info += [{'short_title' : s.getShortTitle(), 'text' : s.getText(1), 'path' : s.getTextPath()} for s in slots[1:]]
-
+        votingForm = VotingForm(initial={'text_id' : node.id})
         return render_to_string('node/renderStructureNode.html',
             {'title' : node.getShortTitle(),
              'consent_rating' : node.calculate_consent_rating(),
              'wording_rating' : node.calculate_wording_rating(),
              'slots' : slots_info,
+             'vote_form' : votingForm,
              'create_text_form' : createTextForm},
             RequestContext(request))
     else :
@@ -86,6 +87,14 @@ def submitVoteForTextNode(request, text_id, consent, wording):
     user = request.user
     node = TextNode.objects.get(id=text_id)
     vote_for_textNode(user, node, consent, wording)
+    return getDataForAlternativesGraph(request, node.parent)
+
+@dajaxice_register
+def submitVoteForStructureNode(request, node_id, consent, wording):
+    print("=\((?-}")
+    user = request.user
+    node = StructureNode.objects.get(id=node_id)
+    vote_for_structure_node(user, node, consent, wording)
     return getDataForAlternativesGraph(request, node.parent)
 
 

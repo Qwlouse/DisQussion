@@ -7,6 +7,14 @@
     </div>
 {% endfor %}
 {% if user.is_authenticated %}
+<h2>Bewertung</h2>
+<p>
+    <form name="vote_form">
+        {% csrf_token %}
+        {{ vote_form.as_p }}
+        <input type='button' onclick="submit_vote_for_structure_node(this.form)" value="Abstimmen!" />
+    </form>
+
 <h2>Alternative erstellen</h2>
 <p>
 <form action="/.submit/TextNode" method="POST">
