@@ -36,7 +36,7 @@
             </ul>
             {% endif %}
         {% elif activity.type == 1 %}
-            <p>{{ userinfo.name }} hat {% if activity.wording == 0 %}sich {% endif %}bei
+            <p>{{ activity.user }} hat {% if activity.wording == 0 %}sich {% endif %}bei
                 <a href="{{ activity.text_url }}">{{ activity.title }}</a>
                 {% if activity.wording != 0 %}die Formulierung mit {{ activity.wording }} bewertet
                 {% else %}der Formulierung enthalten{% endif %}

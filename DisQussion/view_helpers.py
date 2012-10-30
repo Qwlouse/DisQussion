@@ -54,6 +54,7 @@ def convertVoteToVoteInfo(vote):
     vote_info["type"] = 1
     vote_info["plain_time"] = mktime(vote.time.timetuple())
     vote_info["time"] = howLongAgo(vote.time)
+    vote_info["user"] = vote.user
     vote_info["text_url"] = vote.text.getTextPath()
     vote_info["title"] = vote.text.parent.short_title
     vote_info["consent"] = vote.consent
