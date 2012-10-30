@@ -48,7 +48,7 @@ function process_vote(subEvent, vote_field, text_id) {
     var X = coords.x;
     var Y = coords.y;
     //alert("This button click occurred at: X(" + X + ") and Y(" + Y + ")");
-    var vote_points = {0:[50, 70], 1:[36, 57], 2:[63, 57], 3:[22, 43], 4:[50, 43], 5:[77, 43], 6:[36, 29], 7:[63, 29], 8:[50, 16]};
+    var vote_points = {0:[50, 70], 1:[36, 56], 2:[64, 56], 3:[23, 43], 4:[50, 43], 5:[77, 43], 6:[36, 29], 7:[64, 29], 8:[50, 16]};
     var nearest_point = 4;
     var nearest_dist = 1000;
     for (var i = 0; i <= 8; i++) {
@@ -68,12 +68,14 @@ function updateVoting(data) {
     if (data["wording"] <= 1 && data["consent"] <= 1 && vote_field) {
         while (vote_field.firstChild) vote_field.removeChild(vote_field.firstChild);
         var dot = document.createElement("div");
-        dot.style.width = "5px";
-        dot.style.height = "5px";
+        dot.style.width = "6px";
+        dot.style.height = "6px";
+        dot.style.borderRadius = "3px";
+        dot.style.border = "1px solid #AF0000";
         dot.style.position = "relative";
-        var positions = {0:[50, 70], 1:[36, 57], 3:[63, 57], 2:[22, 43], 4:[50, 43], 6:[77, 43], 5:[36, 29], 7:[63, 29], 8:[50, 16]};
-        dot.style.top = positions[(3 * (data["wording"] + 1) + data["consent"] + 1)][1] - 4 + "px";
-        dot.style.left = positions[(3 * (data["wording"] + 1) + data["consent"] + 1)][0] - 4 + "px";
+        var positions = {0:[50, 70], 1:[36, 56], 3:[64, 56], 2:[23, 43], 4:[50, 43], 6:[77, 43], 5:[36, 29], 7:[64, 29], 8:[50, 16]};
+        dot.style.top = positions[(3 * (data["wording"] + 1) + data["consent"] + 1)][1] - 6 + "px";
+        dot.style.left = positions[(3 * (data["wording"] + 1) + data["consent"] + 1)][0] - 5 + "px";
         dot.style.backgroundColor = "red";
         vote_field.appendChild(dot);
     }
