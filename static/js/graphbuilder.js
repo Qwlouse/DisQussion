@@ -94,7 +94,7 @@ function createArrowStructure(parentCircle, childCircle) {
 }
 
 
-function buildGraph(node_id, node_title, node_type) {
+/*function buildGraph(node_id, node_title, node_type) {
     var graphNode = document.getElementById('graph');
     graphNode.stepRuns = false;
     graphNode.centerCircle = createCircleStructure(node_title, node_id, node_type);
@@ -104,7 +104,7 @@ function buildGraph(node_id, node_title, node_type) {
     showNode(graphNode.centerCircle, true);
     //Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : node_type});
     // TODO: setTimeout("showText(graphNode.circles[1])", 500);
-}
+}*/
 
 
 function initPage(anchorGraphData, navigationData, selected_id, doNodeUpdate) {

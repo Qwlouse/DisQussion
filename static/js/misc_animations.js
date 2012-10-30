@@ -86,6 +86,7 @@ function showpostfield_step() {
 }
 
 function hideText() {
+    document.getElementById("text").waitForHiding = true;
     document.getElementById("text").style.opacity = "1.0";
     hideText_step();
 }
@@ -97,7 +98,7 @@ function hideText_step() {
     if (opac >= 0.01) {
         setTimeout("hideText_step()", 20);
     } else {
-        document.getElementById("text").childNodes[i].style.display = "none";
+        document.getElementById("text").waitForHiding = false;
     }
 }
 
@@ -108,7 +109,7 @@ function showText(sourceNode) {
 }
 
 function showText_intermission() {
-    if (document.getElementById("text").waitForText) {
+    if (document.getElementById("text").waitForText || document.getElementById("text").waitForHiding) {
         setTimeout("showText_intermission()", 25);
     } else {
         document.getElementById("text").innerHTML = document.getElementById("text").textSource.textPart;
