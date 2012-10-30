@@ -21,23 +21,33 @@ function submit_vote_for_text_node(frm) {
     Dajaxice.structure.submitVoteForTextNode(updateGraph, {'text_id' : text_id, 'consent' : consent, 'wording' : wording});
 }
 
-function getOffset(el) {
-    var _x = 0;
-    var _y = 0;
-    while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-        _x += el.offsetLeft - el.scrollLeft;
-        _y += el.offsetTop - el.scrollTop;
-        el = el.offsetParent;
+function relMouseCoords(event){
+    var totalOffsetX = 0;
+    var totalOffsetY = 0;
+    var divX = 0;
+    var divY = 0;
+    var currentElement = this;
+
+    do{
+        totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+        totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
     }
-    return { top:_y, left:_x };
+    while(currentElement = currentElement.offsetParent)
+
+    divX = event.pageX - totalOffsetX;
+    divY = event.pageY - totalOffsetY;
+
+    if (event.offsetX !== undefined && event.offsetY !== undefined) { return {x:event.offsetX, y:event.offsetY}; }
+    return {x:divX, y:divY}
 }
+HTMLDivElement.prototype.relMouseCoords = relMouseCoords;
 
 function process_vote(subEvent, vote_field, text_id) {
     var mainEvent = subEvent ? subEvent : window.event;
-    var offset = getOffset(vote_field);
-    var X = mainEvent.pageX - offset.left;
-    var Y = mainEvent.pageY - offset.top;
-    alert("This button click occurred at: X(" + X + ") and Y(" + Y + ")");
+    var coords = vote_field.relMouseCoords(mainEvent);
+    var X = coords.x;
+    var Y = coords.y;
+    //alert("This button click occurred at: X(" + X + ") and Y(" + Y + ")");
     var vote_points = {0:[50, 70], 1:[36, 57], 2:[63, 57], 3:[22, 43], 4:[50, 43], 5:[77, 43], 6:[36, 29], 7:[63, 29], 8:[50, 16]};
     var nearest_point = 4;
     var nearest_dist = 1000;
@@ -48,10 +58,8 @@ function process_vote(subEvent, vote_field, text_id) {
             nearest_point = i;
         }
     }
-    alert(nearest_point);
     var match_consent = {0:-1, 1:0, 2:-1, 3:1, 4:0, 5:-1, 6:1, 7:0, 8:1};
     var match_wording = {0:-1, 1:-1, 2:0, 3:-1, 4:0, 5:1, 6:0, 7:1, 8:1};
-    alert(match_consent[nearest_point]+" "+match_wording[nearest_point]);
     Dajaxice.structure.submitVoteForTextNode(updateGraph, {'text_id':text_id, 'consent':match_consent[nearest_point], 'wording':match_wording[nearest_point]});
 }
 
