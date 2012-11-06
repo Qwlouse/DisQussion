@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
-from structure.models import TextNode, Slot, Vote
+from structure.models import TextNode, StructureNode, Slot, Vote
 from structure.forms import CreateTextForm
 from structure.ajax import getNavigationData, getDataForAlternativesGraph
 from structure_parser import  parse
@@ -52,9 +52,9 @@ def submit_slot_with_text(request):
     return HttpResponseRedirect(t.getTextPath())
 
 
-def refine_node(request, id):
+def refine_text_node(request, id):
     pattern_node = TextNode.objects.get(pk=id)
-    createTextNodeForm = CreateTextForm({'text' : pattern_node.getText(), 'slot_id' : pattern_node.parent_id})
+    createTextForm = CreateTextForm({'text' : pattern_node.getText(), 'slot_id' : pattern_node.parent_id})
     anchor_nodes = getDataForAlternativesGraph(request, pattern_node.parent_id)
     return render_to_response("node/refine.html",
             {"pagename": "Verbessern oder erweitern von "+pattern_node.getShortTitle(),
@@ -66,8 +66,27 @@ def refine_node(request, id):
              "anchor_nodes" : anchor_nodes,
              "selected_id" : pattern_node.id,
              "parent_id" : pattern_node.parent_id,
-             "refine_form" : createTextNodeForm
+             "refine_form" : createTextForm
              },
+        context_instance=RequestContext(request))
+
+
+def refine_structure_node(request, id):
+    pattern_node = StructureNode.objects.get(pk=id)
+    createTextForm = CreateTextForm({'text' : pattern_node.getText(), 'slot_id' : pattern_node.parent_id})
+    anchor_nodes = getDataForAlternativesGraph(request, pattern_node.parent_id)
+    return render_to_response("node/refine.html",
+        {"pagename": "Verbessern oder erweitern von "+pattern_node.getShortTitle(),
+         "pattern_title": pattern_node.getShortTitle(),
+         "pattern_text": pattern_node.getText(),
+         "this_url": pattern_node.getTextPath(),
+         "authForm": AuthenticationForm(),
+         "navigation" : getNavigationData(request, pattern_node.id, pattern_node.getType()),
+         "anchor_nodes" : anchor_nodes,
+         "selected_id" : pattern_node.id,
+         "parent_id" : pattern_node.parent_id,
+         "refine_form" : createTextForm
+        },
         context_instance=RequestContext(request))
 
 
