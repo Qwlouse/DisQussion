@@ -100,22 +100,21 @@ function process_vote(subEvent, vote_field, is_structure_node, db_id) {
     var X = coords.x;
     var Y = coords.y;
     //alert("This button click occurred at: X(" + X + ") and Y(" + Y + ")");
-    var vote_points = {0:[50, 70], 1:[36, 56], 2:[64, 56], 3:[23, 43], 4:[50, 43], 5:[77, 43], 6:[36, 29], 7:[64, 29], 8:[50, 16]};
     var nearest_point = 4;
     var nearest_dist = 1000;
-    for (var i = 0; i <= 8; i++) {
-        var dist = Math.sqrt((X - vote_points[i][0]) * (X - vote_points[i][0]) + (Y - vote_points[i][1]) * (Y - vote_points[i][1]))
-        if (dist < nearest_dist) {
-            nearest_dist = dist;
-            nearest_point = i;
+    for (var c = -1; c <= 1; ++c) {
+        for (var w = -1; w <= 1; ++w) {
+            var dist = Math.sqrt(Math.pow(X - vote_points[c+1][w+1][0], 2) + Math.pow(Y - vote_points[c+1][w+1][1], 2));
+            if (dist < nearest_dist) {
+                nearest_dist = dist;
+                nearest_point = [c, w];
+            }
         }
     }
-    var match_consent = {0:-1, 1:0, 2:-1, 3:1, 4:0, 5:-1, 6:1, 7:0, 8:1};
-    var match_wording = {0:-1, 1:-1, 2:0, 3:-1, 4:0, 5:1, 6:0, 7:1, 8:1};
     if (is_structure_node) {
-        Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id':db_id, 'consent':match_consent[nearest_point], 'wording':match_wording[nearest_point]});
+        Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id':db_id, 'consent':nearest_point[0], 'wording':nearest_point[1]});
     } else {
-        Dajaxice.structure.submitVoteForTextNode(updateGraph, {'text_id':db_id, 'consent':match_consent[nearest_point], 'wording':match_wording[nearest_point]});
+        Dajaxice.structure.submitVoteForTextNode(updateGraph, {'text_id':db_id, 'consent':nearest_point[0], 'wording':nearest_point[1]});
     }
 }
 
@@ -130,8 +129,8 @@ function updateVoting(data) {
         dot.style.border = "1px solid #AF0000";
         dot.style.position = "relative";
         var pos = calculate_coordinates(data["consent"], data["wording"]);
-        dot.style.top = pos[1] - 6 + "px";
-        dot.style.left = pos[0] - 5 + "px";
+        dot.style.top = pos[1] - 4 + "px";
+        dot.style.left = pos[0] - 4 + "px";
         dot.style.backgroundColor = "red";
         vote_field.appendChild(dot);
     }
