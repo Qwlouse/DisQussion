@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
+from django.utils.datetime_safe import datetime
 
 from structure.models import Vote, adjust_vote_caches
 from django.db.models import Sum
@@ -15,6 +16,7 @@ def vote_for_textNode(user, node, consent=None, wording=None):
             v.consent = consent
         if wording is not None:
             v.wording = wording
+        v.time = datetime.now()
         v.full_clean()
         v.save()
     else:
@@ -42,6 +44,7 @@ def vote_for_structure_node(user, node, consent=None, wording=None):
             if wording is not None:
                 v.wording = wording
             v.full_clean()
+            v.time = datetime.now()
             v.save()
             # remove text from textnodes
             textnodes.remove(v.text)
