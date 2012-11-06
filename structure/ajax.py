@@ -5,13 +5,13 @@ from dajaxice.decorators import dajaxice_register
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
 import operator
-from structure.forms import VotingForm, CreateTextForm
+from structure.forms import CreateTextForm
 from structure.models import TextNode, Slot, StructureNode, Vote
 import json
 from structure.path_helpers import getRootNode
 from structure.query_helpers import getTopRatedAlternatives
 from structure.vote_helpers import vote_for_textNode, vote_for_structure_node
-from django.db.models import Max, Min, Avg
+from django.db.models import Min, Avg
 
 def getNodeText(node, request):
     if isinstance(node, TextNode):
