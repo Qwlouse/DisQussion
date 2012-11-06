@@ -31,5 +31,6 @@ function updateNode(data) {
     currentNode.textPart = data['text'];
     currentNode.votingInfo = data['voting'];
     document.getElementById("text").waitForText = false;
+    history.pushState(data,data['url'],data['url']);
 }
 
