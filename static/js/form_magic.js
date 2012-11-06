@@ -139,7 +139,12 @@ function updateVoting(data) {
         var all_pos = calculate_coordinates(data["total_consent"], data["total_wording"]);
         all_dot.style.top = all_pos[1] - 4 + "px";
         all_dot.style.left = all_pos[0] - 4 + "px";
-        vote_field.appendChild(all_dot);
+        var all_dot_container = document.createElement("div");
+        all_dot_container.style.width = "0";
+        all_dot_container.style.height = "0";
+        all_dot_container.style.overflow = "visible";
+        all_dot_container.appendChild(all_dot);
+        vote_field.appendChild(all_dot_container);
         if (data["wording"] <= 1 && data["consent"] <= 1) {
         var own_dot = document.createElement("div");
         own_dot.style.width = "6px";
