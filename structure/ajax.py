@@ -25,22 +25,6 @@ def getNodeText(node, request):
             RequestContext(request))
 
     elif isinstance(node, StructureNode):
-        votingForm = VotingForm(initial={'text_id' : node.id,
-                                         'consistent' : False})
-        if request.user.is_authenticated():
-            # get subtree
-            textnodes = node.get_active_subtree()
-            # check if there is already a vote
-            votes = Vote.objects.filter(user=request.user, text__in=textnodes)
-            if not (0 < votes.count() < len(textnodes)) :
-
-                a = votes.aggregate(Max('consent'), Min('consent'), Max('wording'), Min('wording'))
-                if a['consent__min'] == a['consent__max'] or \
-                   a['wording__min'] == a['wording__max']:
-                    votingForm = VotingForm(initial={'text_id' : node.id,
-                                                     'consent' : a['consent__min'],
-                                                     'wording' : a['wording__min'],
-                                                     'consistent' : True})
         createTextForm = CreateTextForm({'slot_id' : node.parent_id})
         slots = node.slot_set.all()
         slots_info = [{'short_title' : slots[0].getShortTitle(), 'text' : slots[0].getText(), 'path' : slots[0].getTextPath()}]
@@ -52,11 +36,41 @@ def getNodeText(node, request):
              'wording_rating' : node.calculate_wording_rating(),
              'dbID' : node.id,
              'slots' : slots_info,
-             'vote_form' : votingForm,
              'create_text_form' : createTextForm},
             RequestContext(request))
     else :
         return ""
+
+def getVotingInfo(node, request):
+    consent = 100
+    wording = 100
+    consistent = False
+    if request.user.is_authenticated():
+        if isinstance(node, TextNode):
+            votes = Vote.objects.filter(user = request.user, text=node)
+            if votes :
+                vote = votes[0]
+                consent = vote.consent
+                wording = vote.wording
+                consistent = True
+        elif isinstance(node, StructureNode):
+            textnodes = node.get_active_subtree()
+            # check if there is already a vote
+            votes = Vote.objects.filter(user=request.user, text__in=textnodes)
+            if not (0 < votes.count() < len(textnodes)) :
+
+                a = votes.aggregate(Max('consent'), Min('consent'), Max('wording'), Min('wording'))
+                if a['consent__min'] == a['consent__max'] or\
+                   a['wording__min'] == a['wording__max']:
+                    consent = a['consent__min']
+                    wording = a['wording__min']
+                    consistent = True
+        else:
+            print("This is a Slot. That shouldn't be.")
+    return {"consent" : consent,
+            "wording" : wording,
+            "id" : node.id,
+            "consistent" : consistent}
 
 def getNode(node_id, node_type):
     NodeType = {'Slot' : Slot,
@@ -80,23 +94,14 @@ def getNodeInfo(request, node_id, node_type):
         parent_title = node.parent.getShortTitle()
         parent_id = node.parent_id
         parent_type = node.parent.getType()
-    consent = 100
-    wording = 100
-    if request.user.is_authenticated() :
-        votes = Vote.objects.filter(user = request.user, text=node)
-        if votes :
-            vote = votes[0]
-            consent = vote.consent
-            wording = vote.wording
     return json.dumps({'text' : getNodeText(node, request),
+                       'voting' : getVotingInfo(node, request),
                        'type' : node.getType(),
                        'short_title' : node.getShortTitle(),
                        'id' : node.id,
                        'children' : [ {'short_title' : c.getShortTitle(), 'type' : c.getType(), 'id' : c.id} for c in children],
                        'parent' : {'short_title' : parent_title, 'type' : parent_type, 'id' : parent_id},
-                       'url' : node.getTextPath(),
-                       'consent' : consent,
-                       'wording' : wording
+                       'url' : node.getTextPath()
                        })
 
 
@@ -106,7 +111,7 @@ def submitVoteForTextNode(request, text_id, consent, wording):
     node = TextNode.objects.get(id=text_id)
     vote_for_textNode(user, node, consent, wording)
     return json.dumps({"graph_data" : getDataForAlternativesGraph(request, node.parent),
-                       "voting_data" : {"consent" : consent, "wording" : wording, "id" : text_id}})
+                       "voting_data" : {"consent" : consent, "wording" : wording, "id" : text_id, "consistent" : True}})
 
 @dajaxice_register
 def submitVoteForStructureNode(request, node_id, consent, wording):
@@ -114,7 +119,7 @@ def submitVoteForStructureNode(request, node_id, consent, wording):
     node = StructureNode.objects.get(id=node_id)
     vote_for_structure_node(user, node, consent, wording)
     return json.dumps({"graph_data" : getDataForAlternativesGraph(request, node.parent),
-                       "voting_data" : {"consent" : consent, "wording" : wording, "id" : node_id}})
+                       "voting_data" : {"consent" : consent, "wording" : wording, "id" : node_id, "consistent" : True}})
 
 def createSlotList(structure_node, selected_slot, selected_alternative):
     slot_list = structure_node.slot_set.order_by("pk")
