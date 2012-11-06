@@ -70,8 +70,8 @@ def getVotingInfo(node, request):
             print("This is a Slot. That shouldn't be.")
     return {"consent" : consent,
             "wording" : wording,
-            "total_consent" : 1 - 2 * node.calculate_consent_rating(),
-            "total_wording" : 1 - 2 * node.calculate_wording_rating(),
+            "total_consent" : -1 + 2 * node.calculate_consent_rating(),
+            "total_wording" : -1 + 2 * node.calculate_wording_rating(),
             "id" : node.id,
             "consistent" : consistent}
 
