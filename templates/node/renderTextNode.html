@@ -2,7 +2,8 @@
 {% load markup_tags %}
 {{ text|apply_markup:"creole" }}
 {% if user.is_authenticated %}
-    <p><a href="/.refine/{{ dbID }}">Diesen Vorschlag verbessern oder erweitern...</a></p>
+    <div class="spacer"></div>
+    <p><a href="/.refineText/{{ dbID }}">Diesen Vorschlag verbessern oder erweitern...</a></p>
     <p><a href="/.create/{{ parentID }}">Einen neuen Alternativvorschlag erstellen...</a></p>
 {% endif %}
 {% if user.is_authenticated %}

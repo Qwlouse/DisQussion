@@ -35,6 +35,7 @@ def getNodeText(node, request):
              'consent_rating' : node.calculate_consent_rating(),
              'wording_rating' : node.calculate_wording_rating(),
              'dbID' : node.id,
+             'parentID' : node.parent_id,
              'slots' : slots_info,
              'create_text_form' : createTextForm},
             RequestContext(request))

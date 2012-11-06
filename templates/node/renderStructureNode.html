@@ -7,14 +7,10 @@
     </div>
 {% endfor %}
 {% if user.is_authenticated %}
-<h2>Bewertung</h2>
-    <div class="vote_field" id="vote_field_{{ dbID }}" onclick="process_vote(event, this, true, {{ dbID }});"></div>
-<h2>Alternative erstellen</h2>
-<p>
-<form action="/.submit/TextNode" method="POST">
-    {% csrf_token %}
-    {{ create_text_form.as_p }}
-    <input type='submit' value="Abschicken">
-</form>
-</p>
+    <div class="spacer"></div>
+    <p><a href="/.refineStructure/{{ dbID }}">Diesen Vorschlag verbessern oder erweitern...</a></p>
+    <p><a href="/.create/{{ parentID }}">Einen neuen Alternativvorschlag erstellen...</a></p>
+
+    <h2>Bewertung</h2>
+        <div class="vote_field" id="vote_field_{{ dbID }}" onclick="process_vote(event, this, true, {{ dbID }});"></div>
 {% endif %}

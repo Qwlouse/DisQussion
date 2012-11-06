@@ -31,5 +31,28 @@ function updateNode(data) {
     currentNode.textPart = data['text'];
     currentNode.votingInfo = data['voting'];
     document.getElementById("text").waitForText = false;
+    history.pushState(data,data['url'],data['url']);
 }
 
+window.onpopstate = function(event) {
+    if (event.state) {
+        //UpdateNavigation code
+        Dajaxice.structure.getNavigationData(updateNavigation, {'node_id':event.state['id'], 'node_type':event.state['type']});
+        var graphNode = document.getElementById('graph');
+        var currentIndex = getIndexInCircles(graphNode.circles, event.state['id'], event.state['type']);
+        var currentNode = graphNode.circles[currentIndex];
+        // reset all nodes
+        for (var i = 0; i < graphNode.circles.length; i++) {
+            // make circles clickable
+            graphNode.circles[i].firstChild.nextSibling.nextSibling.firstChild.setAttribute("class", "linklike");
+        }
+
+        // mark centerCircle clicked
+        currentNode.firstChild.nextSibling.nextSibling.firstChild.setAttribute("class", "");
+
+        graphNode.centerCircle = currentNode;
+        document.getElementById("text").waitForText = true;
+        showText(currentNode);
+        updateNode(event.state);
+    }
+};

@@ -165,6 +165,10 @@ div#textPart {
 	max-width: 33em;
 }
 
+div.spacer {
+    margin: 2em 0;
+}
+
 div.inline {
     display: inline-block;
 }

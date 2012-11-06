@@ -32,7 +32,8 @@ urlpatterns = patterns('',
     url(r'^\.search$', 'DisQussion.views.search'),
 
     # Refine proposals
-    url(r'^\.refine/(?P<id>\d+)$', 'structure.views.refine_node'),
+    url(r'^\.refineText/(?P<id>\d+)$', 'structure.views.refine_text_node'),
+    url(r'^\.refineStructure/(?P<id>\d+)$', 'structure.views.refine_structure_node'),
 
     # Create new proposals
     url(r'^\.create/(?P<parent_id>\d+)$', 'structure.views.create_node'),
