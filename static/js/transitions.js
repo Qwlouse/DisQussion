@@ -31,7 +31,7 @@ function updateNode(data) {
     currentNode.textPart = data['text'];
     currentNode.votingInfo = data['voting'];
     document.getElementById("text").waitForText = false;
-    if (!history.state) {
+    if (!history.state || history.state['url'] == data['url']) {
         history.replaceState(data,data['url'],data['url']);
     } else {
         history.pushState(data,data['url'],data['url']);
