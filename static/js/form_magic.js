@@ -127,24 +127,37 @@ function process_vote(subEvent, vote_field, is_structure_node, db_id) {
 
 function updateVoting(data) {
     var vote_field = document.getElementById("vote_field_" + data["id"]);
-    if (data["wording"] <= 1 && data["consent"] <= 1 && vote_field) {
+    if (vote_field) {
         while (vote_field.firstChild) vote_field.removeChild(vote_field.firstChild);
-        var dot = document.createElement("div");
-        dot.style.width = "6px";
-        dot.style.height = "6px";
-        dot.style.borderRadius = "3px";
+        var all_dot = document.createElement("div");
+        all_dot.style.width = "6px";
+        all_dot.style.height = "6px";
+        all_dot.style.borderRadius = "3px";
+        all_dot.style.border = "1px solid #00AF00";
+        all_dot.style.backgroundColor = "green";
+        all_dot.style.position = "relative";
+        var all_pos = calculate_coordinates(data["total_consent"], data["total_wording"]);
+        all_dot.style.top = all_pos[1] - 4 + "px";
+        all_dot.style.left = all_pos[0] - 4 + "px";
+        vote_field.appendChild(all_dot);
+        if (data["wording"] <= 1 && data["consent"] <= 1) {
+        var own_dot = document.createElement("div");
+        own_dot.style.width = "6px";
+        own_dot.style.height = "6px";
+        own_dot.style.borderRadius = "3px";
         if (data["consistent"]) {
-            dot.style.border = "1px solid #0000AF";
-            dot.style.backgroundColor = "blue";
+            own_dot.style.border = "1px solid #0000AF";
+            own_dot.style.backgroundColor = "blue";
         } else {
-            dot.style.border = "1px solid #AF0000";
-            dot.style.backgroundColor = "red";
+            own_dot.style.border = "1px solid #AF0000";
+            own_dot.style.backgroundColor = "red";
         }
-        dot.style.position = "relative";
-        var pos = calculate_coordinates(data["consent"], data["wording"]);
-        dot.style.top = pos[1] - 4 + "px";
-        dot.style.left = pos[0] - 4 + "px";
-        vote_field.appendChild(dot);
+        own_dot.style.position = "relative";
+        var own_pos = calculate_coordinates(data["consent"], data["wording"]);
+        own_dot.style.top = own_pos[1] - 4 + "px";
+        own_dot.style.left = own_pos[0] - 4 + "px";
+        vote_field.appendChild(own_dot);
+        }
     }
 }
 
