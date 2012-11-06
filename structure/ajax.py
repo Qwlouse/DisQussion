@@ -11,7 +11,7 @@ import json
 from structure.path_helpers import getRootNode
 from structure.query_helpers import getTopRatedAlternatives
 from structure.vote_helpers import vote_for_textNode, vote_for_structure_node
-from django.db.models import Max, Min
+from django.db.models import Max, Min, Avg
 
 def getNodeText(node, request):
     if isinstance(node, TextNode):
@@ -57,14 +57,14 @@ def getVotingInfo(node, request):
             textnodes = node.get_active_subtree()
             # check if there is already a vote
             votes = Vote.objects.filter(user=request.user, text__in=textnodes)
+            a = votes.aggregate(Min('consent'), Avg('consent'),
+                                Min('wording'), Avg('wording'))
             if not (0 < votes.count() < len(textnodes)) :
-
-                a = votes.aggregate(Max('consent'), Min('consent'), Max('wording'), Min('wording'))
-                if a['consent__min'] == a['consent__max'] or\
-                   a['wording__min'] == a['wording__max']:
-                    consent = a['consent__min']
-                    wording = a['wording__min']
+                if a['consent__min'] == a['consent__avg'] and\
+                   a['wording__min'] == a['wording__avg']:
                     consistent = True
+            consent = a['consent__avg']
+            wording = a['wording__avg']
         else:
             print("This is a Slot. That shouldn't be.")
     return {"consent" : consent,
