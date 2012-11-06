@@ -2,10 +2,11 @@
  * @param frm The VotingForm used to vote for this node
  *
  */
-
-var vote_points = [[[49, 69], [62, 55], [76, 42]],
-                   [[35, 55], [49, 41], [62, 28]],
-                   [[22, 41], [35, 29], [49, 14]]];
+//                          wording
+//                 ----------------------------->
+var vote_points = [[[49, 69], [62, 55], [76, 42]],  //  |
+                   [[35, 55], [49, 41], [62, 28]],  //  |  consent
+                   [[22, 41], [35, 29], [49, 14]]]; //  V
 
 
 function submit_vote_for_text_node(frm) {
