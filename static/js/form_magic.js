@@ -61,7 +61,14 @@ function process_vote(subEvent, vote_field, is_structure_node, db_id) {
     var match_consent = {0:-1, 1:0, 2:-1, 3:1, 4:0, 5:-1, 6:1, 7:0, 8:1};
     var match_wording = {0:-1, 1:-1, 2:0, 3:-1, 4:0, 5:1, 6:0, 7:1, 8:1};
     if (is_structure_node) {
-        Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id':db_id, 'consent':match_consent[nearest_point], 'wording':match_wording[nearest_point]});
+        if (document.getElementById("text").textSource.votingInfo["consistent"]) {
+            Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id':db_id, 'consent':match_consent[nearest_point], 'wording':match_wording[nearest_point]});
+        } else {
+            if (confirm("Du hast Textknoten unterhalb dieser Ebene unterschiedlich abgestimmt. Wenn du jetzt zustimmst, werden alle Textknoten so abgestimmt, wie du eben entschieden hast. Diese Aktion kann nicht rückgängig gemacht werden.")) {
+                document.getElementById("text").textSource.votingInfo["consistent"] = true;
+                Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id':db_id, 'consent':match_consent[nearest_point], 'wording':match_wording[nearest_point]});
+            }
+        }
     } else {
         Dajaxice.structure.submitVoteForTextNode(updateGraph, {'text_id':db_id, 'consent':match_consent[nearest_point], 'wording':match_wording[nearest_point]});
     }
