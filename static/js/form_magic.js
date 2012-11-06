@@ -78,8 +78,8 @@ function updateVoting(data) {
         dot.style.border = "1px solid #AF0000";
         dot.style.position = "relative";
         var positions = {0:[50, 70], 1:[36, 56], 3:[64, 56], 2:[23, 43], 4:[50, 43], 6:[77, 43], 5:[36, 29], 7:[64, 29], 8:[50, 16]};
-        dot.style.top = positions[(3 * (data["wording"] + 1) + data["consent"] + 1)][1] - 6 + "px";
-        dot.style.left = positions[(3 * (data["wording"] + 1) + data["consent"] + 1)][0] - 5 + "px";
+        dot.style.top = positions[(3 * (Math.round(data["wording"]) + 1) + Math.round(data["consent"]) + 1)][1] - 6 + "px";
+        dot.style.left = positions[(3 * (Math.round(data["wording"]) + 1) + Math.round(data["consent"]) + 1)][0] - 5 + "px";
         dot.style.backgroundColor = "red";
         vote_field.appendChild(dot);
     }
