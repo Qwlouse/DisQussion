@@ -31,7 +31,11 @@ function updateNode(data) {
     currentNode.textPart = data['text'];
     currentNode.votingInfo = data['voting'];
     document.getElementById("text").waitForText = false;
-    history.pushState(data,data['url'],data['url']);
+    if (!history.state) {
+        history.replaceState(data,data['url'],data['url']);
+    } else {
+        history.pushState(data,data['url'],data['url']);
+    }
 }
 
 window.onpopstate = function(event) {
