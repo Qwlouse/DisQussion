@@ -132,12 +132,17 @@ function updateVoting(data) {
         dot.style.width = "6px";
         dot.style.height = "6px";
         dot.style.borderRadius = "3px";
-        dot.style.border = "1px solid #AF0000";
+        if (data["consistent"]) {
+            dot.style.border = "1px solid #0000AF";
+            dot.style.backgroundColor = "blue";
+        } else {
+            dot.style.border = "1px solid #AF0000";
+            dot.style.backgroundColor = "red";
+        }
         dot.style.position = "relative";
         var pos = calculate_coordinates(data["consent"], data["wording"]);
         dot.style.top = pos[1] - 4 + "px";
         dot.style.left = pos[0] - 4 + "px";
-        dot.style.backgroundColor = "red";
         vote_field.appendChild(dot);
     }
 }
