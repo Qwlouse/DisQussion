@@ -8,14 +8,7 @@
 {% endfor %}
 {% if user.is_authenticated %}
 <h2>Bewertung</h2>
-    <div class="vote_field" id="vote_field_{{ dbID }}" onclick="process_vote(event, this, {{ dbID }});"></div>
-<p>
-    <form name="vote_form">
-        {% csrf_token %}
-        {{ vote_form.as_p }}
-        <input type='button' onclick="submit_vote_for_structure_node(this.form)" value="Abstimmen!" />
-    </form>
-
+    <div class="vote_field" id="vote_field_{{ dbID }}" onclick="process_vote(event, this, true, {{ dbID }});"></div>
 <h2>Alternative erstellen</h2>
 <p>
 <form action="/.submit/TextNode" method="POST">

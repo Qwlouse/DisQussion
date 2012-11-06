@@ -113,8 +113,8 @@ def submitVoteForStructureNode(request, node_id, consent, wording):
     user = request.user
     node = StructureNode.objects.get(id=node_id)
     vote_for_structure_node(user, node, consent, wording)
-    return getDataForAlternativesGraph(request, node.parent)
-
+    return json.dumps({"graph_data" : getDataForAlternativesGraph(request, node.parent),
+                       "voting_data" : {"consent" : consent, "wording" : wording, "id" : node_id}})
 
 def createSlotList(structure_node, selected_slot, selected_alternative):
     slot_list = structure_node.slot_set.order_by("pk")
