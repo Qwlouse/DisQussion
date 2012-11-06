@@ -112,15 +112,13 @@ function process_vote(subEvent, vote_field, is_structure_node, db_id) {
         }
     }
     if (is_structure_node) {
-        Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id':db_id, 'consent':nearest_point[0], 'wording':nearest_point[1]});
-        if (document.getElementById("text").textSource.votingInfo["consistent"]) {
-            Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id':db_id, 'consent':match_consent[nearest_point], 'wording':match_wording[nearest_point]});
-        } else {
-            if (confirm("Du hast Textknoten unterhalb dieser Ebene unterschiedlich abgestimmt. Wenn du jetzt zustimmst, werden alle Textknoten so abgestimmt, wie du eben entschieden hast. Diese Aktion kann nicht rückgängig gemacht werden.")) {
-                document.getElementById("text").textSource.votingInfo["consistent"] = true;
-                Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id':db_id, 'consent':match_consent[nearest_point], 'wording':match_wording[nearest_point]});
+        if (!document.getElementById("text").textSource.votingInfo["consistent"]) {
+            if (!confirm("Du hast Textknoten unterhalb dieser Ebene unterschiedlich abgestimmt. Wenn du jetzt zustimmst, werden alle Textknoten so abgestimmt, wie du eben entschieden hast. Diese Aktion kann nicht rückgängig gemacht werden.")) {
+                return;
             }
         }
+        document.getElementById("text").textSource.votingInfo["consistent"] = true;
+        Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id':db_id, 'consent':nearest_point[0], 'wording':nearest_point[1]});
     } else {
         Dajaxice.structure.submitVoteForTextNode(updateGraph, {'text_id':db_id, 'consent':nearest_point[0], 'wording':nearest_point[1]});
     }
