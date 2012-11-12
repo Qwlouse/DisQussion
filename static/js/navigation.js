@@ -7,8 +7,9 @@ function updateNavigation(data) {
         for (var j = 0; j < data['history'][i].length; j++) {
             var innerListElement = document.createElement('li');
             var link = document.createElement('a');
-            link.setAttribute('href',data['history'][i][j]['path']);
-            link.setAttribute('onclick',"navigateTo(event,"+data['history'][i][j]['id']+");");
+            //link.setAttribute('href',data['history'][i][j]['path']);
+            link.style.cursor = "pointer";
+            link.setAttribute('onclick',"navigateTo(event," + data['history'][i][j]['id'] + ",'" + data['history'][i][j]['type'] + "');");
             var title = document.createTextNode(data['history'][i][j]['title']);
             link.appendChild(title);
             innerListElement.appendChild(link);
@@ -28,8 +29,9 @@ function updateNavigation(data) {
         for (i = 0; i < data['slot_list'].length; i++) {
             innerListElement = document.createElement('li');
             link = document.createElement('a');
-            link.setAttribute('href', data['slot_list'][i]['path']);
-            link.setAttribute('onclick', "navigateTo(event," + data['slot_list'][i]['id'] + ");");
+            //link.setAttribute('href', data['slot_list'][i]['path']);
+            link.style.cursor = "pointer";
+            link.setAttribute('onclick', "navigateTo(event," + data['slot_list'][i]['id'] + ",'" + data['slot_list'][i]['type'] + "');");
             title = document.createTextNode(data['slot_list'][i]['title']);
             link.appendChild(title);
             innerListElement.appendChild(link);
@@ -42,7 +44,14 @@ function updateNavigation(data) {
     navigationNode.appendChild(outerList);
 }
 
-function navigateTo(event, id) {
+function navigateTo(event, id, type) {
     //event.preventDefault();
     //alert(id);
+    //alert(type);
+
+    Dajaxice.structure.getNavigationData(updateNavigation, {'node_id':id, 'node_type':type});
+    document.getElementById("text").waitForText = true;
+    showText("<p>Text noch nicht geladen.</p>");
+    Dajaxice.structure.getNodeInfo(updateNode, {'node_id':id, 'node_type':type});
+    //alert("ENDE");
 }

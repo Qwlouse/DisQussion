@@ -84,10 +84,10 @@ def getNode(node_id, node_type):
 @dajaxice_register
 def getNodeInfo(request, node_id, node_type):
     node = getNode(node_id, node_type)
-    children = []
     if isinstance(node, Slot):
-        children = [c.as_leaf_class() for c in node.node_set.all()]
-    elif isinstance(node, StructureNode):
+        node = node.node_set.order_by('-rating')[0].as_leaf_class()
+    children = []
+    if isinstance(node, StructureNode):
         children = node.slot_set.all()
     if node.parent is None:
         parent_title = ""
@@ -99,6 +99,7 @@ def getNodeInfo(request, node_id, node_type):
         parent_type = node.parent.getType()
     return json.dumps({'text' : getNodeText(node, request),
                        'voting' : getVotingInfo(node, request),
+                       'graph_data' : getDataForAlternativesGraph(request, node.parent),
                        'type' : node.getType(),
                        'short_title' : node.getShortTitle(),
                        'id' : node.id,
@@ -127,7 +128,8 @@ def submitVoteForStructureNode(request, node_id, consent, wording):
 def createSlotList(structure_node, selected_slot, selected_alternative):
     slot_list = structure_node.slot_set.order_by("pk")
     return [{'title' : s.getShortTitle() if s != selected_slot else selected_alternative.getShortTitle(),
-             'id' : s.pk,
+             'id' : s.node_set.order_by('-rating')[0].as_leaf_class().pk,
+             'type' : s.node_set.order_by('-rating')[0].as_leaf_class().getType(),
              'path' :  s.getTextPath() if s != selected_slot else selected_alternative.getTextPath(),
              'selected' : s == selected_slot} for s in slot_list]
 

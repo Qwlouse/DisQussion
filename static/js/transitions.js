@@ -25,8 +25,15 @@ function showNode(node, doNodeUpdate) {
 
 function updateNode(data) {
     var graphNode = document.getElementById('graph');
+    var newGraph = false;
 
     var currentIndex = getIndexInCircles(graphNode.circles, data['id'], data['type']);
+    if (currentIndex < 0) {
+        buildAnchorGraph(JSON.parse(data['graph_data']));
+        currentIndex = getIndexInCircles(graphNode.circles, data['id'], data['type']);
+        newGraph = true;
+
+    }
     var currentNode = graphNode.circles[currentIndex];
     currentNode.textPart = data['text'];
     currentNode.votingInfo = data['voting'];
@@ -35,6 +42,9 @@ function updateNode(data) {
         history.replaceState(data,data['url'],data['url']);
     } else {
         history.pushState(data,data['url'],data['url']);
+    }
+    if (newGraph) {
+        showNode(currentNode, true);
     }
 }
 
