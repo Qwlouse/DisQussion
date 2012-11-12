@@ -32,7 +32,6 @@ function updateNode(data) {
         buildAnchorGraph(JSON.parse(data['graph_data']));
         currentIndex = getIndexInCircles(graphNode.circles, data['id'], data['type']);
         newGraph = true;
-
     }
     var currentNode = graphNode.circles[currentIndex];
     currentNode.textPart = data['text'];
@@ -54,6 +53,10 @@ window.onpopstate = function(event) {
         Dajaxice.structure.getNavigationData(updateNavigation, {'node_id':event.state['id'], 'node_type':event.state['type']});
         var graphNode = document.getElementById('graph');
         var currentIndex = getIndexInCircles(graphNode.circles, event.state['id'], event.state['type']);
+        if (currentIndex < 0) {
+            buildAnchorGraph(JSON.parse(event.state['graph_data']));
+            currentIndex = getIndexInCircles(graphNode.circles, event.state['id'], event.state['type']);
+        }
         var currentNode = graphNode.circles[currentIndex];
         // reset all nodes
         for (var i = 0; i < graphNode.circles.length; i++) {
