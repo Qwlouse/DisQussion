@@ -29,7 +29,9 @@ function updateNavigation(data) {
         for (i = 0; i < data['slot_list'].length; i++) {
             innerListElement = document.createElement('li');
             link = document.createElement('a');
-            link.setAttribute('href', data['slot_list'][i]['path']);
+            //link.setAttribute('href', data['slot_list'][i]['path']);
+            link.style.cursor = "pointer";
+            link.setAttribute('onclick',"navigateTo(event," + data['slot_list'][i]['id'] + ",'" + data['slot_list'][i]['type'] + "');");
             title = document.createTextNode(data['slot_list'][i]['title']);
             link.appendChild(title);
             innerListElement.appendChild(link);
