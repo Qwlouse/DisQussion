@@ -181,11 +181,11 @@ ADMINS = (
     ('Your Name', 'your_name@email.com'),
 )
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = ''
 EMAIL_PORT = 587
-EMAIL_HOST_PASSWORD = 'DisQussionRulez'
-EMAIL_HOST_USER = 'disqussion.mail@gmail.com'
-EMAIL_SUBJECT_PREFIX = 'something'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = ''
+EMAIL_SUBJECT_PREFIX = ''
 EMAIL_USE_TLS = True
 
 # try to import secret_settings and overwrite some of the default values
