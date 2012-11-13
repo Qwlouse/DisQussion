@@ -88,6 +88,7 @@ def parse(s, parent_slot):
             short_title=title[:min(15, len(title))]
 
         # make short titles valid
+        short_title = short_title[:min(20, len(short_title))]
         short_title = strip_accents(short_title)
         short_title = invalid_symbols.sub('',short_title)
         if short_title in short_title_set:
