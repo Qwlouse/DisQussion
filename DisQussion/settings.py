@@ -34,11 +34,11 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/Berlin'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'de-DE'
 
 SITE_ID = 1
 
@@ -187,3 +187,9 @@ EMAIL_HOST_PASSWORD = 'DisQussionRulez'
 EMAIL_HOST_USER = 'disqussion.mail@gmail.com'
 EMAIL_SUBJECT_PREFIX = 'something'
 EMAIL_USE_TLS = True
+
+# try to import secret_settings and overwrite some of the default values
+try:
+  from secret_settings import *
+except ImportError :
+  pass

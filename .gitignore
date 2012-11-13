@@ -35,3 +35,6 @@ pip-log.txt
 
 #SQLite database
 Database.sqlite3
+
+#secret settings
+DisQussion/secret_settings.py
