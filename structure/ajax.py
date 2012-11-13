@@ -117,7 +117,9 @@ def submitVoteForTextNode(request, text_id, consent, wording):
     node = TextNode.objects.get(id=text_id)
     vote_for_textNode(user, node, consent, wording)
     return json.dumps({"graph_data" : getDataForAlternativesGraph(request, node.parent),
-                       "voting_data" : getVotingInfo(node, request)})
+                       "voting_data" : getVotingInfo(node, request),
+                       "id" : node.pk,
+                       "type" : node.getType()})
 
 @dajaxice_register
 def submitVoteForStructureNode(request, node_id, consent, wording):
@@ -125,7 +127,9 @@ def submitVoteForStructureNode(request, node_id, consent, wording):
     node = StructureNode.objects.get(id=node_id)
     vote_for_structure_node(user, node, consent, wording)
     return json.dumps({"graph_data" : getDataForAlternativesGraph(request, node.parent),
-                       "voting_data" : getVotingInfo(node, request)})
+                       "voting_data" : getVotingInfo(node, request),
+                       "id" : node.pk,
+                       "type" : node.getType()})
 
 def createSlotList(structure_node, selected_slot, selected_alternative):
     slot_list = structure_node.slot_set.order_by("pk")

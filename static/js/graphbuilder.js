@@ -177,11 +177,10 @@ function buildAnchorGraph(data) {
 
 function updateGraph(data) {
     var graphNode = document.getElementById('graph');
-    var Anchors = data["graph_data"]["Anchors"];
+    var Anchors = JSON.parse(data["graph_data"])["Anchors"];
     // draw voting
     updateVoting(data["voting_data"]);
 
-    //alert("0");
     var newCircles = [];
     for (var i = 0; i < Anchors.length; ++i) {
         var anchor = Anchors[i];
@@ -196,10 +195,9 @@ function updateGraph(data) {
         anchor_circle.particle.targetForce = 0.05;
         newCircles.push(anchor_circle);
     }
-    alert("1");
 
     // add related nodes
-    var relatedNodes = data["graph_data"]['related_nodes'];
+    var relatedNodes = JSON.parse(data["graph_data"])['related_nodes'];
     for (i = 0; i < relatedNodes.length; ++i) {
         var node = relatedNodes[i];
         var node_circle = createCircleStructure(node['nr_in_parent'], node['id'], node['type'], anchor['consent']);
@@ -218,10 +216,9 @@ function updateGraph(data) {
     for (i = 0; i < newCircles.length; ++i) {
         graphNode.appendChild(newCircles[i]);
     }
-    alert("2");
 
     // add connections
-    var connections = data["graph_data"]['connections'];
+    var connections = JSON.parse(data["graph_data"])['connections'];
     for (i = 0; i < connections.length; ++i) {
         var connection = connections[i];
         var source_node = getNodeById(graphNode.circles, connection[0], "TextNode");
@@ -234,6 +231,11 @@ function updateGraph(data) {
         graphNode.stepRuns = true;
         step();
     }
+
+    // mark centerCircle clicked
+    var currentIndex = getIndexInCircles(graphNode.circles, data['id'], data['type']);
+    var currentNode = graphNode.circles[currentIndex];
+    currentNode.firstChild.nextSibling.nextSibling.firstChild.setAttribute("class", "");
 }
 
 

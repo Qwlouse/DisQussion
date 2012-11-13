@@ -8,26 +8,6 @@ var vote_points = [[[49, 69], [62, 55], [76, 42]],  //  |
                    [[35, 55], [49, 41], [62, 28]],  //  |  consent
                    [[22, 41], [35, 29], [49, 14]]]; //  V
 
-
-function submit_vote_for_text_node(frm) {
-    var consent = 0;
-    for (var i = 0; i < frm.consent.length; i++) {
-        if (frm.consent[i].checked) {
-            consent = frm.consent[i].value;
-        }
-    }
-    var wording = 0;
-    for (var j = 0; j < frm.wording.length; j++) {
-        if (frm.wording[j].checked) {
-            wording = frm.wording[j].value;
-        }
-    }
-    var text_id = frm.text_id.value;
-    // alert('User voted consent: ' + consent + ", wording: " + wording + " for text " + text_id );
-    // now the ajax stuff
-    Dajaxice.structure.submitVoteForTextNode(updateGraph, {'text_id' : text_id, 'consent' : consent, 'wording' : wording});
-}
-
 function relMouseCoords(event){
     var totalOffsetX = 0;
     var totalOffsetY = 0;
@@ -164,28 +144,4 @@ function updateVoting(data) {
         vote_field.appendChild(own_dot);
         }
     }
-}
-
-function submit_vote_for_structure_node(frm) {
-    var consent = 0;
-    for (var i = 0; i < frm.consent.length; i++) {
-        if (frm.consent[i].checked) {
-            consent = frm.consent[i].value;
-        }
-    }
-    var wording = 0;
-    for (var j = 0; j < frm.wording.length; j++) {
-        if (frm.wording[j].checked) {
-            wording = frm.wording[j].value;
-        }
-    }
-
-    var node_id = frm.text_id.value;
-    if (frm.consistent.value == 'False') {
-        alert('Du zerstörst gerade deine abstimmung...');
-    }
-    //alert('User voted consent: ' + consent + ", wording: " + wording + ", node: " + node_id);
-    // now the ajax stuff
-
-    Dajaxice.structure.submitVoteForStructureNode(updateGraph, {'node_id' : node_id, 'consent' : consent, 'wording' : wording});
 }
