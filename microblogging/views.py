@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import division, print_function, unicode_literals
 from django.http import HttpResponseRedirect
-from django.db import transaction
 from microblogging.models import create_entry
 
 def submit_Microblog_Entry(request):
