@@ -2,7 +2,7 @@ function DarthFader(id, fade_in_callback, fade_out_callback, target) {
     target = target ? target : 100;
     fade_in_callback = fade_in_callback ? fade_in_callback : function(){};
     fade_out_callback = fade_out_callback ? fade_out_callback : function(){};
-    var delay = 20;
+    var delay = 25;
     var fader = {
         fade_in:function () {
             this.elem = document.getElementById(id);
@@ -28,7 +28,7 @@ function DarthFader(id, fade_in_callback, fade_out_callback, target) {
                 clearInterval(this.si);
                 this.callback();
             } else {
-                var value = Math.round(this.alpha + ((this.target - this.alpha) * .1)) + this.step;
+                var value = Math.round(this.alpha + ((this.target - this.alpha) * .2)) + this.step;
                 this.elem.style.opacity = value / 100;
                 this.elem.style.filter = 'alpha(opacity=' + value + ')';
                 this.alpha = value
