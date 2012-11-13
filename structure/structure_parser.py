@@ -85,13 +85,17 @@ def parse(s, parent_slot):
     for title, short_title, text in zip(split_doc[1::3], split_doc[2::3], split_doc[3::3]):
         # check if short_title is valid/unique/exists
         if not short_title or len(short_title.strip()) == 0:
-            short_title=strip_accents(title[:min(15, len(title))])
-            short_title = invalid_symbols.sub('',short_title)
-            if short_title in short_title_set:
-                i = 1
-                while short_title + str(i) in short_title_set:
-                    i += 1
-                short_title += str(i)
+            short_title=title[:min(15, len(title))]
+
+        # make short titles valid
+        short_title = strip_accents(short_title)
+        short_title = invalid_symbols.sub('',short_title)
+        if short_title in short_title_set:
+            i = 1
+            while short_title + str(i) in short_title_set:
+                i += 1
+            short_title += str(i)
+
         short_title_set.add(short_title)
         slot = Slot()
         slot.parent = node
