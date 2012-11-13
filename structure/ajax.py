@@ -84,10 +84,12 @@ def getNode(node_id, node_type):
 @dajaxice_register
 def getNodeInfo(request, node_id, node_type):
     node = getNode(node_id, node_type)
-    if isinstance(node, Slot):
-        node = node.node_set.order_by('-rating')[0].as_leaf_class()
+    #if isinstance(node, Slot):
+    #    node = node.node_set.order_by('-rating')[0].as_leaf_class()
     children = []
-    if isinstance(node, StructureNode):
+    if isinstance(node, Slot):
+        children = [c.as_leaf_class() for c in node.node_set.all()]
+    elif isinstance(node, StructureNode):
         children = node.slot_set.all()
     if node.parent is None:
         parent_title = ""
@@ -98,7 +100,7 @@ def getNodeInfo(request, node_id, node_type):
         parent_id = node.parent_id
         parent_type = node.parent.getType()
     return json.dumps({'text' : getNodeText(node, request),
-                       'voting' : getVotingInfo(node, request),
+                       'voting' : getVotingInfo(node, request) if not isinstance(node, Slot) else getVotingInfo(node.node_set.order_by('-rating')[0].as_leaf_class(), request),
                        'graph_data' : getDataForAlternativesGraph(request, node.parent),
                        'type' : node.getType(),
                        'short_title' : node.getShortTitle(),
