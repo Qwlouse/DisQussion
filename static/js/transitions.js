@@ -36,6 +36,7 @@ function updateNode(data) {
     var currentNode = graphNode.circles[currentIndex];
     currentNode.textPart = data['text'];
     currentNode.votingInfo = data['voting'];
+    document.getElementById("text").textSource = currentNode;
     document.getElementById("text").waitForText = false;
     if (!history.state || history.state['url'] == data['url']) {
         history.replaceState(data,data['url'],data['url']);
