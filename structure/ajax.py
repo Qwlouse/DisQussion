@@ -130,8 +130,8 @@ def submitVoteForStructureNode(request, node_id, consent, wording):
 def createSlotList(structure_node, selected_slot, selected_alternative):
     slot_list = structure_node.slot_set.order_by("pk")
     return [{'title' : s.getShortTitle() if s != selected_slot else selected_alternative.getShortTitle(),
-             'id' : s.node_set.order_by('-rating')[0].as_leaf_class().pk,
-             'type' : s.node_set.order_by('-rating')[0].as_leaf_class().getType(),
+             'id' : s.node_set.order_by('-rating')[0].as_leaf_class().pk if s != selected_slot else selected_alternative.as_leaf_class().pk,
+             'type' : s.node_set.order_by('-rating')[0].as_leaf_class().getType() if s != selected_slot else selected_alternative.as_leaf_class().getType(),
              'path' :  s.getTextPath() if s != selected_slot else selected_alternative.getTextPath(),
              'selected' : s == selected_slot} for s in slot_list]
 
