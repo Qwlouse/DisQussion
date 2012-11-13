@@ -1,37 +1,67 @@
-function closelogin() {
-    document.getElementById("login").style.opacity = "1.0";
-    closelogin_step();
+function DarthFader(id, fade_in_callback, fade_out_callback, target) {
+    target = target ? target : 100;
+    var delay = 20;
+    var fader = {
+        fade_in:function () {
+            this.elem = document.getElementById(id);
+            this.alpha = this.elem.style.opacity ? parseFloat(this.elem.style.opacity) * 100 : 0;
+            clearInterval(this.si);
+            this.target = target;
+            this.step = 1;
+            this.callback = fade_in_callback;
+            this.si = setInterval(function(){fader.tween()}, delay);
+        },
+        fade_out:function () {
+            this.elem = document.getElementById(id);
+            this.alpha = this.elem.style.opacity ? parseFloat(this.elem.style.opacity) * 100 : 0;
+            clearInterval(this.si);
+            this.target = 0;
+            this.step = -1;
+            this.callback = fade_out_callback;
+            this.si = setInterval(function(){fader.tween()}, delay);
+        },
+
+        tween:function () {
+            if (this.alpha == this.target) {
+                clearInterval(this.si);
+                if (this.callback) this.callback();
+            } else {
+                var value = Math.round(this.alpha + ((this.target - this.alpha) * .1)) + this.step;
+                this.elem.style.opacity = value / 100;
+                this.elem.style.filter = 'alpha(opacity=' + value + ')';
+                this.alpha = value
+            }
+        }
+    };
+
+    return fader;
 }
 
-function closelogin_step() {
-    var opac = parseFloat(document.getElementById("login").style.opacity);
-    document.getElementById("login").style.opacity = "" + (opac - 0.11);
-    document.getElementById("login_overlay").style.opacity = "" + ((opac - 0.11)*0.5);
-    if (opac >= 0.01) {
-        setTimeout("closelogin_step()", 25);
-    } else {
-        document.getElementById("login_overlay").style.display = "none";
+var login_fader = DarthFader("login",
+    function(){},
+    function() {
         document.getElementById("login").style.display = "none";
-    }
+    });
+
+var login_overlay_fader = DarthFader("login_overlay",
+    function(){},
+    function() {
+        document.getElementById("login_overlay").style.display = "none";
+    },
+    50
+);
+
+function closelogin() {
+    login_fader.fade_out();
+    login_overlay_fader.fade_out();
 }
 
 function showlogin() {
     document.getElementById("login").style.display = "block";
     document.getElementById("login_overlay").style.display = "block";
-    document.getElementById("login").style.opacity = "0.0";
-    showlogin_step()
-}
+    login_fader.fade_in();
+    login_overlay_fader.fade_out();
 
-function showlogin_step() {
-    var opac = parseFloat(document.getElementById("login").style.opacity);
-    document.getElementById("login").style.opacity = "" + (opac + 0.11);
-    document.getElementById("login_overlay").style.opacity = "" + ((opac + 0.11)*0.5);
-    if (opac < 0.9) {
-        setTimeout("showlogin_step()", 25);
-    } else {
-        document.getElementById("login").style.opacity = "1.0";
-        document.getElementById("login_overlay").style.opacity = "0.5";
-    }
 }
 
 function closepostfield() {
