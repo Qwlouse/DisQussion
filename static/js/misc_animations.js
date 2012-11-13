@@ -1,5 +1,7 @@
 function DarthFader(id, fade_in_callback, fade_out_callback, target) {
     target = target ? target : 100;
+    fade_in_callback = fade_in_callback ? fade_in_callback : function(){};
+    fade_out_callback = fade_out_callback ? fade_out_callback : function(){};
     var delay = 20;
     var fader = {
         fade_in:function () {
@@ -24,7 +26,7 @@ function DarthFader(id, fade_in_callback, fade_out_callback, target) {
         tween:function () {
             if (this.alpha == this.target) {
                 clearInterval(this.si);
-                if (this.callback) this.callback();
+                this.callback();
             } else {
                 var value = Math.round(this.alpha + ((this.target - this.alpha) * .1)) + this.step;
                 this.elem.style.opacity = value / 100;
@@ -38,13 +40,13 @@ function DarthFader(id, fade_in_callback, fade_out_callback, target) {
 }
 
 var login_fader = DarthFader("login",
-    function(){},
+    false,
     function() {
         document.getElementById("login").style.display = "none";
     });
 
 var login_overlay_fader = DarthFader("login_overlay",
-    function(){},
+    false,
     function() {
         document.getElementById("login_overlay").style.display = "none";
     },
@@ -60,8 +62,7 @@ function showlogin() {
     document.getElementById("login").style.display = "block";
     document.getElementById("login_overlay").style.display = "block";
     login_fader.fade_in();
-    login_overlay_fader.fade_out();
-
+    login_overlay_fader.fade_in();
 }
 
 function closepostfield() {
