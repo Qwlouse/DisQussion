@@ -7,9 +7,12 @@ function updateNavigation(data) {
         for (var j = 0; j < data['history'][i].length; j++) {
             var innerListElement = document.createElement('li');
             var link = document.createElement('a');
-            //link.setAttribute('href',data['history'][i][j]['path']);
-            link.style.cursor = "pointer";
-            link.setAttribute('onclick',"navigateTo(event," + data['history'][i][j]['id'] + ",'" + data['history'][i][j]['type'] + "');");
+            if (!document.getElementById('graph')) {
+                link.setAttribute('href',data['history'][i][j]['path']);
+            } else {
+                link.style.cursor = "pointer";
+                link.setAttribute('onclick',"navigateTo(event," + data['history'][i][j]['id'] + ",'" + data['history'][i][j]['type'] + "');");
+            }
             var title = document.createTextNode(data['history'][i][j]['title']);
             link.appendChild(title);
             innerListElement.appendChild(link);
@@ -29,9 +32,12 @@ function updateNavigation(data) {
         for (i = 0; i < data['slot_list'].length; i++) {
             innerListElement = document.createElement('li');
             link = document.createElement('a');
-            //link.setAttribute('href', data['slot_list'][i]['path']);
-            link.style.cursor = "pointer";
-            link.setAttribute('onclick',"navigateTo(event," + data['slot_list'][i]['id'] + ",'" + data['slot_list'][i]['type'] + "');");
+            if (!document.getElementById('graph')) {
+                link.setAttribute('href', data['slot_list'][i]['path']);
+            } else {
+                link.style.cursor = "pointer";
+                link.setAttribute('onclick',"navigateTo(event," + data['slot_list'][i]['id'] + ",'" + data['slot_list'][i]['type'] + "');");
+            }
             title = document.createTextNode(data['slot_list'][i]['title']);
             link.appendChild(title);
             innerListElement.appendChild(link);
