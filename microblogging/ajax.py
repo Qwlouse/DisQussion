@@ -8,9 +8,10 @@ from structure.models import Vote
 from structure.query_helpers import getNode
 from microblogging.models import Entry, EntryReference, getFeedForUser
 from view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost, convertReferenceToBlogPost
+import json
 
 @dajaxice_register
-def getAllActivities(request):
+def getAllActivities(request, no=0):
     if request.user.is_authenticated():
         recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=request.user).order_by("-time")]
         feed_entries, feed_references = getFeedForUser(request.user)
@@ -21,15 +22,19 @@ def getAllActivities(request):
         recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("-time")]
         recentReferences = []
     activities = sorted(recentVotes + recentEntries + recentReferences, key=lambda x: -x["plain_time"])
-    return render_to_string("microblogging/renderMicroblogging.html",
-        {"activities": activities}, context_instance=RequestContext(request))
+    render_activities = activities[min(len(activities),no):min(len(activities),no+25)]
+    return json.dumps({"html": render_to_string("microblogging/renderMicroblogging.html", {"activities": render_activities},
+                               context_instance=RequestContext(request)),
+                       "until_no": no + 25})
 
 @dajaxice_register
-def getNodeActivities(request, id, type):
+def getNodeActivities(request, id, type, no=0):
     node = getNode(id, type)
     activities = [convertEntryToBlogPost(e) for e in node.references.order_by("-time")]
-    return render_to_string("microblogging/renderMicroblogging.html",
-        {"activities" : activities}, context_instance=RequestContext(request))
+    render_activities = activities[min(len(activities),no):min(len(activities),no+25)]
+    return json.dumps({"html": render_to_string("microblogging/renderMicroblogging.html", {"activities" : render_activities},
+                               context_instance=RequestContext(request)),
+                       "until_no": no + 25})
 
 @dajaxice_register
 def follow(request, username):

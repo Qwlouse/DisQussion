@@ -37,8 +37,11 @@ function updateNode(data) {
     var currentNode = graphNode.circles[currentIndex];
     currentNode.textPart = data['text'];
     currentNode.votingInfo = data['voting'];
-    document.getElementById("text").textSource = currentNode;
-    document.getElementById("text").waitForText = false;
+    var textDIV = document.getElementById("text");
+    textDIV.textSource = currentNode;
+    textDIV.waitForText = false;
+    graphNode.currentID = data['id'];
+    graphNode.currentType = data['type'];
     if (!history.state || history.state['url'] == data['url']) {
         history.replaceState(data,data['url'],data['url']);
     } else {
