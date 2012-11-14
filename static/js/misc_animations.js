@@ -65,21 +65,24 @@ function showlogin() {
     login_overlay_fader.fade_in();
 }
 
-function closepostfield() {
-    document.getElementById("post_field").style.opacity = "1.0";
-    closepostfield_step();
-}
-
-function closepostfield_step() {
-    var opac = parseFloat(document.getElementById("post_field").style.opacity);
-    document.getElementById("post_field").style.opacity = "" + (opac - 0.11);
-    document.getElementById("post_field_overlay").style.opacity = "" + ((opac - 0.11)*0.5);
-    if (opac >= 0.01) {
-        setTimeout("closepostfield_step()", 25);
-    } else {
-        document.getElementById("post_field_overlay").style.display = "none";
+var post_field_fader = DarthFader("post_field",
+    function(){},
+    function() {
         document.getElementById("post_field").style.display = "none";
     }
+);
+
+var post_field_overlay_fader = DarthFader("post_field_overlay",
+    function(){},
+    function() {
+        document.getElementById("post_field_overlay").style.display = "none";
+    },
+    50
+);
+
+function closepostfield() {
+    post_field_fader.fade_out();
+    post_field_overlay_fader.fade_out();
 }
 
 function showResponse(username) {
@@ -101,19 +104,8 @@ function showpostfield() {
     document.getElementById("post_field").style.display = "block";
     document.getElementById("post_field_overlay").style.display = "block";
     document.getElementById("post_field").style.opacity = "0.0";
-    showpostfield_step();
-}
-
-function showpostfield_step() {
-    var opac = parseFloat(document.getElementById("post_field").style.opacity);
-    document.getElementById("post_field").style.opacity = "" + (opac + 0.11);
-    document.getElementById("post_field_overlay").style.opacity = "" + ((opac + 0.11)*0.5);
-    if (opac < 0.9) {
-        setTimeout("showpostfield_step()", 25);
-    } else {
-        document.getElementById("post_field").style.opacity = "1.0";
-        document.getElementById("post_field_overlay").style.opacity = "0.5";
-    }
+    post_field_fader.fade_in();
+    post_field_overlay_fader.fade_in();
 }
 
 function hideText() {
