@@ -3,6 +3,8 @@ function DarthFader(id, fade_in_callback, fade_out_callback, target) {
     fade_in_callback = fade_in_callback ? fade_in_callback : function(){};
     fade_out_callback = fade_out_callback ? fade_out_callback : function(){};
     var delay = 25;
+    var stepsize = 1;
+    var rel_stepsize = 0.2;
     var fader = {
         fade_in:function () {
             this.elem = document.getElementById(id);
@@ -28,7 +30,7 @@ function DarthFader(id, fade_in_callback, fade_out_callback, target) {
                 clearInterval(this.si);
                 this.callback();
             } else {
-                var value = Math.round(this.alpha + ((this.target - this.alpha) * .2)) + this.step;
+                var value = Math.round(this.alpha + ((this.target - this.alpha) * rel_stepsize)) + this.step * stepsize;
                 this.elem.style.opacity = value / 100;
                 this.elem.style.filter = 'alpha(opacity=' + value + ')';
                 this.alpha = value
@@ -66,14 +68,14 @@ function showlogin() {
 }
 
 var post_field_fader = DarthFader("post_field",
-    function(){},
+    false,
     function() {
         document.getElementById("post_field").style.display = "none";
     }
 );
 
 var post_field_overlay_fader = DarthFader("post_field_overlay",
-    function(){},
+    false,
     function() {
         document.getElementById("post_field_overlay").style.display = "none";
     },
@@ -108,27 +110,18 @@ function showpostfield() {
     post_field_overlay_fader.fade_in();
 }
 
-function hideText() {
-    document.getElementById("text").waitForHiding = true;
-    document.getElementById("text").style.opacity = "1.0";
-    hideText_step();
-}
-
-function hideText_step() {
-    //alert(document.getElementById("hauptText").childNodes[1].style.opacity);
-    var opac = parseFloat(document.getElementById("text").style.opacity);
-    document.getElementById("text").style.opacity = "" + (opac - 0.11);
-    if (opac >= 0.01) {
-        setTimeout("hideText_step()", 20);
-    } else {
+var text_fader = DarthFader("text",
+    function(){},
+    function() {
         document.getElementById("text").waitForHiding = false;
+        showText_intermission();
     }
-}
+);
 
 function showText(sourceNode) {
     document.getElementById("text").textSource = sourceNode;
-    hideText();
-    setTimeout("showText_intermission()", 425);
+    document.getElementById("text").waitForHiding = true;
+    text_fader.fade_out();
 }
 
 function showText_intermission() {
@@ -138,18 +131,7 @@ function showText_intermission() {
         document.getElementById("text").innerHTML = document.getElementById("text").textSource.textPart;
         updateVoting(document.getElementById("text").textSource.votingInfo);
         Hyphenator.run();
-        showText_step();
-    }
-}
-
-function showText_step() {
-    document.getElementById("text").style.display = "block";
-    var opac = parseFloat(document.getElementById("text").style.opacity);
-    document.getElementById("text").style.opacity = "" + (opac + 0.11);
-    if (opac < 0.9) {
-        setTimeout("showText_step()", 25);
-    } else {
-        document.getElementById("text").style.opacity = "1.0";
+        text_fader.fade_in();
     }
 }
 
