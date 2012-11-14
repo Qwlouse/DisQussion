@@ -10,7 +10,7 @@ from accounts.forms import EMailForm, DescriptionForm
 from structure.models import Vote
 from microblogging.models import Entry, EntryReference
 
-from DisQussion.view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost, convertReferenceToBlogPost
+from microblogging.view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost, convertReferenceToBlogPost
 
 
 def show_profile(request, user_name):

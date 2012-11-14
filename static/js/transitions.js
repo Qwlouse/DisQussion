@@ -19,6 +19,7 @@ function showNode(node, doNodeUpdate) {
         document.getElementById("text").waitForText = true;
         showText(node);
         Dajaxice.structure.getNodeInfo(updateNode, {'node_id':node.dbId, 'node_type':node.type});
+        Dajaxice.microblogging.getNodeActivities(showMicroblogging, {'id':node.dbId, 'type':node.type});
     }
 }
 

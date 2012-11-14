@@ -2,18 +2,18 @@
 # coding=utf-8
 import json
 import re
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.auth.forms import AuthenticationForm
 from structure.ajax import getDataForAlternativesGraph, getNavigationData, getGraphInfoForNode
 from django.db.models import Q
 
-from structure.models import Slot, Vote
+from structure.models import Slot
 from structure.path_helpers import getNodeForPath, getRootNode
-from microblogging.models import Entry, getFeedForUser
+from microblogging.models import Entry
 from structure.models import TextNode
-from view_helpers import convertVoteToVoteInfo, convertEntryToBlogPost, convertReferenceToBlogPost
+from microblogging.view_helpers import convertEntryToBlogPost
 
 
 def home(request):
@@ -21,24 +21,13 @@ def home(request):
     anchor_nodes = json.dumps({"Anchors": [getGraphInfoForNode(root)],
                                "related_nodes" : [],
                                "connections" : []})
-    if request.user.is_authenticated():
-        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.filter(user=request.user).order_by("-time")]
-        feed_entries, feed_references = getFeedForUser(request.user)
-        recentEntries = [convertEntryToBlogPost(e) for e in feed_entries]
-        recentReferences = [convertReferenceToBlogPost(r, e) for r, e in feed_references]
-    else:
-        recentVotes = [convertVoteToVoteInfo(v) for v in Vote.objects.all().order_by("-time")]
-        recentEntries = [convertEntryToBlogPost(e) for e in Entry.objects.all().order_by("-time")]
-        recentReferences = []
-    activities = sorted(recentVotes + recentEntries + recentReferences, key=lambda x: -x["plain_time"])
     return render_to_response("index.html",
             {"pagename":"Root",
              "this_url": "/",
              "authForm": AuthenticationForm(),
              "navigation" : getNavigationData(request, root.id, root.getType()),
              "anchor_nodes" : anchor_nodes,
-             "selected_id" : root.id,
-             "activities" : activities
+             "selected_id" : root.id
              },
         context_instance=RequestContext(request))
 
@@ -56,16 +45,13 @@ def path(request, path):
     ###            Content: slots
 
     anchor_nodes = getDataForAlternativesGraph(request, node.parent_id)
-    Entry_query = get_query(path, ['content', ])
-    activities = [convertEntryToBlogPost(e) for e in node.references.order_by("-time")]
     return render_to_response("node/show.html",
         {"pagename": node.getShortTitle(),
          "this_url": node.getTextPath(),
          "authForm": AuthenticationForm(),
          "navigation": getNavigationData(request, node.id, node.getType()),
          "anchor_nodes": anchor_nodes,
-         "selected_id": node.id,
-         "activities" : activities
+         "selected_id": node.id
         },
         context_instance=RequestContext(request))
 

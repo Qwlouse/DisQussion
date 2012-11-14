@@ -9,7 +9,7 @@ from structure.forms import CreateTextForm
 from structure.models import TextNode, Slot, StructureNode, Vote
 import json
 from structure.path_helpers import getRootNode
-from structure.query_helpers import getTopRatedAlternatives
+from structure.query_helpers import getTopRatedAlternatives, getNode
 from structure.vote_helpers import vote_for_textNode, vote_for_structure_node
 from django.db.models import Min, Avg
 
@@ -74,12 +74,6 @@ def getVotingInfo(node, request):
             "total_wording" : -1 + 2 * node.calculate_wording_rating(),
             "id" : node.id,
             "consistent" : consistent}
-
-def getNode(node_id, node_type):
-    NodeType = {'Slot' : Slot,
-                'TextNode' : TextNode,
-                'StructureNode' : StructureNode}[node_type]
-    return NodeType.objects.get(pk=node_id)
 
 @dajaxice_register
 def getNodeInfo(request, node_id, node_type):

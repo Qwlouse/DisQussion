@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
-from structure.models import Slot
+from structure.models import Slot, TextNode, StructureNode
 
 def getTopRatedAlternatives(slot, k = 5, order_by="-rating"):
     if isinstance(slot, int):
@@ -16,3 +16,9 @@ def getTopRatedAlternatives(slot, k = 5, order_by="-rating"):
     # TODO: resort them to avoid crossings
     top_nodes = [n.as_leaf_class() for n in top_nodes]
     return top_nodes
+
+def getNode(node_id, node_type):
+    NodeType = {'Slot' : Slot,
+                'TextNode' : TextNode,
+                'StructureNode' : StructureNode}[node_type]
+    return NodeType.objects.get(pk=node_id)
