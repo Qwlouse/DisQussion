@@ -153,7 +153,7 @@
         </table>
 
         <p>
-            <input type="hidden" name="login_redirect" value="{{ this_url }}"/>
+            <input type="hidden" id="login_redirect_field" name="login_redirect" value="{{ this_url }}"/>
             <input type="submit" id="login_submit" value="Anmelden &rarr;"/>
         </p>
     </form>
@@ -167,7 +167,7 @@
         <h2>Post verfassen</h2>
         <textarea id="post_field_textarea" name="text"></textarea>
         <p>
-            <input type="hidden" name="post_redirect" value="{{ this_url }}"/>
+            <input type="hidden" id="post_redirect_field" name="post_redirect" value="{{ this_url }}"/>
             <input type="submit" id="post_write_submit" value="Senden &rarr;"/>
         </p>
     </form>

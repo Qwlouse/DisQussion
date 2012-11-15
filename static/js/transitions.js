@@ -47,6 +47,8 @@ function updateNode(data) {
     } else {
         history.pushState(data,data['url'],data['url']);
     }
+    document.getElementById('login_redirect_field').setAttribute('value',data['url']);
+    document.getElementById('post_redirect_field').setAttribute('value',data['url']);
     if (newGraph) {
         showNode(currentNode, true);
     }
