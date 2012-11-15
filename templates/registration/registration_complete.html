@@ -1,8 +1,13 @@
-{% extends "registration/base.html" %}
+{% extends "main.html" %}
 
-{% block title %}Registration complete{% endblock %}
+{% block title %}DisQussion: Registrierung abgeschlossen - E-Mail verschickt{% endblock %}
 
-{% block content %}
-<h1>Check your email</h1>
-<p>An activation link has been sent to the email address you supplied, along with instructions for activating your account.</p>
+{% block navigation %}{% endblock %}
+
+{% block text %}
+<h1>Überprüfe deine E-Mails</h1>
+<p>Wir haben dir eine E-Mail zugeschickt. In der Nachricht befindet sich ein Link, mit dem du
+    deinen Account aktivieren kannst. Die nötigen Schritte dafür sind in der E-Mail beschrieben.</p>
 {% endblock %}
+
+{% block microblog %}{% endblock %}
