@@ -8,7 +8,7 @@ def createRoot():
     root = StructureNode()
     root.save()
 
-@transaction.commit_manually
+@transaction.commit_on_success
 def createInitialData():
     populateNodeDict()
 
@@ -46,7 +46,6 @@ def createInitialData():
     with open("initial_data_storage/modul02.txt", 'r') as f:
         modul02_text = f.read()
     modul02 = parseWiki(bildungssystem, unicode(modul02_text, encoding='utf-8'))
-    transaction.commit()
     with open("initial_data_storage/modul02a3_verpflichtendes_letztes_kindergartenjahr.txt", 'r') as f:
         modul02a3_kitajahr_text = f.read()
     parseWiki(modul02.slot_set.all()[1].as_leaf_class().node_set.all()[0].as_leaf_class().slot_set.all()[3], unicode(modul02a3_kitajahr_text, encoding='utf-8'))
@@ -92,4 +91,3 @@ def createInitialData():
     with open("initial_data_storage/modul08.txt", 'r') as f:
         modul08_text = f.read()
     parseWiki(entlastungen, unicode(modul08_text, encoding='utf-8'))
-    transaction.commit()
