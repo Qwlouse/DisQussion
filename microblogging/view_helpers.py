@@ -27,26 +27,26 @@ def howLongAgo(time=False):
 
     if day_diff == 0:
         if second_diff < 10:
-            return "just now"
+            return "genau jetzt"
         if second_diff < 60:
-            return str(second_diff) + " seconds ago"
+            return "vor " + str(second_diff) + " Sek."
         if second_diff < 120:
-            return  "a minute ago"
+            return  "vor einer Min."
         if second_diff < 3600:
-            return str( second_diff / 60 ) + " minutes ago"
+            return "vor " + str( second_diff / 60 ) + " Min."
         if second_diff < 7200:
-            return "an hour ago"
+            return "vor einer St."
         if second_diff < 86400:
-            return str( second_diff / 3600 ) + " hours ago"
+            return "vor " + str( second_diff / 3600 ) + " St."
     if day_diff == 1:
-        return "Yesterday"
+        return "Gestern"
     if day_diff < 7:
-        return str(day_diff) + " days ago"
+        return "vor " + str(day_diff) + " Tagen"
     if day_diff < 31:
-        return str(day_diff/7) + " weeks ago"
+        return "vor " + str(day_diff/7) + " Wochen"
     if day_diff < 365:
-        return str(day_diff/30) + " months ago"
-    return str(day_diff/365) + " years ago"
+        return "vor " + str(day_diff/30) + " Monaten"
+    return "vor " + str(day_diff/365) + " Jahren"
 
 
 def convertVoteToVoteInfo(vote):
