@@ -2,14 +2,16 @@ function updateNavigation(data) {
     var navigationNode = document.getElementById('navbar');
     var outerList = document.createElement('ol');
     var noGraph = false;
+    if (!document.getElementById('graph')) {
+        noGraph = true;
+    }
     for (var i = 0; i < data['history'].length; i++) {
         var outerListElement = document.createElement('li');
         var innerList = document.createElement('ol');
         for (var j = 0; j < data['history'][i].length; j++) {
             var innerListElement = document.createElement('li');
             var link = document.createElement('a');
-            if (!document.getElementById('graph')) {
-                noGraph = true;
+            if (noGraph) {
                 link.setAttribute('href',data['history'][i][j]['path']);
             } else {
                 link.style.cursor = "pointer";
