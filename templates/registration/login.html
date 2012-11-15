@@ -1,27 +1,28 @@
-{% extends "registration/base.html" %}
+{% extends "main.html" %}
 
-{% block title %}Log in{% endblock %}
+{% block title %}DisQussion: Einloggen{% endblock %}
 
-{% block content %}
+{% block navigation %}{% endblock %}
 
-<h1>Log in</h1>
+{% block text %}
+<h1>Bei DisQussion Anmelden</h1>
 
 {% if form.errors %}
-<p class="error">Please correct the errors below:</p>
+<p class="error noindent">Bitte korregiere folgende Fehler:</p>
 {% endif %}
 
-<form method="post" action="?next={{ next|default:"/" }}">{% csrf_token %}
+<form method="post" action="{% url django.contrib.auth.views.login %}">{% csrf_token %}
 <dl>
-<dt><label for="id_username">Username:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
+<dt><label for="id_username">Benutzername:</label>{% if form.username.errors %} <span class="error">{{ form.username.errors|join:", " }}</span>{% endif %}</dt>
 <dd>{{ form.username }}</dd>
-<dt><label for="id_password">Password:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
+<dt><label for="id_password">Passwort:</label>{% if form.password.errors %} <span class="error">{{ form.password.errors|join:", " }}</span>{% endif %}</dt>
 <dd>{{ form.password }}</dd>
-<dt><input type="submit" value="Log in" /></dt>
+<dt><input type="hidden" name="login_redirect" value="/"/>
+    <input type="submit" value="Anmelden &rarr;" /></dt>
 </dl>
 </form>
+
+<p class="noindent">Wenn du noch keinen Account hast, kannst du dich <a href="/.users/.registration/register">hier registrieren</a>.</p>
 {% endblock %}
 
-{% block content-related %}
-<p>If you don't have an account, you can <a href="/accounts/register/">sign
-up</a> for one.
-{% endblock %}
+{% block microblog %}{% endblock %}

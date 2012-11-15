@@ -196,3 +196,7 @@ div.shorttitle a {
 div.slot h1:first-of-type, div.slot h2:first-of-type {
     margin-top: 0;
 }
+
+input.required, .error {
+    border-bottom: 2px solid red;
+}
