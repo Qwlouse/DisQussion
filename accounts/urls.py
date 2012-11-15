@@ -16,7 +16,7 @@ urlpatterns = patterns('',
 
     # Change User info
     (r'^change_email$', 'accounts.views.change_email'),
-    (r'^change_password/(?P<post_change_redirect>([\w./]+))$', 'django.contrib.auth.views.password_change'), # FIXME: Fieser HACK
+    (r'^change_password/(?P<post_change_redirect>([\w./]+))$', 'django.contrib.auth.views.password_change'), # TODO: FIXME: Fieser HACK
     (r'^change_description$', 'accounts.views.change_description'),
     # Profiles
     url(r'^(?P<user_name>(\w+))', 'accounts.views.show_profile'),
