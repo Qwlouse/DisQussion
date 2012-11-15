@@ -49,6 +49,7 @@ function insert_tag(aTag, eTag) {
         var insText = prompt("Bitte geben Sie den zu formatierenden Text ein:");
         input.value = input.value.substr(0, pos) + aTag + insText + eTag + input.value.substr(pos);
     }
+    input.focus();
 }
 
 function insert_line_tag(aTag) {
@@ -95,4 +96,5 @@ function insert_line_tag(aTag) {
         var insText = prompt("Bitte geben Sie den zu formatierenden Text ein:");
         input.value = input.value.substr(0, pos) + aTag + insText + input.value.substr(pos);
     }
+    input.focus();
 }
