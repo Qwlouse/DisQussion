@@ -1,0 +1,149 @@
+Dies ist eine Sammlung von Positionspapieren des Landesverbands Rheinland-Pfalz.
+
+== Für einen modernen Datenschutz § Datenschutz ==
+
+(1) Die Piratenpartei Rheinland-Pfalz sieht den dringenden Bedarf, den Datenschutz zu modernisieren. Immer wieder tauchen durch neu eingeführte Technologien Regelungslücken und Unklarheiten auf, die durch auf spezielle Fälle zugeschnittene Gesetzesänderungen, vertragliche Vereinbarungen mit Anbietern oder Gerichtsurteile geklärt werden müssen, wobei immer wieder teilweise veraltete juristische Konzepte auf die Situation des 21. Jahrhunderts übertragen werden. Die Frage, in welche Richtung diese Modernisierung gehen soll, sorgt für mitunter heftige Diskussionen. Im Folgenden sollen sowohl Grundlagen für eine solche Modernisierung als auch einige konkrete Detail-Fragen geklärt werden.
+
+(2) Um selbstbestimmte Entscheidungen über die Preisgabe persönlicher Informationen zu ermöglichen, ist vor allem Bildung und Weiterbildung in diesem Bereich notwendig. Hierbei muss die Fähigkeit im Fokus stehen, zwischen unterschiedlichen Arten von Daten und unterschiedlichem Vertrauen zu Empfängern und Verwaltern von Daten zu differenzieren. Der bei jedem auch nur teilweisem Veröffentlichen von Informationen mögliche Kontrollverlust über die weitere Verbreitung muss ebenfalls thematisiert, diskutiert und verstanden werden.
+
+(3) Entscheidungen über die Weitergabe persönlicher Informationen müssen selbstbestimmt getroffen werden können. Es darf also keinen auch nur impliziten Zwang geben, mehr als die unbedingt und objektiv notwendigen persönlichen Daten preiszugeben, um bestimmte Angebote überhaupt nutzen zu können. Leider wird die hierzu bestehende Rechtslage heute oftmals nicht eingehalten. Durch die chronische Unterbesetzung, Unterfinanzierung und fehlende Unabhängigkeit von Datenschutzbehörden, besteht an vielen Stellen ein Kontroll- und Vollzugsdefizit.
+
+(4) Andererseits dürfen Angebote aber auch nicht komplett verboten oder durch nicht erfüllbare Anforderungen faktisch unmöglich gemacht werden, bloß weil sie persönliche Daten optional nutzen. Grund für die persönliche Entscheidung, bestimmte Daten einem Anbieter freiwillig zur Verfügung zu stellen oder diese gar zu veröffentlichen, kann beispielsweise der Nutzen von personalisierten Inhalten, Suchergebnissen, Empfehlungen und auch personalisierter Werbung, aber auch der Wunsch sein, eventuelle gesellschaftliche oder berufliche Nachteile in Kauf zu nehmen, um langfristig eine gesellschaftliche Akzeptanz für eine Meinung oder eine Persönlichkeits-Facette zu schaffen. Die PIRATEN wollen die informationelle Selbstbestimmung daher fördern und allen Menschen eine informierte Entscheidung über die Preisgabe und Verwendung ihrer Daten ermöglichen.
+
+(5) Ein großer Anteil der praktischen Datenschutz-Probleme ist auf die leichtfertige Weitergabe von Daten durch Bekannte, Freunde oder sonstige Kontakte zurückzuführen. In diesem Bereich ist die juristische Durchsetzung schwierig, langwierig und in vielen Fällen auch einfach nicht angemessen. Um diesem Problem gerecht zu werden, muss viel mehr eine „Datenhöflichkeit“ als gesellschaftliche Norm etabliert werden, bei der Wünsche bezüglich des Umgangs mit persönlichen Informationen auch im privaten Bereich respektiert werden und, falls diese nicht bekannt sind, im Einzelfall eine Erlaubnis eingeholt wird. Dies soll nicht nur aus rechtlichen Erwägungen und einer Furcht vor einer (mehr oder weniger wahrscheinlichen) Strafe geschehen, sondern eben auch aufgrund von Regeln zum Umgang miteinander, die gesellschaftlicher Konsens sind. Dies muss einerseits durch die Bildungsangebote in diesem Bereich nahe gebracht, andererseits durch passende Kommunikations- und Einstellungsmöglichkeiten in den entsprechenden Systemen auf einfache und benutzerfreundliche Weise ermöglicht werden.
+
+(6) Datenschutzbestimmungen müssen so gestaltet sein, dass auch private und nicht-kommerzielle Angebote diese ohne größeren finanziellen oder organisatorischen Aufwand einhalten können. Dies soll unter anderem dadurch realisiert werden, dass eine Modernisierung der Gesetzgebung auf der Grundlage der tatsächlich vorkommenden Prozesse entworfen wird, sodass diese direkt unter Vermeidung nicht notwendiger juristischer Interpretationen in konkreten Systemen umgesetzt werden kann. Außerdem kann der Aufwand für die Dokumentation der korrekten Umsetzung durch den Einsatz zertifizierter Software minimiert werden. Hierbei ist die Entwicklung und Zertifizierung von Freier Open-Source-Software besonders zu fördern.
+
+(7) Bei der Erhebung von Daten durch staatliche Stellen sind strengere Maßstäbe anzulegen, da sich der Bürger ihr zumeist nicht durch Wechsel des Anbieters oder Verzicht auf ein Angebot entziehen kann. Hier muss strikt auf Datensparsamkeit geachtet werden. Während die Datenweitergabe zwischen Behörden ohne Wissen und Einwilligung des Bürgers zu vermeiden ist, sind für notwendige Erhebungen Verfahren zu entwickeln, mit denen der Bürger den Austausch von so wenig Daten wie unbedingt nötig autorisieren kann. Es darf nicht sein, dass Behörden die Vorlage von kompletten Bescheiden anderer Behörden verlangen, wenn nur ein Bruchteil der enthaltenen persönlichen Informationen benötigt werden.
+
+(8) Die Möglichkeit, Anonymisierungs-Dienste und offene Netzzugänge für Internet-Verbindungen zu nutzen und anzubieten, ist zu erhalten und zu fördern. Sie sind wichtige Angebote, die die nicht überwachte Meinungsbildung und -äußerung im Internet auch technisch weitgehend sicherstellen. Die Notwendigkeit einer solchen Möglichkeit überwiegt in diesem Fall das öffentliche Interesse an möglicher Strafverfolgung. Insbesondere sind die Betreiber solcher Infrastruktur von der Haftung für durch ihre Nutzer begangene Straftaten freizustellen und sie dürfen auch nicht zur Bereithaltung von Verbindungsdaten ihrer Nutzer verpflichtet werden. Dies gilt auch für privat betriebene Netzzugänge. Wir PIRATEN verstehen das Recht auf Anonymität als Menschenrecht. Forschungsprojekte auf dem Gebiet von Anonymisierungsdiensten wollen wir stärker fördern.
+
+(9) Die bevorstehende Einführung des Internet-Protokolls IPv6 birgt deutliche Datenschutz-Risiken. Zum Einen wird der hintere Teil der Adresse bei einem der standardisierten Verfahren aus der eindeutigen Hardware-Adresse einzelner Netzwerk-Geräte ermittelt, was die eindeutige Identifikation des Gerätes auch bei Nutzung in verschiedenen Netzwerken ermöglicht. Zum Anderen könnte die hohe Zahl an verfügbaren Adressen dafür sorgen, dass Internet-Provider dazu übergehen, den vorderen von ihnen vergebenen Teil der IPv6-Adresse (das Präfix) fest einem Kunden zuzuordnen. Verbindungen vom Anschluss dieses Kunden wären in diesem Fall dauerhaft diesem zuzuordnen – auch durch Dritte, die beispielsweise bei einer Bestellung in einem Online-Shop oder einer ähnlichen Gelegenheit persönliche Daten des Kunden erfahren. Damit droht ein weiterer Baustein auf dem Weg zum „gläsernen Internetnutzer“ Realität zu werden. Wichtige Freiheitsrechte wie das Recht auf Anonymität, die Meinungsfreiheit und die Informationsfreiheit könnten in Gefahr geraten. Während das erste Problem durch entsprechende Voreinstellungen des Betriebssystems behoben werden kann, ist für das zweite Problem die Kooperation der Provider notwendig. Diese müssen notfalls gesetzlich gezwungen werden, auf Wunsch auch den regelmäßigen Wechsel oder idealerweise sowohl ein statisches als auch ein dynamisches wechselndes IPv6-Präfix anzubieten.
+
+(10) Ein großes datenschutzrelevantes Problem ist, dass Privatpersonen für viele Online-Geschäfte gezwungen sind, ihre Meldeadresse (und damit in den meisten Fällen ihren genauen Wohnort) als ladungsfähige Anschrift anzugeben. Um dieses Problem zu minimieren, soll die Möglichkeit geschaffen werden, bestimmte Rechtsgeschäfte auch unter Pseudonym und mit einem Konto bei einem entsprechenden Dienstleister als ladungsfähiger Anschrift zu tätigen. Dieser kann nur durch Gerichtsbeschluss gezwungen werden, die Zuordnung zu einer natürlichen Person dem Gericht bzw. eventuellen Prozessgegnern offenzulegen. Eine solche Dienstleistung kann entweder vom Staat direkt oder auch von staatlich kontrollierten Unternehmen angeboten werden, die sie beispielsweise in Kombination mit Post- und Paketlagerung oder mit einem pseudonymen Guthaben-Konto anbieten können.
+
+(11) Anonyme Bezahlverfahren im Internet müssen erhalten bleiben. Ein Verbot anonymer Bezahlung im Netz wäre rechtlich und ökonomisch falsch. Die Möglichkeit, nicht überwachter Zahlungsvorgänge ist nicht nur im Internet von Bedeutung. Auch das faktische Verbot anonymer Bareinzahlungen ist wieder aufzuheben.
+
+== Elektronische Gesundheitskarte: Aufruf zu zivilem Ungehorsam § Gesundheitskarte ==
+
+Die Piratenpartei kämpft für ein transparentes Gesundheitswesen. Transparenz bedeutet für uns in diesem Kontext aber nicht die Schaffung eines "gläsernen Patienten", sondern die Offenlegung aller Informationen, die die Situation des selbstbestimmten und mündigen Patienten verbessern und vernünftige politische Entscheidungen zum Wohle der Versichterten ermöglichen. Wir lehnen die elektronische Gesundheitskarte in der aktuellen Form ab und werden uns für deren Stopp einsetzen.
+
+De facto hebelt die elektronische Gesundheitskarte die ärztliche Schweigepflicht z.B. durch das E-Rezept aus, da Krankenkassen und andere Zugriffsberechtigte aus den gesammelten ärztlichen Verordnungen leicht Rückschlüsse auf die Diagnosen ziehen können. Die Anhäufung weiterer sensibler Datenberge auf zentralen Servern lehnen wir ab.
+
+Im Gegenzug laufen die positiven Aspekte des E-Rezepts ins Leere, da die Ärzte sich darauf nicht verlassen können und dürfen. Die Herrschaft des Patienten über seine Daten ist nur vordergründig gewahrt, da die geplante Pseudonymisierung den einfachen Rückschluss auf die Person des Patienten erlaubt, womit dem Missbrauch Tür und Tor geöffnet wird.
+
+In der Vergangenheit sind bereits mehrfach schwere Mängel in dem Konzept gerügt worden, so wunderte sich die Free Software Foundation Europe (FSFE), "wie leichtfertig und unprofessionell mit derart persönlichen Daten umgegangen wird" und forderte, das Gesamtsystem der Gesundheitstelematik von der Architektur bis zum Quellcode offen zu legen.
+
+Ab 01.10.2011 werden nun 10% der Versicherten angeschrieben und um die Zusendung eines Passfotos für die elektronische Gesundheitskarte gebeten. Ein solches Foto ist für die Karte gesetzlich vorgeschrieben. Für die Versicherten besteht aber keine Pflicht, ihrer Krankenkasse eines zu senden.
+
+Die Verweigerung des Fotos ist für Versicherte die einfachste Möglichkeit des Protestes, um gegen die ausufernde Erfassung von Gesundheitsdaten zu protestieren, die im Hintergrund stattfindet. Deshalb ruft die Piratenpartei Rheinland-Pfalz die Versicherten dazu auf, ihrer Krankenkasse kein Passfoto zu senden und sich den Initiativen zum Stopp der eCard anzuschließen. Die PIRATEN fordern den Bundestag auf, die elektronische Gesundheitskarte umgehend zu stoppen und so die Gefahren für die Bürgerinnen und Bürger von vorneherein zu verhindern.
+
+== Informationsfreiheit im 21. Jahrhundert - Offene Daten für mündige Bürger! § Informationsfreiheit ==
+
+Der Zugang zu Wissen und Information ist die Grundlage für unsere freiheitlich-demokratische Informations- und Wissensgesellschaft. Wir PIRATEN fordern daher eine Stärkung der Informationsfreiheit und einen freien und offenen Zugang zu allen staatlichen und staatlich geförderten Informationsbeständen.
+
+=== Informationsfreiheit ist Bürgerrecht! § Buergerrecht ===
+
+Die alte Weisheit „Wissen ist Macht“ gilt in der Informationsgesellschaft mehr denn je. Nur wer umfänglich informiert ist, kann fundierte Entscheidungen fällen. Eine umfassende Information von Bürgern und Bürgerinnen ist auch Voraussetzung für politisches Engagement und demokratische Kontrolle der vom Volk legitimierten Macht. Jeder Bürger kann staatliche Angaben selbst überprüfen, aus neuen Blickwinkeln betrachten und neue, vorher unbekannte Zusammenhänge entdecken. Dies führt zu einer Demokratisierung der Informationskanäle und erhöht die Kontrollmöglichkeiten der Zivilgesellschaft gegenüber dem Staat. Gemäß dem Mehr-Augen-Prinzip können Angaben gemeinschaftlich besser überprüft, Entscheidungen hinterfragt und kritisiert werden. Verbesserungsvorschläge können von Allen erarbeitet werden und die besten Lösungen können umgesetzt werden. Dem Missbrauch und der Willkür Einzelner wird vorgebeugt.
+
+Wir PIRATEN wollen daher Parlamente und Behörden und die rechtlichen Grundlagen so umgestalten, dass sie diesem gesamtgesellschaftlichen Anspruch der Informationsfreiheit für alle Bürger Rechnung tragen. Wir fordern, dass sich der Staat vom Prinzip der Geheimhaltung abkehrt und ein Prinzip der Öffentlichkeit einführt, welches den mündigen Bürger in den Mittelpunkt staatlichen Handelns und Gestaltens stellt. Dies schafft nach der festen Überzeugung der Piratenpartei die unabdingbaren Voraussetzungen für eine moderne Wissensgesellschaft in einer freiheitlichen und demokratischen Ordnung. Sämtliche staatlich relevanten Informationen müssen daher grundsätzlich der Öffentlichkeit und damit jedermann frei zugänglich gemacht werden. Nur in wenigen klar definierten und begründeten Ausnahmefällen, wie dem Schutz persönlicher Daten, dürfen Informationen als nicht-öffentlich behandelt werden.
+
+=== Moderne Verwaltung mit offenen Daten! § OffeneDaten ===
+
+Staatliches und staatlich finanziertes Wissen muss allen Bürgern zur Verfügung stehen und darf nicht länger großen Teilen der Gesellschaft vorenthalten werden. Die heutige Informationspolitik schließt wertvolle Daten in Aktenschränken oder nicht allgemein verarbeitbaren Dateiformaten ein. Bürger bekommen wichtige Informationen nur auf Nachfrage. Wir wollen das Potential der weltweiten Vernetzung ausschöpfen und fordern offene Schnittstellen zum Abruf aller Daten für jedermann.
+
+Die modernen Informationstechnologien machen eine proaktive, zeitnahe Veröffentlichung und Verbreitung von staatlichen Informationen in offenen und strukturierten Datenformaten kostengünstig und schnell möglich. Die Piratenpartei fordert, dass alle staatlichen Stellen von diesen Möglichkeiten Gebrauch machen, statt der Verbreitung dieser Informationen Steine in den Weg zu legen. Wir fordern Rohdaten in maschinenlesbaren Formaten, die eine schrankenlose Weiterverarbeitung durch Nicht-Regierungsorganisationen, Forschungseinrichtungen und interessierte Bürger zulassen. Eine Veröffentlichung von Daten in Rohform und der Zugriff über offene Schnittstellen ermöglicht vielfältige Anwendungen. Die Piratenpartei betrachtet daher die Veröffentlichung von staatlichen Informationen in offenen, strukturierten Formaten als ein wesentliches Merkmal eines demokratischen Informationszeitalters. Open-Data- und Semantic-Web-Initiativen wollen wir deshalb explizit fördern. Ebenso wollen wir den Einsatz freier Software in allen Einrichtungen des Landes forcieren. Langfristige Verträge mit Monopolisten lehnen wir ab.
+
+=== Auskunftsanspruch verbessern! § Auskunftsanspruch ===
+
+Wir wollen gewährleisten, dass jeder Bürger unabhängig von der Betroffenheit und ohne den Zwang zur Begründung sein Recht durchsetzen kann, auf allen Ebenen der staatlichen Ordnung, Einsicht in die Aktenvorgänge und die den jeweiligen Stellen zur Verfügung stehenden Informationen zu nehmen. Dies gilt ebenso für schriftliches Aktenmaterial wie digitale oder andere Medien. Ausnahmeregelungen sind eng und eindeutig zu formulieren und dürfen nicht pauschal ganze Behörden oder Verwaltungsgebiete ausnehmen. Die Auskunftsstelle ist verpflichtet, zeitnah und in einer klaren Kostenregelung, Zugang in Form einer Akteneinsicht oder einer Materialkopie zu gewähren, um eine breite, effiziente Nutzung der Daten zu ermöglichen. Verweigerung des Zugangs muss schriftlich begründet werden und kann vom Antragsteller, sowie von betroffenen Dritten gerichtlich überprüft werden lassen, wobei dem Gericht zu diesem Zweck voller Zugang durch die öffentliche Stelle gewährt werden muss. Alle öffentlichen Stellen sind verpflichtet, regelmäßig sowohl Organisations- und Aufgabenbeschreibungen zu veröffentlichen, einschließlich Übersichten der Arten von Unterlagen, auf die zugegriffen werden kann, als auch einen jährlichen öffentlichen Bericht über die Handhabung des Auskunftsrechts.
+
+=== Korruption erschweren! § Korruption ===
+
+Damit für die Rheinland-Pfälzischen Bürgerinnen und Bürger klar ersichtlich ist, wer die Politik im Land beeinflusst, fordern wir ein vollständiges Lobbyistenregister auf Landesebene, in dem alle Verbände und Vertreter aufgeführt werden, die Einfluss auf Gesetzgebungsprozesse oder deren Ausgestaltung durch Verordnungen haben. In den Ministerien dürfen keine Mitarbeiter von Unternehmen dauerhaft ihre Arbeit verrichten. Lediglich in transparenten Anhörungen dürfen diese als Sachverständige angehört werden. Anhörungen zu Gesetzesinitiativen oder anderen Vorhaben der Landesregierung müssen stets öffentlich angekündigt werden und für jeden zugänglich sein. Insbesondere Verbraucherverbände, Bürgerrechts- und Menschenrechtsorganisationen müssen von Anfang an in Gesetzgebungsprozesse eingeweiht werden und Gelegenheit zur Stellungnahme bekommen. Alle Stellungnahmen von Interessenverbänden müssen öffentlich z.B. über das Internet zugänglich gemacht werden.
+
+=== Konkrete Maßnahmen für Rheinland-Pfalz: § Maßnahmen ===
+
+Um die Informationsfreiheit im obigen Rahmen vollumfänglich zu gewährleisten, fordern wir Rheinland-Pfälzischen PIRATEN:
+
+* die Digitalisierung aller staatlichen Unterlagen, die neu erstellt werden
+* Forschungsprojekte zur Digitalisierung alter Unterlagen sowie die Erforschung von Langzeitarchivierungsstrategien
+* den freien Zugang zu allen Gesetzen und Gesetzesentwürfen, bereits in der Entstehungsphase
+* den freien Zugang zu allen Beschlüssen des Landtages und anderer politischer Gremien
+* die komplette Offenlegung des Abstimmungsverhaltens im Rheinland-Pfälzischen Landtag und seinen Ausschüssen
+* die komplette Offenlegung des Abstimmungsverhaltens der Landesregierung im Bundesrat
+* die komplette Offenlegung der Nebeneinkünfte der Landtagsabgeordneten und Minister
+* den freien Zugang zu allen finanziellen Ausgaben der Landesregierung, der Ministerien, des Landtags und seiner Fraktionen
+* den freien Zugang zu allen Messdaten, die staatlichen Institutionen vorliegen (Wetterdaten, Flugverkehrsdaten, Gewässerdaten, Katasterdaten, Luftbilder, u.v.m)
+* den freien Zugang zu allen statistischen Erhebungen, die durch die Verwaltung oder in deren Auftrag vorgenommen werden
+* das Angebot von offenen Schnittstellen zur automatischen Abfrage der bereitgehaltenen Dokumente, Daten und Informationen in standardisierten, offenen Formaten
+* die Einrichtung einer kostenlosen Beratungsstelle, die den Bürgern und Bürgerinnen offene Fragen und komplexe Sachverhalte erläutert
+* die finanzielle Förderung von Open-Data- und Semantic-Web-Initiativen und Forschung in diesem Bereich
+* die Zusammenarbeit mit Rheinland-Pfälzischen Hochschulen zur Digitalisierung, Aufbereitung und Zurverfügungstellung aller Daten in offenen Formaten
+* die Unabhängigkeit des Landesbeauftragten für Informationsfreiheit und eine bessere finanzielle und personelle Ausstattung der Behörde
+* das Angebot aller Ausschreibungen in einem standardisierten, maschinenlesbaren Datenformat
+* die Einführung einer Meldepflicht für alle Behörden bei Datenpannen und ein standardisiertes Verfahren zur Benachrichtigung der Betroffenen
+* die Veröffentlichung aller Verträge der Landesregierung und der Ministerien mit Unternehmen
+* die Einführung eines vollständigen Lobbyistenregisters auf Landesebene
+* eine klare Kennzeichnung, welche Passagen in Gesetzesentwürfen von wem hinzugefügt wurden
+* die umgehende Bekanntmachung von Art und Umfang aller Abhörmaßnahmen, Observationen oder Datenabfragen inklusive der Information von welcher Polizeibehörde oder welchem Geheimdienst diese auf welcher rechtlichen Grundlage durchgeführt werden, sowie die umfassende Information der Betroffenen sofort nach Ende der Maßnahme
+* die ausschließliche Verwendung quelloffener Software durch die Verwaltung
+
+== Keine Stellungnahmen ohne entsprechende Beschlusslage! § BuVo_Presse ==
+
+Der Landesverband RLP distanziert sich vom Vorgehen des Bundesvorstandes
+und dem Versand von Pressemitteilungen ohne inhaltliche Legitimation aus
+der Beschlusslage der Piratenpartei. Pressemitteilungen, Stellungnahmen
+oder Aufrufe zu Demonstrationen, die nicht gedeckt sind vom
+Parteiprogramm oder Beschlusslage  der Piratenpartei, sind nicht
+vereinbar mit unserem basisdemokratischen Prinzip und daher nicht
+akzeptabel. Wir fordern den Bundesvorstand auf, bei Pressemitteilungen
+mehr Sorgfalt walten zu lassen und keine  Pressemitteilungen ohne
+entsprechende Beschlusslage mehr zu versenden.  Insbesondere fordern wir
+den Bundesvorstand auf, Liquid Feedback oder andere Meinungsbilder (z.B.
+von Parteitagen) nicht zur Legitimation von Pressemitteilungen oder
+anderen Stellungnahmen heranzuziehen.
+
+== Meinungsfreiheit in innerparteilichen Willensbildungsprozessen gewährleisten! § LQFB_Datenschutz ==
+
+Wenn Menschen nicht mehr sicher sind, wer welche Daten über sie besitzt
+und wer was über sie weiß oder wissen könnte, dann werden sie ihr
+Verhalten vorsorglich anpassen. Insbesondere in politisch sensiblen
+Bereichen ist ein solches Anpassungsverhalten wahrscheinlich und aus
+demokratischer Sicht hochgefährlich. Es gefährdet die Meinungsfreiheit
+des Einzelnen und in der Konsequenz auch die gesamte freiheitliche Demokratie.
+
+Die Piratenpartei setzt sich daher für den Schutz und die Stärkung der
+informationellen Selbstbestimmung ein. Alle Menschen sollen ihre Daten
+kontrollieren können und ihre Meinung frei äußern können, ohne Angst vor
+Repressionen erleiden zu müssen. Der Landesverband Rheinland-Pfalz
+fordert daher den Bundesvorstand auf, die bundesweite
+Liquidfeedback-Instanz datenschutzgerecht umzugestalten. Insbesondere
+ist die anonyme Teilnahme zu ermöglichen. Eine Vorratsdatenspeicherung
+von politisch-sensiblen Präferenzen und Abstimmungsverhalten gegen den
+Willen des Nutzers ist zu unterlassen. Benutzerwünschen auf
+Datenlöschung ist zeitnah, unproblematisch und ohne Benachteiligung für
+eine weitere Nutzung Folge zu leisten.
+
+== Piraten für den Frieden und gegen das Vergessen § GegenNazis ==
+Die Piratenpartei Rheinland-Pfalz bekennt sich zu den Menschenrechten als Grundlage der Gemeinschaft, des Friedens und der Gerechtigkeit. Wir wenden uns dabei, getragen von der Verantwortung für die Geschichte, insbesondere gegen die Leugnung, Verharmlosung oder Verherrlichung des Nationalsozialismus, durch die diese perverse Ideologie auch heute noch gesellschaftsfähig gemacht werden soll. Wir erkennen den Holocaust als historische Tatsache an und dulden keine Relativierung oder Verharmlosung. Wir haben keinen Zweifel daran, dass im Zuge dieses historisch einmaligen Verbrechens des nationalsozialistischen Deutschlands circa 6 Millionen Menschen umgebracht worden sind, die meisten von ihnen Juden. Wir haben demütigen Respekt und tiefes Mitgefühl für die Opfer dieses Verbrechens und ihre Angehörigen.
+
+Wir ächten alle Ideologien, die Menschen aufgrund ihrer Nationalität, ihrer Sprache, ihrer Herkunft, ihrer Volkszugehörigkeit, ihrer Kultur, ihres Glaubens, ihrer Weltanschauung, ihrer äußeren Erscheinung, ihrer Behinderung, ihrer Hautfarbe, ihres Gesundheitszustands, aufgrund ihres Geschlechtes, ihrer sexuellen Identität, ihres Alters oder ihres gesellschaftlichen Status ausgrenzen, unterdrücken, verurteilen, diskriminieren, oder bevorzugen. Der demokratische und menschenrechtsorientierte Standpunkt der PIRATEN leitet sich bedingungslos aus dem Grundgesetz und aus der Allgemeinen Erklärung der Menschenrechte ab. Die Würde des Menschen ist unantastbar. Alle Menschen sind frei und gleich an Würde und Rechten. Wir respektieren die individuelle Freiheit und wertschätzen die freie Meinungsäußerung. Wir treten für Toleranz ein und auch für die Meinungsfreiheit derjenigen, deren Meinung wir nicht teilen oder deren politische Ziele den unseren entgegenstehen. Die Freiheit des Einzelnen endet aber dort, wo andere Menschen in ihrer Würde, Ehre oder körperlichen Unversehrtheit eingeschränkt werden. Wir stehen daher für eine friedliche, kreative und laute Zivilgesellschaft, die sich mit Courage vehement gegen Diskriminierung, gegen Gewalt und gegen antidemokratische und totalitäre Bestrebungen einsetzt.
+
+=== Unvereinbarkeitserklärung ===
+
+Wir sind eine globale Gemeinschaft von Menschen, unabhängig von Alter, Geschlecht und Abstammung sowie gesellschaftlicher Stellung, offen für alle mit neuen Ideen.
+
+Wer jedoch mit Ideen von Rassismus, Sexismus, Homophobie, Ableismus, Transphobie und anderen Diskriminierungsformen und damit verbundener struktureller und körperlicher Gewalt auf uns zukommt, hat sich vom Dialog verabschiedet und ist jenseits der Akzeptanzgrenze.
+
+Wer es darauf anlegt, das Zusammenleben in dieser Gesellschaft zu zerstören und auf eine alternative Gesellschaft hinarbeitet, deren Grundsätze auf Chauvinismus und Nationalismus beruht, arbeitet gegen die moralischen Grundsätze, die uns als Piraten verbinden.
+
+Die Piraten erklären das Vertreten von solchen Formen der Diskriminierung und von der Verharmlosung der historischen und aktuellen faschistischen Gewalt für unvereinbar mit einer Mitgliedschaft.
+
+== Positionierung zum ESM-Vertrag § ESM ==
+Nach Auffassung der PIRATEN verstößt der ESM-Vertrag gegen die im Grundgesetz verankerten fundamentalen Rechtsprinzipien und Grundsätze einer demokratischen Staatsordnung wie den Parlamentsvorbehalt und das Rechtsstaatsprinzip sowie gegen die Transparenz-Grundsätze der Piratenpartei.
+
+Die PIRATEN kritisieren insbesondere das intransparente und voreingenommene Zustandekommen des Vertrages. Optionen, die nicht eine Rettung des Finanzsektors vor größeren Ausfällen risikoreicher Investments vorsahen, standen durch die Einbeziehung der Finanzlobby in die Vertragsgestaltung von vornherein nicht auf der Agenda.
+
+Die vom Steuerzahler im schlimmsten Falle zu tragenden Verpflichtungen durch den ESM (plus EFSF plus erstes Griechenland-Rettungspaket) betragen einen Umfang, der nach Ansicht der Piratenpartei nicht alleine vom Bundestag legitimiert werden kann. Wir fordern daher einen Volksentscheid in Deutschland über den ESM. Sollte es dazu nicht kommen, fordert die Piratenpartei aber zumindest eine öffentliche Anhörung über den ESM-Vertrag im deutschen Bundestag – insbesondere mit Kritikern des Vertrags. Weiterhin muss der Vertragstext allen Parlamentariern im endgültigen Wortlaut auf Deutsch mindestens zwei Wochen vor der abschließenden Beschlussfassung vorliegen, damit jedem Mandatsträger eine eingehende Prüfung und Beratung möglich ist.
+

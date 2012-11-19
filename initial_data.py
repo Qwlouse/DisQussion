@@ -12,12 +12,15 @@ def createRoot():
 def createInitialData():
     populateNodeDict()
 
-    bildung = createSlot('root', "Bildung")
+    wahlprogramm_rlp = createSlot('root', "Wahlprogramm-RLP")
 
     # Wahlprogramm
-    with open("initial_data_storage/wahlprogramm.txt", 'r') as f:
+    with open("initial_data_storage/wahlprogramm_rlp.txt", 'r') as f:
         wahlprogramm_text = f.read()
-    parseWiki(bildung, unicode(wahlprogramm_text, encoding='utf-8'))
+    parseWiki(wahlprogramm_rlp, unicode(wahlprogramm_text, encoding='utf-8'))
+
+    # Bereich Bildung
+    bildung = wahlprogramm_rlp.node_set.all()[0].as_leaf_class().slot_set.all()[6]
 
     # Bildungsstreik Positionspapier
     with open("initial_data_storage/bildungsstreik-positionspapier.txt", 'r') as f:
@@ -91,3 +94,38 @@ def createInitialData():
     with open("initial_data_storage/modul08.txt", 'r') as f:
         modul08_text = f.read()
     parseWiki(entlastungen, unicode(modul08_text, encoding='utf-8'))
+
+    # Grundsatzprogramm RLP
+    grundsatzprogramm_rlp = createSlot('root', "Grundsatzprog-RLP")
+
+    with open("initial_data_storage/grundsatzprogramm_rlp.txt", 'r') as f:
+        gsprlp_text = f.read()
+    parseWiki(grundsatzprogramm_rlp, unicode(gsprlp_text, encoding='utf-8'))
+
+    # Positionspapiere RLP
+    positionspapiere_rlp = createSlot('root', "Positionspapiere-RLP")
+
+    with open("initial_data_storage/positionspapiere_rlp.txt", 'r') as f:
+        posprlp_text = f.read()
+    parseWiki(positionspapiere_rlp, unicode(posprlp_text, encoding='utf-8'))
+
+    # Grundsatzprogramm Bundesweit
+    grundsatzprogramm = createSlot('root', "Grundsatzprogramm")
+
+    with open("initial_data_storage/grundsatzprogramm_bund.txt", 'r') as f:
+        gsp_text = f.read()
+    parseWiki(grundsatzprogramm, unicode(gsp_text, encoding='utf-8'))
+
+    # Wahlprogramm BTW
+    wahlprogramm_btw = createSlot('root', "Wahlprogramm_BTW")
+
+    with open("initial_data_storage/wahlprogramm_btw.txt", 'r') as f:
+        wpbtw_text = f.read()
+    parseWiki(wahlprogramm_btw, unicode(wpbtw_text, encoding='utf-8'))
+
+    # Wahlprogramm BTW
+    posp_bund = createSlot('root', "Positionspapiere")
+
+    with open("initial_data_storage/positionspapiere_bund.txt", 'r') as f:
+        pospbund_text = f.read()
+    parseWiki(posp_bund, unicode(pospbund_text, encoding='utf-8'))
