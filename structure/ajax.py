@@ -5,7 +5,7 @@ from dajaxice.decorators import dajaxice_register
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
 import operator
-from structure.models import TextNode, Slot, StructureNode, Vote
+from structure.models import TextNode, Slot, StructureNode, Vote, Node
 import json
 from structure.path_helpers import getRootNode
 from structure.query_helpers import getTopRatedAlternatives, getNode
@@ -154,8 +154,13 @@ def getGraphInfoForNode(node):
 
 
 @dajaxice_register
-def getDataForAlternativesGraph(request, node_id, k = 5):
-    top_nodes = getTopRatedAlternatives(node_id, k)
+def getDataForAlternativesGraph(request, slot_id, k = 5, include_node=None):
+    top_nodes = getTopRatedAlternatives(slot_id, k)
+    if include_node is not None :
+        if isinstance(include_node, int):
+            include_node = Node.objects.get(pk=include_node).as_leaf_class()
+        if include_node not in top_nodes:
+            top_nodes += [include_node]
     results = {"Anchors": [getGraphInfoForNode(n) for n in top_nodes]}
     # add sources and derivates
     sources_and_derivates = set()
@@ -167,6 +172,8 @@ def getDataForAlternativesGraph(request, node_id, k = 5):
     sources_and_derivates = sources_and_derivates.difference(set(top_nodes))
     node_add_list = sorted(sources_and_derivates, key=operator.attrgetter('rating'), reverse=True)
     node_add_list = node_add_list[:min(k, len(node_add_list))]
+
+
     results['related_nodes'] = [getGraphInfoForNode(n) for n in node_add_list]
     # add connections
     nodes = set(top_nodes + node_add_list)
