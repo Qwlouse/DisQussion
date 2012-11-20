@@ -160,7 +160,6 @@ def getDataForAlternativesGraph(request, slot_id, k = 5, include_node=None):
         if isinstance(include_node, int):
             include_node = Node.objects.get(pk=include_node).as_leaf_class()
         if include_node not in top_nodes:
-            print(top_nodes, include_node)
             top_nodes += [include_node]
     results = {"Anchors": [getGraphInfoForNode(n) for n in top_nodes]}
     # add sources and derivates
