@@ -94,19 +94,6 @@ function createArrowStructure(parentCircle, childCircle) {
 }
 
 
-/*function buildGraph(node_id, node_title, node_type) {
-    var graphNode = document.getElementById('graph');
-    graphNode.stepRuns = false;
-    graphNode.centerCircle = createCircleStructure(node_title, node_id, node_type);
-    graphNode.appendChild(graphNode.centerCircle);
-    graphNode.circles = new Array(graphNode.centerCircle);
-    graphNode.arrows = [];
-    showNode(graphNode.centerCircle, true);
-    //Dajaxice.structure.getNodeInfo(amendGraph, {'node_id' : node_id, 'node_type' : node_type});
-    // TODO: setTimeout("showText(graphNode.circles[1])", 500);
-}*/
-
-
 function initPage(anchorGraphData, navigationData, selected_id, doNodeUpdate) {
     document.getElementById('microblog').loading = false;
     document.getElementById("text").waitForText = selected_id;
