@@ -2,8 +2,6 @@
 # coding=utf-8
 from __future__ import division, print_function, unicode_literals
 from django.conf.urls import patterns, include, url
-
-from django.contrib.auth.views import password_change
 import registration.backends.default.urls
 
 urlpatterns = patterns('',
@@ -16,7 +14,7 @@ urlpatterns = patterns('',
 
     # Change User info
     (r'^change_email$', 'accounts.views.change_email'),
-    (r'^change_password/(?P<post_change_redirect>([\w./]+))$', 'django.contrib.auth.views.password_change'), # TODO: FIXME: Fieser HACK
+    (r'^change_password:redirect=(?P<post_change_redirect>([\w./]+))$', 'django.contrib.auth.views.password_change'),
     (r'^change_description$', 'accounts.views.change_description'),
     # Profiles
     url(r'^(?P<user_name>(\w+))', 'accounts.views.show_profile'),

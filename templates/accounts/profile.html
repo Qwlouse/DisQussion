@@ -24,7 +24,7 @@
                 {% csrf_token %}
                 {{ descriptionForm.description }}
                 <input type="submit" value="Beschreibung ändern"/>
-                <input type="hidden" name="description_change_redirect" value="../{{ this_url }}"/>
+                <input type="hidden" name="description_change_redirect" value="{{ this_url }}"/>
             </form>
         </div>
         <h2>Einstellungen</h2>
@@ -33,7 +33,7 @@
                 <div class="linklike" onclick="showNextNode(this);">Passwort ändern</div>
             </div>
             <div class="hiddenForFade">
-                <form method="post" action="change_password/../{{ user.username }}">
+                <form method="POST" action="change_password:redirect=/.users/{{ user.username }}">
                     {% csrf_token %}
                     <table>
                         <tr>
@@ -71,7 +71,7 @@
                             <td><input type="submit" value="E-Mail Adresse ändern"/></td>
                         </tr>
                     </table>
-                    <input type="hidden" name="email_change_redirect" value="../{{ this_url }}"/>
+                    <input type="hidden" name="email_change_redirect" value="{{ this_url }}"/>
                 </form>
             </div>
         </div>
