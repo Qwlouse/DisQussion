@@ -5,7 +5,6 @@ from dajaxice.decorators import dajaxice_register
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
 import operator
-from structure.forms import CreateTextForm
 from structure.models import TextNode, Slot, StructureNode, Vote
 import json
 from structure.path_helpers import getRootNode
@@ -25,19 +24,16 @@ def getNodeText(node, request):
             RequestContext(request))
 
     elif isinstance(node, StructureNode):
-        createTextForm = CreateTextForm({'slot_id' : node.parent_id})
         slots = node.slot_set.all()
         slots_info = [{'short_title' : slots[0].getShortTitle(), 'text' : slots[0].getText(), 'path' : slots[0].getTextPath()}]
         slots_info += [{'short_title' : s.getShortTitle(), 'text' : s.getText(1), 'path' : s.getTextPath()} for s in slots[1:]]
-
         return render_to_string('node/renderStructureNode.html',
             {'title' : node.getShortTitle(),
              'consent_rating' : node.calculate_consent_rating(),
              'wording_rating' : node.calculate_wording_rating(),
              'dbID' : node.id,
              'parentID' : node.parent_id,
-             'slots' : slots_info,
-             'create_text_form' : createTextForm},
+             'slots' : slots_info},
             RequestContext(request))
     else :
         return ""
@@ -93,6 +89,9 @@ def getNodeInfo(request, node_id, node_type):
         parent_title = node.parent.getShortTitle()
         parent_id = node.parent_id
         parent_type = node.parent.getType()
+
+
+
     return json.dumps({'text' : getNodeText(node, request),
                        'voting' : getVotingInfo(node, request) if not isinstance(node, Slot) else getVotingInfo(node.node_set.order_by('-rating')[0].as_leaf_class(), request),
                        'graph_data' : getDataForAlternativesGraph(request, node.parent),
