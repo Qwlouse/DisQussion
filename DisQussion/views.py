@@ -44,7 +44,7 @@ def path(request, path):
     ###            Path   : path to parent select node
     ###            Content: slots
 
-    anchor_nodes = getDataForAlternativesGraph(request, node.parent_id)
+    anchor_nodes = getDataForAlternativesGraph(request, node.parent_id, include_node=node.id)
     return render_to_response("node/show.html",
         {"pagename": node.getShortTitle(),
          "this_url": node.getTextPath(),
