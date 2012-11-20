@@ -109,6 +109,7 @@ function createArrowStructure(parentCircle, childCircle) {
 
 function initPage(anchorGraphData, navigationData, selected_id, doNodeUpdate) {
     document.getElementById('microblog').loading = false;
+    document.getElementById("text").waitForText = selected_id;
     window.onscroll = reloadTest;
     if (document.getElementById('graph')) {
         document.getElementById('graph').paddingTop = 30.0;

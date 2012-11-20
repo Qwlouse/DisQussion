@@ -28,9 +28,7 @@ function updateNode(data) {
     var graphNode = document.getElementById('graph');
     var newGraph = false;
     var textDIV = document.getElementById("text");
-    alert([textDIV.waitForText, data['id'] ]);
-    if (textDIV.waitForText && textDIV.waitForText != data['id']) {
-        alert("inhibited update");
+    if (textDIV.waitForText != data['id']) {
         return;
     }
     var currentIndex = getIndexInCircles(graphNode.circles, data['id'], data['type']);
