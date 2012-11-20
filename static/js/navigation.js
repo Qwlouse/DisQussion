@@ -57,7 +57,7 @@ function updateNavigation(data) {
 function navigateTo(event, id, type) {
     event.preventDefault();
     Dajaxice.structure.getNavigationData(updateNavigation, {'node_id':id, 'node_type':type});
-    document.getElementById("text").waitForText = true;
+    document.getElementById("text").waitForText = id;
     showText("<p>Text noch nicht geladen.</p>");
     Dajaxice.structure.getNodeInfo(updateNode, {'node_id':id, 'node_type':type});
 }

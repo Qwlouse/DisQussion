@@ -16,7 +16,7 @@ function showNode(node, doNodeUpdate) {
 
     graphNode.centerCircle = node;
     if (doNodeUpdate) {
-        document.getElementById("text").waitForText = true;
+        document.getElementById("text").waitForText = node.dbId;
         showText(node);
         Dajaxice.structure.getNodeInfo(updateNode, {'node_id':node.dbId, 'node_type':node.type});
         Dajaxice.microblogging.getNodeActivities(showMicroblogging, {'id':node.dbId, 'type':node.type});
@@ -27,7 +27,12 @@ function showNode(node, doNodeUpdate) {
 function updateNode(data) {
     var graphNode = document.getElementById('graph');
     var newGraph = false;
-
+    var textDIV = document.getElementById("text");
+    alert([textDIV.waitForText, data['id'] ]);
+    if (textDIV.waitForText && textDIV.waitForText != data['id']) {
+        alert("inhibited update");
+        return;
+    }
     var currentIndex = getIndexInCircles(graphNode.circles, data['id'], data['type']);
     if (currentIndex < 0) {
         buildAnchorGraph(JSON.parse(data['graph_data']));
@@ -37,7 +42,7 @@ function updateNode(data) {
     var currentNode = graphNode.circles[currentIndex];
     currentNode.textPart = data['text'];
     currentNode.votingInfo = data['voting'];
-    var textDIV = document.getElementById("text");
+    textDIV = document.getElementById("text");
     textDIV.textSource = currentNode;
     textDIV.waitForText = false;
     graphNode.currentID = data['id'];
@@ -75,7 +80,7 @@ window.onpopstate = function(event) {
         currentNode.firstChild.nextSibling.nextSibling.firstChild.setAttribute("class", "");
 
         graphNode.centerCircle = currentNode;
-        document.getElementById("text").waitForText = true;
+        document.getElementById("text").waitForText = event.state['id'];
         showText(currentNode);
         updateNode(event.state);
     }
