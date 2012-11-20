@@ -19,7 +19,7 @@ function appendMicroblogging(data) {
 function reloadTest() {
     var microblogDIV = document.getElementById('microblog');
     if (!microblogDIV.loading) {
-        if (microblogDIV.scrollHeight - 1300 >= document.body.scrollTop) {
+        if ((microblogDIV.scrollHeight - 1300) <= document.body.scrollTop) {
             var graphNode = document.getElementById('graph');
             if (graphNode) {
                 microblogDIV.loading = true;
