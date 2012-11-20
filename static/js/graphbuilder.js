@@ -240,6 +240,12 @@ function updateGraph(data) {
     var currentIndex = getIndexInCircles(graphNode.circles, data['id'], data['type']);
     var currentNode = graphNode.circles[currentIndex];
     currentNode.firstChild.nextSibling.nextSibling.firstChild.setAttribute("class", "");
+
+    // reposition graph
+    if (!(graphNode.stepRuns)) {
+        graphNode.stepRuns = true;
+        step();
+    }
 }
 
 
@@ -278,14 +284,17 @@ function step() {
         minPosX = Math.min(particles[i].x - 30, minPosX);
         maxPosX = Math.max(particles[i].x - 30, maxPosX);
     }
-    var paddingRight = Math.max(maxPosX + 36, graphNode.paddingRight - 1);
+    var paddingRight = Math.max(maxPosX + 36, graphNode.paddingRight - 2);
+    particleMovement += Math.abs(maxPosX + 36 - graphNode.paddingRight);
     graphNode.paddingRight = paddingRight;
-    var paddingBottom = Math.max(maxPosY + 36, graphNode.paddingBottom - 1);
+    var paddingBottom = Math.max(maxPosY + 36, graphNode.paddingBottom - 2);
+    particleMovement += Math.abs(maxPosY + 36 - graphNode.paddingBottom);
     graphNode.paddingBottom = paddingBottom;
-    var paddingTop = Math.max(minPosY * -1 + 31, graphNode.paddingTop - 1);
+    var paddingTop = Math.max(minPosY * -1 + 31, graphNode.paddingTop - 2);
+    particleMovement += Math.abs(minPosY * -1 + 31 - graphNode.paddingTop);
     graphNode.paddingTop = paddingTop;
-    var paddingLeft = Math.max(minPosX * -1 + 31, graphNode.paddingLeft - 1);
-    //var paddingLeft = Math.max(minPosX * -1, 0);
+    var paddingLeft = Math.max(minPosX * -1 + 31, graphNode.paddingLeft - 2);
+    particleMovement += Math.abs(minPosX * -1 + 31 - graphNode.paddingLeft);
     graphNode.paddingLeft = paddingLeft;
     graphNode.style.paddingRight = Math.round(paddingRight) + "px";
     graphNode.style.paddingBottom = Math.round(paddingBottom) + "px";
@@ -297,7 +306,7 @@ function step() {
     if (particleMovement > 0.2) {
         setTimeout("step()", 25);
     } else {
-        document.getElementById('graph').stepRuns = false;
+        graphNode.stepRuns = false;
     }
 }
 
