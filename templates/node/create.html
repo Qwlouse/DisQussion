@@ -4,6 +4,8 @@
     <body onload="initPage('{{ anchor_nodes }}', '{{ navigation }}', -1, false)">
 {% endblock %}
 
+{% block navigation %}{% endblock %}
+
 {% block text %}
     <form name="text_form" action="/.submit/TextNode" method="POST">
         {% csrf_token %}
@@ -19,6 +21,8 @@
         <input type="submit" value="Vorschlag erstellen"/>
     </form>
 {% endblock %}
+
+{% block microblog %}{% endblock %}
 
 {% block unused %}
     </body>
