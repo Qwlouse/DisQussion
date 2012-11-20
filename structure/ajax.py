@@ -5,7 +5,6 @@ from dajaxice.decorators import dajaxice_register
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
 import operator
-from structure.forms import CreateTextForm
 from structure.models import TextNode, Slot, StructureNode, Vote
 import json
 from structure.path_helpers import getRootNode

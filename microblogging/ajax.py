@@ -30,9 +30,10 @@ def getAllActivities(request, no=0):
 @dajaxice_register
 def getNodeActivities(request, id, type, no=0):
     node = getNode(id, type)
-    activities = [convertEntryToBlogPost(e) for e in node.references.order_by("-time")]
-    render_activities = activities[min(len(activities),no):min(len(activities),no+25)]
-    return json.dumps({"html": render_to_string("microblogging/renderMicroblogging.html", {"activities" : render_activities},
+    subtree = node.get_active_subtree(include_structure_nodes=True)
+    entries = Entry.objects.filter(node_references__in=subtree).order_by("-time")[no:no+25]
+    activities = [convertEntryToBlogPost(e) for e in entries]
+    return json.dumps({"html": render_to_string("microblogging/renderMicroblogging.html", {"activities" : activities},
                                context_instance=RequestContext(request)),
                        "until_no": no + 25})
 
