@@ -75,7 +75,7 @@ div#leiste ul li form input#logout_submit {
     padding: 0;
     margin: 0;
     font-size: 10pt;
-    font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
+    font-family: "CMU Sans Serif", CMUSans, cmss10, sans-serif;
     text-decoration: underline;
     cursor: pointer;
 }
