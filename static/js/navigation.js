@@ -7,6 +7,8 @@ function updateNavigation(data) {
     }
     for (var i = 0; i < data['history'].length; i++) {
         var outerListElement = document.createElement('li');
+        outerListElement.setAttribute('onmouseover',"this.parentNode.parentNode.style.overflow = 'visible'; this.parentNode.parentNode.style.zIndex = 2;");
+        outerListElement.setAttribute('onmouseout',"this.parentNode.parentNode.style.overflow = 'auto'; this.parentNode.parentNode.style.zIndex = 1;");
         var innerList = document.createElement('ol');
         for (var j = 0; j < data['history'][i].length; j++) {
             var innerListElement = document.createElement('li');
@@ -26,12 +28,17 @@ function updateNavigation(data) {
         outerList.appendChild(outerListElement);
     }
     outerListElement = document.createElement('li');
+    outerListElement.setAttribute('onmouseover',"this.parentNode.parentNode.style.overflow = 'visible'; this.parentNode.parentNode.style.zIndex = 2;");
+    outerListElement.setAttribute('onmouseout',"this.parentNode.parentNode.style.overflow = 'auto'; this.parentNode.parentNode.style.zIndex = 1;");
+    outerListElement.style.minHeight = "85px";
     if (document.getElementById('graph')) {
         outerListElement.appendChild(document.getElementById('graph'));
     }
     outerList.appendChild(outerListElement);
     if (data['slot_list'].length > 0) {
         outerListElement = document.createElement('li');
+        outerListElement.setAttribute('onmouseover',"this.parentNode.parentNode.style.overflow = 'visible'; this.parentNode.parentNode.style.zIndex = 2;");
+        outerListElement.setAttribute('onmouseout',"this.parentNode.parentNode.style.overflow = 'auto'; this.parentNode.parentNode.style.zIndex = 1;");
         innerList = document.createElement('ol');
         for (i = 0; i < data['slot_list'].length; i++) {
             innerListElement = document.createElement('li');
