@@ -10,12 +10,12 @@ div#microblog {
 }
 
 div.micropost, div.micropost p {
-    font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
+    font-family: "CMU Sans Serif", CMUSans, cmss10, sans-serif;
     font-size: 10pt;
 }
 
 div#text div.micropost, div#text div.micropost p, div#text div.micropost ul.micropost-controls li {
-    font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
+    font-family: "CMU Sans Serif", CMUSans, cmss10, sans-serif;
     font-size: 10pt;
 }
 
@@ -43,7 +43,7 @@ div.micropost p.micropost-time {
 }
 
 div.micropost h2 {
-    font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
+    font-family: "CMU Sans Serif", CMUSans, cmss10, sans-serif;
     font-size: 10pt;
     font-weight: bold;
     color: black;

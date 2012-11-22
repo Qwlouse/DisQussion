@@ -92,7 +92,7 @@ div#inputText {
 }
 
 div#inputText h1 {
-    font-family: CMU serif, CMUSerif, cmr12, serif;
+    font-family: "CMU serif", CMUSerif, cmr12, serif;
 }
 
 div#inputText tr:first-child td:first-child {
