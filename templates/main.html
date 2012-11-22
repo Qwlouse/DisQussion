@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 {% load staticfiles %}
 {% load dajaxice_templatetags %}
-<html lang="de">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
 <head>
     <title>{% block title %}DisQussion: {{ pagename }}{% endblock %}</title>
     <link rel="stylesheet" type="text/css" media="screen" href="{% static "css/main.css" %}"/>
@@ -165,7 +165,7 @@
     <form method="post" action="{% url microblogging.views.submit_Microblog_Entry %}" id="post_write_fields">
         {% csrf_token %}
         <h2>Post verfassen</h2>
-        <textarea id="post_field_textarea" name="text"></textarea>
+        <div><textarea id="post_field_textarea" name="text" rows="15" cols="30"></textarea></div>
         <p>
             <input type="hidden" id="post_redirect_field" name="post_redirect" value="{{ this_url }}"/>
             <input type="submit" id="post_write_submit" value="Senden &rarr;"/>
