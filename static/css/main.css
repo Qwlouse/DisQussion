@@ -12,7 +12,7 @@ body {
 	background-color: #F9F9F9;
     background-image: url(../images/priming.png);
 	margin: 0;
-	font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
+	font-family: "CMU Sans Serif", CMUSans, cmss10, sans-serif;
 	font-size: 10pt;
     line-height: 1.5EM;
 }
@@ -89,7 +89,7 @@ div#text {
 }
 
 div#text p {
-	font-family: CMU serif, CMUSerif, cmr12, serif;
+	font-family: "CMU serif", CMUSerif, cmr12, serif;
 	font-size: 12pt;
 	text-indent: 0.8em;
 	text-align: justify;
@@ -101,7 +101,7 @@ div#text p.noindent {
 }
 
 h1 {
-	font-family: CMU serif, CMUSerif, cmr17, serif;
+	font-family: "CMU serif", CMUSerif, cmr17, serif;
 	font-size: 20pt;
 	font-weight: normal;
 	text-align: left;
@@ -111,7 +111,7 @@ h1 {
 }
 
 h2 {
-    font-family: CMU serif, CMUSerif, cmr17, serif;
+    font-family: "CMU serif", CMUSerif, cmr17, serif;
     font-size: 17pt;
     font-weight: normal;
     text-align: left;
@@ -121,7 +121,7 @@ h2 {
 }
 
 h3 {
-    font-family: CMU serif, CMUSerif, cmr17, serif;
+    font-family: "CMU serif", CMUSerif, cmr17, serif;
     font-size: 14pt;
     font-weight: normal;
     text-align: left;
@@ -131,7 +131,7 @@ h3 {
 }
 
 h4 {
-    font-family: CMU serif, CMUSerif, cmr17, serif;
+    font-family: "CMU serif", CMUSerif, cmr17, serif;
     font-size: 12pt;
     font-weight: normal;
     font-variant: small-caps;
@@ -150,7 +150,7 @@ div#text ol {
 }
 
 div#text li {
-    font-family: CMU serif, CMUSerif, cmr12, serif;
+    font-family: "CMU serif", CMUSerif, cmr12, serif;
     font-size: 12pt;
     text-align: justify;
 }
@@ -190,7 +190,7 @@ div.linklike {
 div.shorttitle {
     color: #4f4f4f;
     font-size: 8pt;
-    font-family: CMU Sans Serif, CMUSans, cmss10, sans-serif;
+    font-family: "CMU Sans Serif", CMUSans, cmss10, sans-serif;
     border-bottom: 1px dotted #D0D0D0;
     margin: 2em 0 0 0;
 }
