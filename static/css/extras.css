@@ -10,6 +10,7 @@ div#login_overlay {
     left: 0;
     float: none;
     display: none;
+    z-index: 12;
 }
 
 div#login {
@@ -26,6 +27,7 @@ div#login {
     -webkit-box-shadow: 4px 5px 10px black;
     -moz-box-shadow: 4px 5px 10px black;
     box-shadow: 4px 5px 10px black;
+    z-index: 13;
 }
 
 div#login div#close_login {
@@ -50,6 +52,7 @@ div#post_field_overlay {
     left: 0;
     float: none;
     display: none;
+    z-index: 10;
 }
 
 div#post_field {
@@ -66,6 +69,7 @@ div#post_field {
     -webkit-box-shadow: 4px 5px 10px black;
     -moz-box-shadow: 4px 5px 10px black;
     box-shadow: 4px 5px 10px black;
+    z-index: 11;
 }
 
 div#post_field div#close_post_field {
