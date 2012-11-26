@@ -1,7 +1,9 @@
 function showNode(node, doNodeUpdate) {
     //UpdateNavigation code
     if (node.type != "Slot") {
-        Dajaxice.structure.getNavigationData(updateNavigation, {'node_id':node.dbId, 'node_type':node.type});
+        if (doNodeUpdate) {
+            Dajaxice.structure.getNavigationData(updateNavigation, {'node_id':node.dbId, 'node_type':node.type});
+        }
     }
 
     // reset all nodes
