@@ -124,7 +124,13 @@ function showText(sourceNode) {
     text_fader.fade_out();
     var gif = document.createElement("div");
     gif.setAttribute("class","busy_gif");
-    document.getElementById("floatblock").insertBefore(gif,document.getElementById("floatblock").firstChild);
+    var gif_container = document.createElement("div");
+    gif_container.appendChild(gif);
+    gif_container.style.height = "0px";
+    gif_container.style.overflow = "visible";
+    gif_container.style.position = "relative";
+    gif_container.style.top = "-50px";
+    document.getElementById("floatblock").insertBefore(gif_container,document.getElementById("floatblock").firstChild);
 }
 
 function showText_intermission() {
