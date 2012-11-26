@@ -53,7 +53,7 @@ function updateNode(data) {
     document.getElementById('login_redirect_field').setAttribute('value',data['url']);
     document.getElementById('post_redirect_field').setAttribute('value',data['url']);
     if (newGraph) {
-        showNode(currentNode, true);
+        showNode(currentNode, false);
     }
 }
 

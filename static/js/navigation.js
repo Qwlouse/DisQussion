@@ -67,4 +67,5 @@ function navigateTo(event, id, type) {
     document.getElementById("text").waitForText = id;
     showText("<p>Text noch nicht geladen.</p>");
     Dajaxice.structure.getNodeInfo(updateNode, {'node_id':id, 'node_type':type});
+    Dajaxice.microblogging.getNodeActivities(showMicroblogging, {'id':id, 'type':type});
 }
