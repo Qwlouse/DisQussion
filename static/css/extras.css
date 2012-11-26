@@ -156,7 +156,7 @@ div.vote_field {
     background-image: url(../images/voting.png);
 }
 
-div.vote_field div.busy_gif {
+div.busy_gif {
     margin: auto;
     position: relative;
     top: 6px;

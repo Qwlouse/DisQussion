@@ -122,6 +122,9 @@ function showText(sourceNode) {
     document.getElementById("text").textSource = sourceNode;
     document.getElementById("text").waitForHiding = true;
     text_fader.fade_out();
+    var gif = document.createElement("div");
+    gif.setAttribute("class","busy_gif");
+    document.getElementById("floatblock").insertBefore(gif,document.getElementById("floatblock").firstChild);
 }
 
 function showText_intermission() {
@@ -131,6 +134,7 @@ function showText_intermission() {
         document.getElementById("text").innerHTML = document.getElementById("text").textSource.textPart;
         updateVoting(document.getElementById("text").textSource.votingInfo);
         Hyphenator.run();
+        document.getElementById("floatblock").removeChild(document.getElementById("floatblock").firstChild);
         text_fader.fade_in();
     }
 }
