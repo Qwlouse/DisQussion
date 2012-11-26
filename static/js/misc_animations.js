@@ -133,7 +133,6 @@ function showText_intermission() {
     } else {
         document.getElementById("text").innerHTML = document.getElementById("text").textSource.textPart;
         updateVoting(document.getElementById("text").textSource.votingInfo);
-        Hyphenator.run();
         document.getElementById("floatblock").removeChild(document.getElementById("floatblock").firstChild);
         text_fader.fade_in();
     }

@@ -117,8 +117,6 @@ function initPage(anchorGraphData, navigationData, selected_id, doNodeUpdate) {
         Dajaxice.microblogging.getAllActivities(showMicroblogging);
     }
     updateNavigation(JSON.parse(navigationData));
-    Hyphenator.config({useCSS3hyphenation: true, minwordlength : 4, defaultlanguage: 'de', displaytogglebox: false});
-    Hyphenator.run();
 }
 
 
