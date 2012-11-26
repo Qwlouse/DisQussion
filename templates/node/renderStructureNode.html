@@ -1,5 +1,5 @@
 <div class="shorttitle">{{ title }}</div>
-{{ rendered_html }}
+{{ rendered_html|safe }}
 {% if user.is_authenticated %}
     <div class="spacer"></div>
     <p><a href="/.refineStructure/{{ dbID }}">Diesen Vorschlag verbessern oder erweitern...</a></p>
