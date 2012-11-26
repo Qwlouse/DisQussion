@@ -1,0 +1,7 @@
+{% load markup_tags %}
+{% for slot in slots %}
+    <div class="slot">
+        <div class="shorttitle"><a href="{{ slot.path }}">{{ slot.short_title }}</a></div>
+        {{ slot.text|apply_markup:"creole" }}
+    </div>
+{% endfor %}
