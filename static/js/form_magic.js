@@ -103,6 +103,10 @@ function process_vote(subEvent, vote_field, is_structure_node, db_id) {
     } else {
         Dajaxice.structure.submitVoteForTextNode(updateGraph, {'text_id':db_id, 'consent':nearest_point[0], 'wording':nearest_point[1]});
     }
+    // Insert "busy animation"
+    var gif = document.createElement("div");
+    gif.setAttribute("class","busy_gif");
+    vote_field.appendChild(gif);
 }
 
 function updateVoting(data) {
