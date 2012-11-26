@@ -1,4 +1,5 @@
 {% extends "main.html" %}
+{% load staticfiles %}
 
 {% block bodytag %}
     <body onload="initPage('{{ anchor_nodes }}', '{{ navigation }}', {{ selected_id }}, true)">
@@ -6,11 +7,11 @@
 
 {% block text %}
     <h1>&nbsp;</h1>
-    <p><small>Text noch nicht geladen.</small></p>
+    <p><img src="{% static "images/busy.gif" %}" alt="Text noch nicht geladen."/></p>
 {% endblock %}
 
 {% block microblog %}
-    <div id="microblog"></div>
+    <div id="microblog"><img src="{% static "images/busy.gif" %}" alt="Microblogging noch nicht geladen."/></div>
 {% endblock %}
 
 {% block unused %}
