@@ -5,7 +5,7 @@ from dajaxice.decorators import dajaxice_register
 from django.template.context import RequestContext
 from django.template.loader import render_to_string
 import operator
-from structure.models import TextNode, Slot, StructureNode, Vote, Node
+from structure.models import TextNode, Slot, StructureNode, Vote, Node, RenderedCache
 import json
 from structure.path_helpers import getRootNode
 from structure.query_helpers import getTopRatedAlternatives, getNode
@@ -24,16 +24,22 @@ def getNodeText(node, request):
             RequestContext(request))
 
     elif isinstance(node, StructureNode):
-        slots = node.slot_set.all()
-        slots_info = [{'short_title' : slots[0].getShortTitle(), 'text' : slots[0].getText(), 'path' : slots[0].getTextPath()}]
-        slots_info += [{'short_title' : s.getShortTitle(), 'text' : s.getText(1), 'path' : s.getTextPath()} for s in slots[1:]]
+        rendered_text_cache = RenderedCache.objects.filter(node=node).all()
+        if rendered_text_cache:
+            rendered_text = rendered_text_cache[0].text
+        else:
+            slots = node.slot_set.all()
+            slots_info = [{'short_title' : slots[0].getShortTitle(), 'text' : slots[0].getText(), 'path' : slots[0].getTextPath()}]
+            slots_info += [{'short_title' : s.getShortTitle(), 'text' : s.getText(1), 'path' : s.getTextPath()} for s in slots[1:]]
+            rendered_text = render_to_string('node/renderStructureNodeText.html', {'slots' : slots_info})
+            RenderedCache(node=node, text=rendered_text).save()
         return render_to_string('node/renderStructureNode.html',
             {'title' : node.getShortTitle(),
              'consent_rating' : node.calculate_consent_rating(),
              'wording_rating' : node.calculate_wording_rating(),
              'dbID' : node.id,
              'parentID' : node.parent_id,
-             'slots' : slots_info},
+             'rendered_html' : rendered_text},
             RequestContext(request))
     else :
         return ""

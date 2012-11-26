@@ -208,6 +208,10 @@ class TextCache(models.Model):
     node = models.ForeignKey(Node)
     text = models.TextField()
 
+class RenderedCache(models.Model):
+    node = models.ForeignKey(Node)
+    text = models.TextField()
+
 
 def calculate_vote_cache_TextNode(node):
     """
@@ -247,6 +251,7 @@ def calculate_vote_cache_StructureNode(structureNode):
     structureNode.rating = structureNode.calculate_consent_rating()
     structureNode.save()
     TextCache.objects.filter(node=structureNode).delete()
+    RenderedCache.objects.filter(node=structureNode).delete()
 
 def adjust_vote_caches(node):
     """
