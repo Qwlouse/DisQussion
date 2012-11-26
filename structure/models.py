@@ -166,7 +166,12 @@ class StructureNode(Node):
         return self.slot_set.count()
 
     def getText(self, level=0):
-        return "\n".join(self.getPassages(level))
+        text = TextCache.objects.filter(node=self).all()
+        if text :
+            return text[0].text
+        text = "\n".join(self.getPassages(level))
+        TextCache(text=text, node=self).save()
+        return text
 
     def get_active_subtree(self, include_structure_nodes=False):
         subtree = [self] if include_structure_nodes else []
@@ -198,6 +203,10 @@ class Vote(models.Model):
         return "{} for {} ({}, {})".format(self.user.username, self.text, self.consent, self.wording)
 
 
+############################## TextCache #######################################
+class TextCache(models.Model):
+    node = models.ForeignKey(Node)
+    text = models.TextField()
 
 
 def calculate_vote_cache_TextNode(node):
@@ -237,6 +246,7 @@ def calculate_vote_cache_StructureNode(structureNode):
     structureNode.total_votes = structureNode.slot_set.aggregate(Sum('total_votes'))["total_votes__sum"]
     structureNode.rating = structureNode.calculate_consent_rating()
     structureNode.save()
+    TextCache.objects.filter(node=structureNode).delete()
 
 def adjust_vote_caches(node):
     """
