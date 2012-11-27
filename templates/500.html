@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+
+{% block bodytag %}
+    <body onload="initPage('{{ anchor_nodes }}', '{{ navigation }}', {{ selected_id }}, true)">
+{% endblock %}
+
+{% block navigation %}
+    {% block graph %}  {% endblock %}
+{% endblock %}
+
+{% block text %}
+    <h1>Error 500</h1>
+    <p>Internal Server Error</p>
+{% endblock %}
+
+{% block microblog %}{% endblock %}
+
+{% block unused %}
+    </body>
+{% endblock %}
