@@ -3,3 +3,4 @@
 
 # here you can overwrite some of the settings from settings.py
 # this file will be ignored by git
+ADMIN_PASS = "jja8l=uv$8p"
