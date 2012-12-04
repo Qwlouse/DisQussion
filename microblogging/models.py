@@ -6,7 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 import re
 # copied from here: http://gitorious.org/microblog-demo/mainline/trees/master
-from structure.models import Node
+from structure.models import Node, Slot
 from structure.path_helpers import getNodeForPath
 
 user_ref_pattern = re.compile(r"(?:(?<=\s)|\A)@(?P<username>\w+)\b")
@@ -40,6 +40,10 @@ def create_entry(text, user):
         path = split_text[i]
         try:
             n = getNodeForPath(path)
+            node = n.as_leaf_class()
+            if isinstance(node, Slot):
+                n = node.get_favorite()
+
             split_text[i] = '<a href="{0}">{1}</a>'.format(path, n.getShortTitle())
             nodes.append(n)
         except ObjectDoesNotExist:

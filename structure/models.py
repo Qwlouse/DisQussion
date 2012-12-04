@@ -110,20 +110,20 @@ class Slot(models.Model):
             parent_path += "/"
         return parent_path + self.short_title
 
-    def getText(self, level=0):
-        alternatives = self.node_set.order_by('-rating')
-        if not alternatives :
-            return ""
-        else :
-            return alternatives[0].as_leaf_class().getText(level)
-
-    def get_active_subtree(self, include_structure_nodes=False):
+    def get_favorite(self):
         alternatives = self.node_set.order_by('-rating')
         if not alternatives :
             return []
         else :
-            return alternatives[0].as_leaf_class().get_active_subtree(include_structure_nodes)
+            return alternatives[0]
 
+    def getText(self, level=0):
+        favorite = self.get_favorite()
+        return favorite.as_leaf_class().getText(level) if favorite else ""
+
+    def get_active_subtree(self, include_structure_nodes=False):
+        favorite = self.get_favorite()
+        return favorite.as_leaf_class().get_active_subtree(include_structure_nodes) if favorite else []
 
     def getShortTitle(self):
         return self.short_title
