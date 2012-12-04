@@ -7,6 +7,11 @@ from django.conf import settings
 from django.contrib.auth import models as auth_models
 from django.contrib.auth.management import create_superuser
 from django.db.models import signals
+try:
+    from DisQussion.secret_settings import ADMIN_PASS
+except ImportError :
+    ADMIN_PASS = "1234"
+
 
 ####################### Add profile to each user #############################
 
@@ -48,9 +53,9 @@ def create_testuser(app, created_models, verbosity, **kwargs):
         auth_models.User.objects.get(username='admin')
     except auth_models.User.DoesNotExist:
         print '*' * 80
-        print 'Creating admin -- login: admin, password: 1234'
+        print 'Creating admin -- login: admin, password: '+ADMIN_PASS
         print '*' * 80
-        assert auth_models.User.objects.create_superuser('admin', 'ab@c.com', '1234')
+        assert auth_models.User.objects.create_superuser('admin', 'ab@c.com', ADMIN_PASS)
     else:
         print 'Admin user already exists.'
 
