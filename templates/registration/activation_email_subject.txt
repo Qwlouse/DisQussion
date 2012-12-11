@@ -1,1 +1,1 @@
-Activate your djangoproject.com account - you have {{ expiration_days }} days!
+Aktiviere deinen Account bei DisQussion.de - Du hast dafür {{ expiration_days }} Tage zeit.

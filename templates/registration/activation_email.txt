@@ -1,6 +1,6 @@
 {% load humanize %}
-Someone, hopefully you, signed up for a new account at djangoproject.com using this email address. If it was you, and you'd like to activate and use your account, click the link below or copy and paste it into your web browser's address bar:
+Jemand hat mit dieser E-Mail-Adresse einen Account bei DisQussion.de registriert. Wenn du das warst und den Account aktivieren willst, dann clicke auf den Link weiter unten oder kopiere ihn in die Adressleiste deines Browsers.
 
-http://127.0.0.1:8000/.registration/activate/{{ activation_key }}/
+http://demo.disqussion.de/.users/.registration/activate/{{ activation_key }}/
 
-If you didn't request this, you don't need to do anything; you won't receive any more email from us, and the account will expire automatically in {{ expiration_days|apnumber }} days.
+Wenn du keine Registrierung begonnen hast, musst du nichts tun. Ignoriere diese E-Mail einfach, dann wird die Registrierung automatisch in {{ expiration_days|apnumber }} Tagen abgebrochen.
