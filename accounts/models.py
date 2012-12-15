@@ -23,6 +23,18 @@ class UserProfile(models.Model):
     description = models.TextField(blank=True)
     following = models.ManyToManyField(User, related_name='followers', symmetrical=False, blank=True)
 
+    # Override the save method to prevent integrity errors
+    # These happen because both teh post_save signal and the inlined admin
+    # interface try to create the UserProfile. See:
+    # http://stackoverflow.com/questions/2813189
+    def save(self, *args, **kwargs):
+        try:
+            existing = UserProfile.objects.get(user=self.user)
+            self.id = existing.id #force update instead of insert
+        except UserProfile.DoesNotExist:
+            pass
+        models.Model.save(self, *args, **kwargs)
+
     def __unicode__(self):
         return u'Profile of %s' % self.user.username
 
