@@ -59,8 +59,8 @@ signals.post_syncdb.disconnect(
 
 # Create our own test user automatically.
 def create_testuser(app, created_models, verbosity, **kwargs):
-    if not settings.DEBUG:
-        return
+    #if not settings.DEBUG:
+    #    return
     try:
         auth_models.User.objects.get(username='admin')
     except auth_models.User.DoesNotExist:
