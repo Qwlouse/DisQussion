@@ -31,7 +31,7 @@ function createCircleStructure(title, id, type, consent) {
     var r = 40,
         h = 2*r,
         w = 2*r,
-        color = ["#00ff00","#ff0000", "#0000ff"],
+        color = ["#33ff33","#BB0000", "#0000ff"],
         donut = d3.layout.pie().sort(null),
         arc = d3.svg.arc().innerRadius(r - 20).outerRadius(r - 10);
 
