@@ -12,7 +12,7 @@ div#leiste div#logo {
 }
 
 div#leiste div#logo a {
-    color: #484848;
+    color: #686868;
     text-decoration: none;
     font-size: 12pt;
     font-stretch: expanded;
@@ -20,6 +20,11 @@ div#leiste div#logo a {
 
 div#leiste div#logo a span.smaller {
     font-size: 85%;
+}
+
+div#leiste div#infos {
+    color: white;
+    float: left;
 }
 
 div#leiste form {
