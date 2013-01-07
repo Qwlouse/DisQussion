@@ -1,3 +1,12 @@
+div#yellow {
+    color: black;
+    background-color: yellow;
+}
+
+div#yellow div#infos {
+    float: right;
+}
+
 div#leiste {
     color: white;
     background-color: #404040;
@@ -20,11 +29,6 @@ div#leiste div#logo a {
 
 div#leiste div#logo a span.smaller {
     font-size: 85%;
-}
-
-div#leiste div#infos {
-    color: white;
-    float: left;
 }
 
 div#leiste form {
